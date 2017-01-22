@@ -1,17 +1,17 @@
 //mongoose is needed to create the Schema
-const mongoose = require('mongoose');
+let mongoose = require('mongoose');
 //Schema mongoose Schema
-const Schema = mongoose.Schema;
 //use brypt to hash the information
-const bcrypt = require('bcrypt-nodejs');
+let bcrypt = require('bcrypt-nodejs');
+let db = require('../db.js')
 
 //function to validate email
-var validateEmail = (email) => {
+let validateEmail = (email) => {
   return (/\S+@\S+\.\S+/).test(email);
 }
 //the user schema setup, which checks if it's unique and it has forced lowercase
 //as well as runs the validate process via the validate function that exists 
-var userSchema = new Schema({
+let userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -101,7 +101,7 @@ var userSchema = new Schema({
 
 //before the save is invoked  the user would be checked if they are new or if the password modification is being invoked
 userSchema.pre('save', function(next) {
-  var user = this;
+  let user = this;
   if (user.isNew || user.isModified('password')) {
     // a bcrypt will be invoked with a genSalt
     bcrypt.genSalt(10, function(err, salt) {
@@ -124,6 +124,6 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
   });
 }
 
-var User = db.model('user', userSchema)
+let User = db.model('user', userSchema)
 
 module.exports = User

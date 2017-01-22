@@ -1,7 +1,7 @@
-var mongoose = require('mongoose')
-var db = require('../db-config.js')
+let mongoose = require('mongoose')
+let db = require('../db.js')
 
-var movieSchema = new mongoose.Schema({
+let movieSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -84,6 +84,6 @@ var movieSchema = new mongoose.Schema({
 
 //possible movieSchema method that will iterate clicked/saved when called
 
-var Movie = db.model('Movie', movieSchema)
+let Movie = db.model('Movie', movieSchema)
 
 module.exports = Movie
