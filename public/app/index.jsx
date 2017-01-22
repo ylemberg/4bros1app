@@ -14,10 +14,10 @@ class App extends React.Component {
       showSearchModal: false,
       showSuggestModal: false
     }
-    this.openSearch = this.openSearch.bind(this)
-    this.closeSearch = this.closeSearch.bind(this)
-    this.openSuggest = this.openSuggest.bind(this)
-    this.closeSuggest = this.closeSuggest.bind(this)
+    this.openSearch = this.openSearch.bind(this);
+    this.closeSearch = this.closeSearch.bind(this);
+    this.openSuggest = this.openSuggest.bind(this);
+    this.closeSuggest = this.closeSuggest.bind(this);
   }
 
   componentDidMount () {
@@ -42,11 +42,15 @@ class App extends React.Component {
   }
 
   openSuggest() {
-    this.setState({showSuggestModal: true})
+    this.setState({showSuggestModal: true});
   }
 
   closeSuggest() {
-    this.setState({showSuggestModal: false})
+    this.setState({showSuggestModal: false});
+  }
+
+  submitQuiz() {
+    console.log('quiz submitted');
   }
 
   render () {
@@ -104,6 +108,12 @@ class App extends React.Component {
               <MenuItem eventKey="5">Indifferent</MenuItem>
             </DropdownButton>
           </Modal.Body>
+          <button onClick ={()=> {
+              this.submitQuiz()
+              this.closeSuggest()
+            }}>
+          Submit
+          </button>
         </Modal>
 
         <MovieList 
