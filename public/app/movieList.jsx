@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios'
 import MovieEntry from './movieEntry.jsx'
+import { Grid } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 
 class MovieList extends React.Component {
 	constructor(props) {
@@ -15,11 +17,39 @@ class MovieList extends React.Component {
 	console.log('movies at render is', movies)
 	return(
 		<div>
-			{movies.map((movie, i) => (
-		        <MovieEntry
-			        key={i}
-			        movie={movie} />
-		     	))}
+			<h1>Most popular</h1>
+			<Grid>
+				<Row>
+				{movies.map((movie, i) => (
+			        <MovieEntry
+				        key={i}
+				        movie={movie} />
+			     	))}
+				</Row>
+			</Grid>
+			
+			<h1>Highest Rated</h1>
+			<Grid>
+				<Row>
+				{movies.map((movie, i) => (
+			        <MovieEntry
+				        key={i}
+				        movie={movie} />
+			     	))}
+				</Row>
+			</Grid>
+
+			<h1>Staff Recommendations</h1>
+			<Grid>
+				<Row>
+				{movies.map((movie, i) => (
+			        <MovieEntry
+				        key={i}
+				        movie={movie} />
+			     	))}
+				</Row>
+			</Grid>
+
 		</div>
 		)
 	}

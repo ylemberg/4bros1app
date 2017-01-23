@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import { Col } from 'react-bootstrap'
 
-class movieEntry extends React.Component {
+class QuizMovieEntry extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -15,5 +15,5 @@ class movieEntry extends React.Component {
 	}
 }
 
-export default movieEntry
+export default QuizMovieEntry
 
