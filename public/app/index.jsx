@@ -26,6 +26,7 @@ class App extends React.Component {
   this.submitQuiz = this.submitQuiz.bind(this)
   this.homePage = this.homePage.bind(this)
   this.submitSearch = this.submitSearch.bind(this)
+  this.openDetails = this.openDetails.bind(this)
 }
 
   componentDidMount () {
@@ -70,7 +71,7 @@ class App extends React.Component {
     })
   }
 
-  openDetails () {
+  openDetails (movie) {
     this.setState({showDetails: true})
   }
 
@@ -176,6 +177,7 @@ class App extends React.Component {
           :
           <MovieList
             movies= {this.state.movies}
+            openDetails = {this.openDetails}
       		/>
         }
 
