@@ -4,13 +4,14 @@ let router = express.Router()
 
 // require controllers
 let searchController = require('../controllers/searchController.js')
+let detailsController = require('../controllers/detailsController')
 
 router
-.route('/searchByMovieTitle')
-.get(searchController.byMovieTitle)
+    .route('/searchByMovieTitle')
+    .get(searchController.byMovieTitle)
 
 router
-.route('/movieDetails')
-.get(searchController.byMovieTitle)
+    .route('/movie/:movidId')
+    .get(detailsController.movieGetOne);
 
 module.exports = router
