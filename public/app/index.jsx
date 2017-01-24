@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import MovieList from './movieList.jsx'
 import QuizMovieList from './quizMovieList.jsx'
+import MovieDescription from'./movieDescription.jsx'
 import { Modal } from 'react-bootstrap';
 import { DropdownButton } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -15,7 +16,8 @@ class App extends React.Component {
       testMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj','6laksdjf;adslk', '324', 'the sixth item'],
       showSearchModal: false,
       showSuggestModal: false,
-      showQuizResults: false
+      showQuizResults: false,
+      showDetails: false
     }
     this.openSearch = this.openSearch.bind(this);
     this.closeSearch = this.closeSearch.bind(this);
@@ -61,6 +63,9 @@ class App extends React.Component {
 
   homePage() {
     this.setState({showQuizResults: false})
+  }
+  openDetails() {
+    this.setState({showDetails: true})
   }
 
   render () {
@@ -131,11 +136,19 @@ class App extends React.Component {
           }}>
         Home
         </button>
+          		  <button onClick ={()=> {
+            this.openDetails()
+          }}>
+    		Details
+    		</button>
 
         {this.state.showQuizResults ?
           <QuizMovieList 
             movies = {this.state.testMovies}
           /> :
+          this.state.showDetails ?
+          <MovieDescription />
+          :
           <MovieList 
       			movies = {this.state.movies}
       		/>
