@@ -7,7 +7,7 @@ let guidebox = require('guidebox')
 let Movie = require('../models/Movie.js')
 let User = require('../models/User.js')
 
-var detailsController = {}
+let detailsController = {}
 
 detailsController.movieGetOne = (req, res) => {
     let movieId = req.params.movieId;

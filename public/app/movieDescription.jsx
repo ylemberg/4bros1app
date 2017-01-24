@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Col } from 'react-bootstrap'
 import { Image } from 'react-bootstrap'
 import { PageHeader } from 'react-bootstrap'
-import { Parallax, Background } from 'react-parallax'
+// import { Parallax, Background } from 'react-parallax'
 
 
 
@@ -14,17 +14,7 @@ class movieDescription extends React.Component {
 		}
 	}
     render() {
-	  return (<div><Parallax strength={400}>
-	    <Background>
-            <img src="http://www.fillmurray.com/400/300"/>
-            <div style={{
-               width: 800, 
-               height: 300, 
-               backgroundColor: '#450093'
-              }}></div>
-            <img src="http://www.fillmurray.com/500/300"/>
-          </Background>
-	  </Parallax>
+	  return (<div>
 	  <Col xs={6} md={4}>
 	  <Image src={"http://static-api.guidebox.com/111615/thumbnails_movies/-alt--134704-5987681029-531570497-9316686070-large-400x570-alt-.jpg"} responsive />
 	  <h4>genres:</h4>
