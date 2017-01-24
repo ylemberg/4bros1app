@@ -13,14 +13,14 @@ let movieSchema = new mongoose.Schema({
   },
   director: {
     type: [String]
-  }, 
+  },
   actors: {
     type: [String]
   },
   poster: {
   	type: String,
     default: 'http://content.mycutegraphics.com/graphics/movie/movie-clapper-board.png'
-  }, 
+  },
   thumbnail: {
   	type: String,
     default: 'http://content.mycutegraphics.com/graphics/movie/movie-clapper-board.png'
@@ -33,7 +33,7 @@ let movieSchema = new mongoose.Schema({
   },
   rottenTomatoes: {
     type: Number
-  }, 
+  },
   IMDB: {
     type: Number
   },
@@ -57,7 +57,7 @@ let movieSchema = new mongoose.Schema({
     default: false
   },
   MPAA: {
-    type: String
+    type: String,
     default: 'NR'
   },
   runtime: {
@@ -73,7 +73,7 @@ let movieSchema = new mongoose.Schema({
     type: [String]
   },
   clicked: {
-  	type: Number,
+    type: Number,
   	default: 0
   },
   saved: {
@@ -88,8 +88,8 @@ let movieSchema = new mongoose.Schema({
   }
 })
 
-//possible movieSchema method that will iterate clicked/saved when called
+// possible movieSchema method that will iterate clicked/saved when called
 
-let Movie = db.model('Movie', movieSchema)
+let Movie = mongoose.model('Movie', movieSchema)
 
 module.exports = Movie
