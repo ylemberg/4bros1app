@@ -79,6 +79,12 @@ let movieSchema = new mongoose.Schema({
   saved: {
   	type: Number,
   	default: 0
+  },
+  guideboxID: {
+    type: Number
+  },
+  imdbID: {
+    type: String
   }
 })
 
