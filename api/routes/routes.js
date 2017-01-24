@@ -9,4 +9,8 @@ router
 .route('/searchByMovieTitle')
 .get(searchController.byMovieTitle)
 
+router
+.route('/movieDetails')
+.get(searchController.byMovieTitle)
+
 module.exports = router
