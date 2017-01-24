@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import { Col } from 'react-bootstrap'
 
+
 class movieEntry extends React.Component {
 	constructor(props) {
 		super(props)
