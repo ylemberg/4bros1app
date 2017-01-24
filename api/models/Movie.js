@@ -11,7 +11,7 @@ let movieSchema = new mongoose.Schema({
   	required: true,
   	default: 'N/A'
   },
-  director: {
+  directors: {
     type: [String]
   },
   actors: {
@@ -34,7 +34,7 @@ let movieSchema = new mongoose.Schema({
   rottenTomatoes: {
     type: Number
   },
-  IMDB: {
+  imdb: {
     type: Number
   },
   metaCritic: {
@@ -52,11 +52,11 @@ let movieSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  HBO: {
+  hbo: {
     type: Boolean,
     default: false
   },
-  MPAA: {
+  mpaa: {
     type: String,
     default: 'NR'
   },
@@ -64,7 +64,8 @@ let movieSchema = new mongoose.Schema({
     type: Number
   },
   seasons: {
-    type: Number
+    type: Number,
+    default: 0
   },
   year: {
     type: Number
@@ -80,10 +81,10 @@ let movieSchema = new mongoose.Schema({
   	type: Number,
   	default: 0
   },
-  guideboxID: {
+  guideboxId: {
     type: Number
   },
-  imdbID: {
+  imdbId: {
     type: String
   }
 })
