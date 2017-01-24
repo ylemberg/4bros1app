@@ -10,10 +10,8 @@ let User = require('../models/User.js')
 var searchController = {}
 
 searchController.byMovieTitle = (req, res) => {
-
+  console.log('is the router hitting this')
+  res.send('is the router hitting this')
 }
-
-
-
 
 module.exports = searchController

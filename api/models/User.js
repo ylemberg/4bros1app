@@ -124,6 +124,6 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
   });
 }
 
-let User = db.model('user', userSchema)
+let User = mongoose.model('user', userSchema)
 
 module.exports = User
