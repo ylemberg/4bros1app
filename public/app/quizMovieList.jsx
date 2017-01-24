@@ -8,13 +8,19 @@ class QuizMovieList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
+			front: this.props.movies[0]
 		}
+		this.changeFront = this.changeFront.bind(this)
+	}
+
+	changeFront(newFront) {
+		this.setState({front: newFront})
 	}
 
  render () {
-	var movies = this.props.movies.slice(0)
-	var front = movies[0]
+	let movies = this.props.movies.slice(0)
+	let front = this.state.front
+	let frontId = front //.id
 	console.log('movies at render is', movies)
 	return(
 		<div>
@@ -29,6 +35,8 @@ class QuizMovieList extends React.Component {
 				<Row>
 					{movies.map((movie, i) => (
 		        <QuizMovieEntry
+		        	frontId={frontId}
+		        	changeFront={this.changeFront}
 			        key={i}
 			        movie={movie} />
 		     	))}
