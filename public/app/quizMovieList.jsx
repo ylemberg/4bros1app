@@ -25,14 +25,19 @@ class QuizMovieList extends React.Component {
 	return(
 		<div>
 			<Jumbotron>
-			  <h1>{front.title}</h1>
 				<Grid style = {{border: 1+'px solid black'}}>
 					<Row>
-						<Col sm={7} md={7}>
+						<Col sm={5} md={5}>
 		  	  		<img src={front.poster} />
 		  	  	</Col>
-		  	  	<Col sm={5} md={5}>{front.description}</Col>
-		    		<p><Button bsStyle="primary">Save for later(nonfunctional)</Button></p>
+		  	  	<Col sm={7} md={7}>
+		  	  	<p>{front.title}</p>
+		  	  	<p>{front.description}</p>
+		  	  	</Col>
+		    		<p>
+		    			<Button bsStyle="primary">Save for later(nonfunctional)</Button>
+		    			<Button bsStyle="primary">See full description(nonfunctional)</Button>
+		    		</p>
 		    	</Row>
     		</Grid>
   		</Jumbotron>

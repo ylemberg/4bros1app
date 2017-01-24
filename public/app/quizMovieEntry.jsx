@@ -12,14 +12,14 @@ class QuizMovieEntry extends React.Component {
 	render() {
 		var movie = this.props.movie
 		var frontId = this.props.frontId
+		var style = movie === frontId ? {border: 1+'px solid red'} : {border: 1+'px solid black'}
 	  return (
 	  <div>
-		  {movie === frontId ? 
-	      <Col sm={2} md={2} style={{border: 1+'px solid red'}}>{movie.title}</Col>
-		  	:
-		  	<Col sm={2} md={2} style={{border: 1+'px solid black'}}
-		  	onClick = {() => {this.props.changeFront(movie)}}>{movie.title}</Col>
-		  }
+		  	<Col sm={2} md={2} style={style}
+		  	onClick = {() => {this.props.changeFront(movie)}}>
+		  		<img src={movie.thumbnail}/>
+      		<p>{movie.title}</p>
+		  	</Col>
 	  </div>
 	  );
 	}
