@@ -25,6 +25,10 @@ let movieSchema = new mongoose.Schema({
   	type: String,
     default: 'http://content.mycutegraphics.com/graphics/movie/movie-clapper-board.png'
   },
+  banner: {
+    type: String,
+    default: null
+  },
   trailer: {
     type: String
   },
