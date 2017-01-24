@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import MovieList from './movieList.jsx'
+import QuizMovieList from './quizMovieList.jsx'
 import { Modal } from 'react-bootstrap';
 import { DropdownButton } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -10,14 +11,18 @@ class App extends React.Component {
 	constructor(props) {
     super(props)
     this.state = {
-      movies: ['movieObject1', 'movieObject2'],
+      movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
+      testMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj','6laksdjf;adslk', '324', 'the sixth item'],
       showSearchModal: false,
-      showSuggestModal: false
+      showSuggestModal: false,
+      showQuizResults: false
     }
     this.openSearch = this.openSearch.bind(this);
     this.closeSearch = this.closeSearch.bind(this);
     this.openSuggest = this.openSuggest.bind(this);
     this.closeSuggest = this.closeSuggest.bind(this);
+    this.submitQuiz = this.submitQuiz.bind(this);
+    this.homePage = this.homePage.bind(this);
   }
 
   componentDidMount () {
@@ -51,6 +56,11 @@ class App extends React.Component {
 
   submitQuiz() {
     console.log('quiz submitted');
+    this.setState({showQuizResults: true})
+  }
+
+  homePage() {
+    this.setState({showQuizResults: false})
   }
 
   render () {
@@ -116,9 +126,20 @@ class App extends React.Component {
           </button>
         </Modal>
 
-        <MovieList 
-    			movies = {this.state.movies}
-    		/>
+        <button onClick ={()=> {
+            this.homePage()
+          }}>
+        Home
+        </button>
+
+        {this.state.showQuizResults ?
+          <QuizMovieList 
+            movies = {this.state.testMovies}
+          /> :
+          <MovieList 
+      			movies = {this.state.movies}
+      		/>
+        }
 
     	</div>
     )
