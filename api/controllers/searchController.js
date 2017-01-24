@@ -78,15 +78,23 @@ searchController.byMovieTitle = (req, res) => {
         for (let keyword of resp.tags) {
           movieObj.keywords.push(keyword.tag)
         }
+        gb.uri = 'http://api-public.guidebox.com/v2/movies/' + gbID + '/images'
 
-        let omdb = {
-          uri: 'http://www.omdbapi.com/?i=' + movieObj.imdbId + '&tomatoes=true',
-          headers: {
+        request(gb)
+        .then(function (resp) {
+          if (resp.results.banners) {
+            movieObj.banner = resp.results.banners[0].xlarge.url
+          } else {
+            console.log('did not add banner')
+          }
+          let omdb = {
+             uri: 'http://www.omdbapi.com/?i=' + movieObj.imdbId + '&tomatoes=true',
+             headers: {
             'User-Agent': 'Request-Promise'
           },
-          json: true // Automatically parses the JSON string in the response
-        }
-        request(omdb)
+             json: true // Automatically parses the JSON string in the response
+           }
+          request(omdb)
        .then(function (resp) {
          movieObj.rottenTomatoes = parseInt(resp.tomatoMeter, 10)
          movieObj.imdb = parseInt(resp.imdbRating, 10)
@@ -98,6 +106,7 @@ searchController.byMovieTitle = (req, res) => {
           res.status(200).send(resp)
         })
        })
+        })
       })
       })
     }
