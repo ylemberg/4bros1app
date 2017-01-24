@@ -23,7 +23,11 @@
     "request-promise": "^4.1.1",
     "webpack": "^1.14.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-react": "^6.9.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
