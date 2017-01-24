@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { Col } from 'react-bootstrap'
+import { Col, Grid, Row } from 'react-bootstrap'
 
 
 class movieEntry extends React.Component {
@@ -10,8 +10,12 @@ class movieEntry extends React.Component {
 		}
 	}
 	render() {
+		var movie = this.props.movie
 	  return (
-      <Col sm={2} md={2} style={{border: 1+'px solid black'}}>{this.props.movie}</Col>
+      <Col sm={2} md={2} style={{border: 1+'px solid black'}}>
+      	<img src={movie.thumbnail}/>
+      	<p>{movie.title}</p>
+      </Col>
 	  );
 	}
 }

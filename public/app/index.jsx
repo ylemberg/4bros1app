@@ -29,17 +29,18 @@ class App extends React.Component {
 }
 
   componentDidMount () {
-  	// var context = this;
-   //  axios.get('/movies')
-   //  .then(result => {
-   //    context.setState({
-   //      data: result.data
-   //    })
-   //    console.log('movie data set to', context.state.data);
-   //  })
-   //  .catch(err => {
-   //    console.log('error in component did mount catlist', err)
-   //  })
+  	var context = this;
+    axios.get('/api/getFirstFive')
+    .then(result => {
+      context.setState({
+        movies: result.data,
+        testMovies: result.data
+      })
+      console.log('movie data set to', context.state.movies);
+    })
+    .catch(err => {
+      console.log('error in component did mount in index', err)
+    })
   }
   openSearch () {
     this.setState({ showSearchModal: true })
@@ -63,7 +64,10 @@ class App extends React.Component {
   }
 
   homePage () {
-    this.setState({showQuizResults: false})
+    this.setState({
+      showQuizResults: false,
+      showDetails: false
+    })
   }
 
   openDetails () {
