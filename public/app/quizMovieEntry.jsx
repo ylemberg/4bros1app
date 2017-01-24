@@ -15,10 +15,10 @@ class QuizMovieEntry extends React.Component {
 	  return (
 	  <div>
 		  {movie === frontId ? 
-	      <Col sm={2} md={2} style={{border: 1+'px solid red'}}>{movie}</Col>
+	      <Col sm={2} md={2} style={{border: 1+'px solid red'}}>{movie.title}</Col>
 		  	:
 		  	<Col sm={2} md={2} style={{border: 1+'px solid black'}}
-		  	onClick = {() => {this.props.changeFront(movie)}}>{movie}</Col>
+		  	onClick = {() => {this.props.changeFront(movie)}}>{movie.title}</Col>
 		  }
 	  </div>
 	  );

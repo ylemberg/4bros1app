@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import QuizMovieEntry from './quizMovieEntry.jsx'
-import { Grid, Row, Jumbotron, Button } from 'react-bootstrap'
+import { Grid, Row, Jumbotron, Button, Col } from 'react-bootstrap'
 
 
 class QuizMovieList extends React.Component {
@@ -25,10 +25,16 @@ class QuizMovieList extends React.Component {
 	return(
 		<div>
 			<Jumbotron>
-	    	<h1>{front}</h1>
-  	  	<p>Description of the movie and a bunch of other stuff</p>
-    		<p><Button bsStyle="primary">Save for later</Button></p>
-
+			  <h1>{front.title}</h1>
+				<Grid style = {{border: 1+'px solid black'}}>
+					<Row>
+						<Col sm={7} md={7}>
+		  	  		<img src={front.poster} />
+		  	  	</Col>
+		  	  	<Col sm={5} md={5}>{front.description}</Col>
+		    		<p><Button bsStyle="primary">Save for later(nonfunctional)</Button></p>
+		    	</Row>
+    		</Grid>
   		</Jumbotron>
   		<h1>Next closest picks</h1>
 			<Grid>
