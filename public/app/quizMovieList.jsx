@@ -20,7 +20,6 @@ class QuizMovieList extends React.Component {
  render () {
 	let movies = this.props.movies.slice(0)
 	let front = this.state.front
-	let frontId = front //.id
 	console.log('movies at render is', movies)
 	return(
 		<div>
@@ -28,7 +27,7 @@ class QuizMovieList extends React.Component {
 				<Grid style = {{border: 1+'px solid black'}}>
 					<Row>
 						<Col sm={5} md={5}>
-		  	  		<img src={front.poster} />
+		  	  		<img onClick={() => {this.props.openDetails(front)}} src={front.poster} />
 		  	  	</Col>
 		  	  	<Col sm={7} md={7}>
 		  	  	<p>{front.title}</p>
@@ -36,7 +35,9 @@ class QuizMovieList extends React.Component {
 		  	  	</Col>
 		    		<p>
 		    			<Button bsStyle="primary">Save for later(nonfunctional)</Button>
-		    			<Button bsStyle="primary">See full description(nonfunctional)</Button>
+		    			<Button bsStyle="primary"
+		    			onClick = {() => {this.props.openDetails(front)}}
+		    			>See full description</Button>
 		    		</p>
 		    	</Row>
     		</Grid>
@@ -46,10 +47,12 @@ class QuizMovieList extends React.Component {
 				<Row>
 					{movies.map((movie, i) => (
 		        <QuizMovieEntry
-		        	frontId={frontId}
+		        	front={front}
 		        	changeFront={this.changeFront}
 			        key={i}
-			        movie={movie} />
+			        movie={movie}
+			        openDetails={this.props.openDetails}
+			         />
 		     	))}
 				</Row>
 			</Grid>

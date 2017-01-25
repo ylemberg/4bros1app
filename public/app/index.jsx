@@ -21,7 +21,7 @@ class App extends React.Component {
       showSuggestModal: false,
       showQuizResults: false,
       showDetails: false,
-      showSearchResults: false
+      showSearchResults: false,
       detailMovie: null
     }
   this.openSearch = this.openSearch.bind(this)
@@ -65,7 +65,9 @@ class App extends React.Component {
     this.setState({showSuggestModal: false})
   }
 
-  submitQuiz () {
+  submitQuiz (event) {
+    //prevent submission from reloading page
+    event.preventDefault();
     this.closeSuggest();
     console.log('quiz submitted')
     this.setState({
@@ -81,6 +83,7 @@ class App extends React.Component {
   homePage () {
     this.setState({
       showQuizResults: false,
+      showSearchResults: false,
       showDetails: false
     })
   }
@@ -89,6 +92,8 @@ class App extends React.Component {
     var context = this;
     this.setState({
       showDetails: true,
+      showSearchResults: false,
+      showQuizResults: false,
       detailMovie: movie
     })
     // axios.get('api/movies/')
@@ -214,6 +219,7 @@ class App extends React.Component {
       {this.state.showQuizResults ?
           <QuizMovieList
             movies ={this.state.testMovies}
+            openDetails = {this.openDetails}
           /> :
           this.state.showSearchResults ?
             <SearchMovieList
