@@ -10,13 +10,19 @@ let findFirstFive = require('../controllers/findFirstFive.js')
 router
     .route('/searchByMovieTitle')
     .get(searchController.byMovieTitle)
+router
+    .route('/searchByMovieTitle/:id')
+    .get(detailsController.movieGetOne)
 
 router
-    .route('/movie/:movidId')
-    .get(detailsController.movieGetOne);
+    .route('/movies')
+    .get(detailsController.moviesGetAll)
+router
+    .route('/movies/:id')
+    .get(detailsController.movieGetOne)
 
 router
-	.route('/getFirstFive')
-	.get(findFirstFive)
+    .route('/getFirstFive')
+    .get(findFirstFive)
 
 module.exports = router
