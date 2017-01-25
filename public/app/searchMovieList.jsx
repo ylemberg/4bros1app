@@ -1,10 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import QuizMovieEntry from './quizMovieEntry.jsx'
+import SearchMovieEntry from './searchMovieEntry.jsx'
 import { Grid, Row, Jumbotron, Button, Col } from 'react-bootstrap'
 
 
-class QuizMovieList extends React.Component {
+class SearchMovieList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -45,7 +45,7 @@ class QuizMovieList extends React.Component {
 			<Grid>
 				<Row>
 					{movies.map((movie, i) => (
-		        <QuizMovieEntry
+		        <SearchMovieEntry
 		        	frontId={frontId}
 		        	changeFront={this.changeFront}
 			        key={i}
@@ -57,4 +57,4 @@ class QuizMovieList extends React.Component {
 		)
 	}
 }
-export default QuizMovieList
+export default SearchMovieList

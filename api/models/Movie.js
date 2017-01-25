@@ -30,19 +30,23 @@ let movieSchema = new mongoose.Schema({
     default: null
   },
   trailer: {
-    type: String
+    type: String,
+    default: null
   },
   genres: {
     type: [String]
   },
   rottenTomatoes: {
-    type: Number
+    type: Number,
+    default: null
   },
   imdb: {
-    type: Number
+    type: Number,
+    default: null
   },
   metaCritic: {
-    type: Number
+    type: Number,
+    default: null
   },
   netflix: {
     type: Boolean,
