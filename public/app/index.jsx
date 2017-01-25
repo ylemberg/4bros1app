@@ -20,7 +20,11 @@ class App extends React.Component {
       showSuggestModal: false,
       showQuizResults: false,
       showDetails: false,
+<<<<<<< HEAD
       showSearchResults: false
+=======
+      detailMovie: null
+>>>>>>> [feat] add onclick to movie to access description
     }
   this.openSearch = this.openSearch.bind(this)
   this.closeSearch = this.closeSearch.bind(this)
@@ -75,7 +79,21 @@ class App extends React.Component {
   }
 
   openDetails (movie) {
-    this.setState({showDetails: true})
+    var context = this;
+    this.setState({
+      showDetails: true,
+      detailMovie: movie
+    })
+    // axios.get('api/movies/')
+    // .then(result => {
+    //   context.setState({
+    //     movies: result.data,
+    //   })
+    //   console.log('movie details data set to', context.state.movies);
+    // })
+    // .catch(err => {
+    //   console.log('error in component did mount in index', err)
+    // })
   }
 
   submitSearch (event) {
@@ -175,12 +193,6 @@ class App extends React.Component {
         }}>
         Home
         </button>
-      <button onClick={() => {
-              this.openDetails()
-            }}>
-    		Details
-    		</button>
-
       {this.state.showQuizResults ?
           <QuizMovieList
             movies ={this.state.testMovies}
@@ -191,7 +203,9 @@ class App extends React.Component {
             />
             :
           this.state.showDetails ?
-            <MovieDescription />
+            <MovieDescription 
+              movie={this.state.detailMovie}
+            />
           :
           <MovieList
             movies= {this.state.movies}
