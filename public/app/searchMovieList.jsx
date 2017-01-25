@@ -41,7 +41,7 @@ class SearchMovieList extends React.Component {
 		    	</Row>
     		</Grid>
   		</Jumbotron>
-  		<h1>Next closest picks</h1>
+  		<h1>Search Results</h1>
 			<Grid>
 				<Row>
 					{movies.map((movie, i) => (

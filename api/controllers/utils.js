@@ -75,28 +75,27 @@ utils.addToDb = gbOptions => {
             json: true // Automatically parses the JSON string in the response
           }
           request(omdb)
-       .then(function (resp) {
-         movieObj.rottenTomatoes = parseInt(resp.tomatoMeter, 10)
-         movieObj.imdb = parseInt(resp.imdbRating, 10)
-         movieObj.metaCritic = parseInt(resp.Metascore, 10)
-         if (resp.tomatoMeter === 'N/A') {
-           movieObj.rottenTomatoes = null
-         } else if (resp.Metascore === 'N/A') {
-           movieObj.metaCritic = null
-         } else if (resp.imdbRating === 'N/A') {
-           movieObj.imdb = null
-         }
-         Movie.create(movieObj)
-        .then(function (resp) {
-          if (resp) {
+          .then(function (resp) {
+            movieObj.rottenTomatoes = parseInt(resp.tomatoMeter, 10)
+            movieObj.imdb = parseInt(resp.imdbRating, 10)
+            movieObj.metaCritic = parseInt(resp.Metascore, 10)
+            if (resp.tomatoMeter === 'N/A') {
+              movieObj.rottenTomatoes = null
+            } else if (resp.Metascore === 'N/A') {
+              movieObj.metaCritic = null
+            } else if (resp.imdbRating === 'N/A') {
+              movieObj.imdb = null
+            }
+            Movie.create(movieObj)
+            .then(function (resp) {
+              if (resp) {
             resolve(resp)
           }
-        })
+            })
         .catch(error => {
-            console.log('error in adding to db = ', error)
-            console.log('movieObj is ', movieObj)
+          console.log('error in adding to db = ', error)
         })
-       })
+          })
         })
       })
   })
