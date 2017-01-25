@@ -9,6 +9,7 @@ import { DropdownButton } from 'react-bootstrap'
 import { MenuItem } from 'react-bootstrap'
 import axios from 'axios'
 
+
 class App extends React.Component {
   constructor (props) {
   super(props)
@@ -20,11 +21,8 @@ class App extends React.Component {
       showSuggestModal: false,
       showQuizResults: false,
       showDetails: false,
-<<<<<<< HEAD
       showSearchResults: false
-=======
       detailMovie: null
->>>>>>> [feat] add onclick to movie to access description
     }
   this.openSearch = this.openSearch.bind(this)
   this.closeSearch = this.closeSearch.bind(this)
@@ -37,7 +35,7 @@ class App extends React.Component {
 }
 
   componentDidMount () {
-  	var context = this;
+    var context = this;
     axios.get('/api/getFirstFive')
     .then(result => {
       context.setState({
@@ -55,6 +53,7 @@ class App extends React.Component {
   }
 
   closeSearch () {
+    console.log('clsoing seearch box')
     this.setState({ showSearchModal: false })
   }
 
@@ -67,8 +66,16 @@ class App extends React.Component {
   }
 
   submitQuiz () {
+    this.closeSuggest();
     console.log('quiz submitted')
-    this.setState({showQuizResults: true})
+    this.setState({
+      showQuizResults: true
+    })
+    var genre = document.getElementById('genre').value
+    var era = document.getElementById('era').value
+    var sort = document.getElementById('sort').value
+    console.log('the genre you selected is', genre, era, sort)
+
   }
 
   homePage () {
@@ -113,9 +120,7 @@ class App extends React.Component {
       context.setState({searchResult: resp.data,
         showSearchResults: true 
       })
-
     })
-
   }
 
   render () {
@@ -124,8 +129,8 @@ class App extends React.Component {
       <button onClick={() => {
       this.openSearch()
     }}>
-    		Search
-    		</button>
+        Search
+        </button>
 
       <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
           <Modal.Header closeButton>
@@ -155,37 +160,49 @@ class App extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <p>Fill out some quiz</p>
-            <p>Which genre?</p>
-            <DropdownButton title={'genre'} id={'askGenre'}>
-              <MenuItem eventKey='1'>Action</MenuItem>
-              <MenuItem eventKey='2'>Comedy</MenuItem>
-              <MenuItem eventKey='3'>Drama</MenuItem>
-              <MenuItem eventKey='4'>Romance</MenuItem>
-              <MenuItem eventKey='5'>Indifferent</MenuItem>
-            </DropdownButton>
-            <p>Which era?</p>
-            <DropdownButton title={'era'} id={'askEra'}>
-              <MenuItem eventKey='1'>Classic</MenuItem>
-              <MenuItem eventKey='2'>Modern</MenuItem>
-              <MenuItem eventKey='3'>New</MenuItem>
-              <MenuItem eventKey='4'>Old</MenuItem>
-              <MenuItem eventKey='5'>Indifferent</MenuItem>
-            </DropdownButton>
-            <p>Sort by?</p>
-            <DropdownButton title={'sort'} id={'askSort'}>
-              <MenuItem eventKey='1'>Awards</MenuItem>
-              <MenuItem eventKey='2'>Rating</MenuItem>
-              <MenuItem eventKey='3'>Popularity</MenuItem>
-              <MenuItem eventKey='4'>Recommended</MenuItem>
-              <MenuItem eventKey='5'>Indifferent</MenuItem>
-            </DropdownButton>
+
+              <form onSubmit={this.submitQuiz}>
+                <p>
+                 <label>
+                  What genre do you want to watch?
+                  <select id ="genre">
+                    <option>Action</option>
+                    <option>Comedy</option>
+                    <option>Drama</option>
+                    <option>Romance</option>
+                    <option>Indifferent</option>
+                  </select>
+                </label>
+                </p>
+
+                <p>
+                <label>
+                  What era?
+                  <select id="era">
+                    <option>Classic</option>
+                    <option>Modern</option>
+                    <option>New</option>
+                    <option>Old</option>
+                    <option>Indifferent</option>
+                  </select>
+                </label>
+                </p>
+
+                <p>
+                <label>
+                  How should we sort this?
+                  <select id="sort">
+                    <option>Awards</option>
+                    <option>Rating</option>
+                    <option>Recommended</option>
+                    <option>Popularity</option>
+                    <option>Indifferent</option>
+                  </select>
+                </label>
+                </p>
+                <input type="submit" value="Submit" />
+              </form>
           </Modal.Body>
-          <button onClick={() => {
-            this.submitQuiz()
-            this.closeSuggest()
-          }}>
-          Submit
-          </button>
         </Modal>
 
       <button onClick={() => {
@@ -193,6 +210,7 @@ class App extends React.Component {
         }}>
         Home
         </button>
+
       {this.state.showQuizResults ?
           <QuizMovieList
             movies ={this.state.testMovies}
@@ -212,8 +230,7 @@ class App extends React.Component {
             openDetails = {this.openDetails}
       		/>
         }
-
-    	</div>
+      </div>
     )
   }
 }

@@ -16,7 +16,7 @@ class QuizMovieEntry extends React.Component {
 	  return (
 	  <div>
 		  	<Col sm={2} md={2} style={style}
-		  	onClick = {() => {this.props.changeFront(movie)}}>
+		  	onMouseEnter = {() => {this.props.changeFront(movie)}}>
 		  		<img src={movie.thumbnail}/>
       		<p>{movie.title}</p>
 		  	</Col>
