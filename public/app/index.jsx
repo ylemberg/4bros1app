@@ -2,6 +2,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import MovieList from './movieList.jsx'
 import QuizMovieList from './quizMovieList.jsx'
+import SearchMovieList from './searchMovieList.jsx'
 import MovieDescription from './movieDescription.jsx'
 import { Modal } from 'react-bootstrap'
 import { DropdownButton } from 'react-bootstrap'
@@ -14,10 +15,12 @@ class App extends React.Component {
   this.state = {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
       testMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj', '6laksdjf;adslk', '324', 'the sixth item'],
+      searchResult: [],
       showSearchModal: false,
       showSuggestModal: false,
       showQuizResults: false,
-      showDetails: false
+      showDetails: false,
+      showSearchResults: false
     }
   this.openSearch = this.openSearch.bind(this)
   this.closeSearch = this.closeSearch.bind(this)
@@ -76,13 +79,23 @@ class App extends React.Component {
   }
 
   submitSearch (event) {
+    var context = this
     event.preventDefault()
-    let title = ""
-    title = document.getElementById('movieTitle').value
+    this.closeSearch()
+    let query = ""
+    query = document.getElementById('movieTitle').value
     axios.get('/api/searchByMovieTitle', {
       headers: {
-        title: title
+        query: query
       }
+    })
+    .then(resp => {
+      // let searchArr =[];
+      // searchArr.push(resp.data);
+      context.setState({searchResult: resp.data,
+        showSearchResults: true 
+      })
+
     })
 
   }
@@ -172,6 +185,11 @@ class App extends React.Component {
           <QuizMovieList
             movies ={this.state.testMovies}
           /> :
+          this.state.showSearchResults ?
+            <SearchMovieList
+              movies={this.state.searchResult}
+            />
+            :
           this.state.showDetails ?
             <MovieDescription />
           :
