@@ -51,7 +51,6 @@ class App extends React.Component {
       showDetails: false,
       showSearchResults: false,
       detailMovie: null,
-      showLanding: false
     }
   this.openSearch = this.openSearch.bind(this)
   this.closeSearch = this.closeSearch.bind(this)
@@ -97,6 +96,7 @@ class App extends React.Component {
   closeSuggest () {
     this.setState({showSuggestModal: false})
   }
+<<<<<<< HEAD
 
   openGameQuiz () {
     this.setState({showGameQuizModal: true})
@@ -109,6 +109,8 @@ class App extends React.Component {
   showLanding() {
     this.setState({showLanding: true})
   }
+=======
+>>>>>>> [feat] landing add parallax
 
   submitQuiz (event) {
     //prevent submission from reloading page
@@ -457,11 +459,14 @@ class App extends React.Component {
         }}>
         Home
         </button>
+<<<<<<< HEAD
         <button onClick={() => {
           this.showDetails()
         }}>
         landing(nonfunctional)
         </button>
+=======
+>>>>>>> [feat] landing add parallax
 
       {this.state.showQuizResults ?
           <QuizMovieList
