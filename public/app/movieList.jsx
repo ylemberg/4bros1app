@@ -23,7 +23,7 @@ class MovieList extends React.Component {
 				{movies.map((movie, i) => (
 			        <MovieEntry
 				        key={i}
-								openDetails = {this.props.openDetails}
+						openDetails = {this.props.openDetails}
 				        movie={movie} />
 			     	))}
 				</Row>
@@ -35,7 +35,7 @@ class MovieList extends React.Component {
 				{movies.map((movie, i) => (
 			        <MovieEntry
 				        key={i}
-								openDetails = {this.props.openDetails}
+						openDetails = {this.props.openDetails}
 				        movie={movie} />
 			     	))}
 				</Row>
@@ -47,7 +47,7 @@ class MovieList extends React.Component {
 				{movies.map((movie, i) => (
 			        <MovieEntry
 				        key={i}
-								openDetails = {this.props.openDetails}
+						openDetails = {this.props.openDetails}
 				        movie={movie} />
 			     	))}
 				</Row>
