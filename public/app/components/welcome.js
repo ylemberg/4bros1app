@@ -33,8 +33,7 @@ div style = {
       margin: 200,
     }}>< h1 > Pick A Flick < /h1></div> <
     /div> <
-    /Parallax>
-    <PageHeader>Stack Attack: MERN </PageHeader>
+    /Parallax> <div>
     <Image src="/images/mongodb.jpg" style={{
 		  height: 80,
 		  margin: 10}}/>
@@ -47,4 +46,31 @@ div style = {
 		  margin:10}}/>
 		<Image src="/images/node.png" style={{
 		  height: 80,
-		  margin:10}}/> < /div>;
+		  margin:10}}/> </div><footer class="content-footer" style={{
+        backgroundColor: 'D0C3B7',
+        marginTop: 10,
+        padding: 10 ,
+        textAlign: 'center',
+      }}>
+    <p>footer placeholder:</p>
+    <div>
+        <ul class="icons">
+            <li>
+                <i class="fa fa-google-plus"></i>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/">
+                    <i class="fa fa-instagram"></i></a>
+            </li>
+            <li>
+                <a href="https://github.com/">
+                    <i class="fa fa-github"></i></a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/">
+                    <i class="fa fa-linkedin"></i></a>
+            </li>
+
+        </ul>
+    </div>
+</footer>< /div>;
