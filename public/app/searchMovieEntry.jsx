@@ -15,7 +15,8 @@ class SearchMovieEntry extends React.Component {
     return (
       <div>
         <Col sm={2} md={2} style={style}
-          onMouseEnter={() => { this.props.changeFront(movie) }}>
+          onMouseEnter={() => { this.props.changeFront(movie) }}
+          onClick={() => {this.props.openDetails(movie)}}>
           <img src={movie.thumbnail} />
           <p>{movie.title}</p>
         </Col>

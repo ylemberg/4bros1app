@@ -19,7 +19,7 @@ searchController.byMovieTitle = (req, res) => {
             console.log('found in database')
             var searchResult = resp
             Movie.find()
-                    .then(resp => {
+                    .then(resp => { 
                       for (var i = 0; i < 4; i++) {
                         searchResult.push(resp[i])
                       }
