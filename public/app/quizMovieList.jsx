@@ -24,6 +24,14 @@ class QuizMovieList extends React.Component {
  render () {
 	let movies = this.props.movies.slice(0)
 	let front = this.state.front
+	if (front === undefined) {
+		front = {
+			title: 'sorry could not find any matching movies',
+			description: 'sorry could not find any matching movies',
+			poster: 'sorry could not find any matching movies',
+			title: 'sorry could not find any matching movies'
+		}
+	}
 	console.log('movies at render is', movies)
 	return(
 		<div>

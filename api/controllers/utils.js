@@ -77,7 +77,7 @@ utils.addToDb = gbOptions => {
           request(omdb)
           .then(function (resp) {
             movieObj.rottenTomatoes = parseInt(resp.tomatoMeter, 10)
-            movieObj.imdb = parseInt(resp.imdbRating, 10)
+            movieObj.imdb = parseFloat(resp.imdbRating)
             movieObj.metaCritic = parseInt(resp.Metascore, 10)
             if (resp.tomatoMeter === 'N/A') {
               movieObj.rottenTomatoes = null
