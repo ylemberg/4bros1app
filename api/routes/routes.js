@@ -6,6 +6,7 @@ let router = express.Router()
 let searchController = require('../controllers/searchController.js')
 let detailsController = require('../controllers/detailsController')
 let findFirstFive = require('../controllers/findFirstFive.js')
+let sortByGenre = require('../controllers/sortByGenre.js')
 
 router
     .route('/searchByMovieTitle')
@@ -24,5 +25,9 @@ router
 router
     .route('/getFirstFive')
     .get(findFirstFive)
+
+router
+    .route('/sortByGenre')
+    .get(sortByGenre)
 
 module.exports = router

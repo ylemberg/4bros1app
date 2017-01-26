@@ -15,7 +15,7 @@ class App extends React.Component {
   super(props)
   this.state = {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
-      testMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj', '6laksdjf;adslk', '324', 'the sixth item'],
+      quizMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj', '6laksdjf;adslk', '324', 'the sixth item'],
       searchResult: [],
       showSearchModal: false,
       showSuggestModal: false,
@@ -40,7 +40,7 @@ class App extends React.Component {
     .then(result => {
       context.setState({
         movies: result.data,
-        testMovies: result.data
+        quizMovies: result.data
       })
       console.log('movie data set to', context.state.movies);
     })
@@ -68,16 +68,68 @@ class App extends React.Component {
   submitQuiz (event) {
     //prevent submission from reloading page
     event.preventDefault();
+    var context = this;
     this.closeSuggest();
-    console.log('quiz submitted')
-    this.setState({
-      showQuizResults: true
-    })
+    var quizResults = []
     var genre = document.getElementById('genre').value
     var era = document.getElementById('era').value
     var sort = document.getElementById('sort').value
     console.log('the genre you selected is', genre, era, sort)
+    //default to return everything
+    var test = function() {
+      return true
+    }
+    if (era === "Classic(1960-2000)") {
+      test = function(year) {
+        if(year >= 1960 && year<=2000) {
+          return true
+        } else return false
+      }
+    }
+    else if(era === "Modern(Post-2000)") {
+      test = function(year) {
+        if(year > 2000) {
+          return true
+        } else return false
+      }
+    }
+    else if(era === "New(2015-Now)") {
+      test = function(year) {
+        if(year >= 2015) {
+          return true
+        } else return false
+      }
+    }
+    else if(era === "Old(pre-1960)") {
+      test = function(year) {
+        if(year < 1960) {
+          return true
+        } else return false
+      }
+    }
 
+    axios.get('/api/sortByGenre', {
+      headers: {
+        genre: genre
+      }
+    })
+    .then(resp => {
+      console.log('quiz submitted, movies that matched "' + genre + '" are :' + resp.data.map( (movie) => movie.title))
+      for(let i = 0; i<resp.data.length; i++) {
+        if(test(resp.data[i].year)){
+          quizResults.push(resp.data[i])
+        }
+      }
+      context.setState({
+        showQuizResults: true,
+        quizMovies: [quizResults[0],quizResults[1],quizResults[2],quizResults[3],quizResults[4]]
+      })
+    })
+    .catch(error => {
+      console.log('error in fetching quiz results', error)
+    })
+
+ 
   }
 
   homePage () {
@@ -130,6 +182,7 @@ class App extends React.Component {
   }
 
   render () {
+
     return (
       <div>
       <button onClick={() => {
@@ -185,10 +238,10 @@ class App extends React.Component {
                 <label>
                   What era?
                   <select id="era">
-                    <option>Classic</option>
-                    <option>Modern</option>
-                    <option>New</option>
-                    <option>Old</option>
+                    <option>Classic(1960-2000)</option>
+                    <option>Modern(Post-2000)</option>
+                    <option>New(2015-Now)</option>
+                    <option>Old(pre-1960)</option>
                     <option>Indifferent</option>
                   </select>
                 </label>
@@ -196,7 +249,7 @@ class App extends React.Component {
 
                 <p>
                 <label>
-                  How should we sort this?
+                  How should we sort this (sort not yet implemented)
                   <select id="sort">
                     <option>Awards</option>
                     <option>Rating</option>
@@ -219,7 +272,7 @@ class App extends React.Component {
 
       {this.state.showQuizResults ?
           <QuizMovieList
-            movies ={this.state.testMovies}
+            movies ={this.state.quizMovies}
             openDetails = {this.openDetails}
           /> :
           this.state.showSearchResults ?
