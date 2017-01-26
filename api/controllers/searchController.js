@@ -110,4 +110,20 @@ searchController.byShowTitle = (req, res) => {
 })
 }
 
+searchController.byGenre = (req, res) => {
+	let genre = req.headers.genre
+	console.log('you asked to find movies with genre:', genre)
+
+  Movie.find({ genres: genre })
+  .then(function(resp){
+    var result = resp.slice(0,5)
+    console.log('resp after genre = ', result)
+    res.status(200).send(result)
+  })
+  .catch(function(err){
+  	res.status(500).send(err)
+    console.log('error is', err)
+  })
+}
+
 module.exports = searchController

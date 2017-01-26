@@ -61,6 +61,7 @@ class App extends React.Component {
   this.submitSearch = this.submitSearch.bind(this)
   this.submitShowSearch = this.submitShowSearch.bind(this)
   this.openDetails = this.openDetails.bind(this)
+  this.submitGenreSearch = this.submitGenreSearch.bind(this)
 }
 
   componentDidMount () {
@@ -256,6 +257,26 @@ class App extends React.Component {
     })
   }
 
+  submitGenreSearch (event) {
+    var context = this
+    event.preventDefault()
+    this.closeSearch()
+    var genre = ""
+    genre = document.getElementById('genre').value
+    axios.get('/api/searchByGenre', {
+      headers: {
+        genre: genre
+      }
+    })
+    .then(resp => {
+      // let searchArr =[];
+      // searchArr.push(resp.data);
+      context.setState({searchResult: resp.data,
+        showSearchResults: true 
+      })
+    })
+  }
+
   render () {
 
     return (
@@ -285,6 +306,19 @@ class App extends React.Component {
           </label>
            <button onClick={this.submitShowSearch}>Search!</button>
          </form>
+         <p>
+                 <label>
+                 Choose Genre
+                  <select id ="genre">
+                    <option>Action</option>
+                    <option>Comedy</option>
+                    <option>Drama</option>
+                    <option>Romance</option>
+                    <option>Horro</option>
+                  </select>
+                </label>
+                 <button onClick={this.submitGenreSearch}>Search!</button>
+                </p>
           </Modal.Body>
         </Modal>
 

@@ -16,7 +16,7 @@ class movieDescription extends React.Component {
 	}
     render() {
 		var genres = (this.props.movie.genres).join(' ');
-		var actors = (this.props.movie.actors).join(' ');
+		var actors = (this.props.movie.actors).slice(0,5).join(', ');
 		var directors = (this.props.movie.directors).join(' ');
 		var hbo = this.props.movie.hbo ? 
 		<Image src="/images/hbo.png" style={{
