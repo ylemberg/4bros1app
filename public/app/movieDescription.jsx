@@ -34,7 +34,6 @@ class movieDescription extends React.Component {
 		<Image src="/images/amazon_logo.png" style={{
 		  height: 20, 
 		  margin:5}}/> : null;	  
-
 	  return (<div><Parallax strength={300}>
           <Background>
 			<img src={this.props.movie.banner} />
@@ -58,7 +57,7 @@ class movieDescription extends React.Component {
 
 	  <h4>Directors: </h4><p>{directors}</p>
 	  <h4>Where to Watch: </h4>
-	  	{hbo}
+	  {hbo}
 		{hulu}
 		{netflix}
 		{amazon}
