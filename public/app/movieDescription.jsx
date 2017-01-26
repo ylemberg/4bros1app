@@ -18,16 +18,23 @@ class movieDescription extends React.Component {
 		var genres = (this.props.movie.genres).join(' ');
 		var actors = (this.props.movie.actors).join(' ');
 		var directors = (this.props.movie.directors).join(' ');
+		var hbo = this.props.movie.hbo ? 
+		<Image src="/images/hbo.png" style={{
+		  height: 20, 
+		  margin: 5}}/> : null;
+		var hulu = this.props.movie.hulu ? 
+		<Image src="/images/Hulu_Logo_Option_A.png" style={{
+		  height: 20, 
+		  margin:5}}/> : null;
+		var netflix = this.props.movie.netflix ?
+		<Image src="/images/netflix-logo-small.png" style={{
+		  height: 20, 
+		  margin:5}}/> : null;
+		var amazon = this.props.movie.amazon ?
+		<Image src="/images/amazon_logo.png" style={{
+		  height: 20, 
+		  margin:5}}/> : null;	  
 
-		// var banner = function (ogBanner) {
-		// 	if (ogBanner === null) {
-		// 		ogBanner = 'public/images/cover.jpg';
-		// 	} else {
-		// 		ogBanner = ogBanner;
-		// 	}
-		// 	return ogBanner;
-		// }
-		// console.log(banner());
 	  return (<div><Parallax strength={300}>
           <Background>
 			<img src={this.props.movie.banner} />
@@ -51,18 +58,10 @@ class movieDescription extends React.Component {
 
 	  <h4>Directors: </h4><p>{directors}</p>
 	  <h4>Where to Watch: </h4>
-	  <Image src="/images/hbo.png" style={{
-		  height: 20, 
-		  margin: 5}}/>
-		<Image src="/images/Hulu_Logo_Option_A.png" style={{
-		  height: 20, 
-		  margin:5}}/>
-		  	<Image src="/images/netflix-logo-small.png" style={{
-		  height: 20, 
-		  margin:5}}/>
-		  <Image src="/images/amazon_logo.png" style={{
-		  height: 20, 
-		  margin:5}}/>
+	  	{hbo}
+		{hulu}
+		{netflix}
+		{amazon}
 	  </Col>
 	  <Col xs={12} md={8}>
 	  <PageHeader>{this.props.movie.title}<small> {this.props.movie.year}</small></PageHeader>
