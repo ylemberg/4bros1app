@@ -59,6 +59,7 @@ class App extends React.Component {
   this.submitQuiz = this.submitQuiz.bind(this)
   this.homePage = this.homePage.bind(this)
   this.submitSearch = this.submitSearch.bind(this)
+  this.submitShowSearch = this.submitShowSearch.bind(this)
   this.openDetails = this.openDetails.bind(this)
 }
 
@@ -196,9 +197,29 @@ class App extends React.Component {
     var context = this
     event.preventDefault()
     this.closeSearch()
-    let query = ""
+    var query = ""
     query = document.getElementById('movieTitle').value
     axios.get('/api/searchByMovieTitle', {
+      headers: {
+        query: query
+      }
+    })
+    .then(resp => {
+      // let searchArr =[];
+      // searchArr.push(resp.data);
+      context.setState({searchResult: resp.data,
+        showSearchResults: true 
+      })
+    })
+  }
+
+  submitShowSearch (event) {
+    var context = this
+    event.preventDefault()
+    this.closeSearch()
+    var query = ""
+    query = document.getElementById('showTitle').value
+    axios.get('/api/searchByShowTitle', {
       headers: {
         query: query
       }
@@ -234,7 +255,13 @@ class App extends React.Component {
           </label>
            <button onClick={this.submitSearch}>Search!</button>
          </form>
-
+         <form>
+           <label>
+            TV Show Title:
+            <input type='text' id='showTitle' />
+          </label>
+           <button onClick={this.submitShowSearch}>Search!</button>
+         </form>
           </Modal.Body>
         </Modal>
 

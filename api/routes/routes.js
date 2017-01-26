@@ -19,6 +19,11 @@ let router = express.Router();
 router
     .route('/searchByMovieTitle')
     .get(searchController.byMovieTitle)
+
+router
+    .route('/searchByShowTitle')
+    .get(searchController.byShowTitle)
+    
 router
     .route('/searchByMovieTitle/:id')
     .get(detailsController.movieGetOne)
