@@ -7,7 +7,7 @@ mongoose.connect(uri)
 let mlab = mongoose.connection
 
 mlab.once('open', () => {
-    console.log('connected to mlab mongoDb')
+  console.log('connected to mlab mongoDb')
 })
 
 module.exports = mlab
