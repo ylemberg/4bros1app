@@ -49,7 +49,8 @@ class App extends React.Component {
       showQuizResults: false,
       showDetails: false,
       showSearchResults: false,
-      detailMovie: null
+      detailMovie: null,
+      showLanding: false
     }
   this.openSearch = this.openSearch.bind(this)
   this.closeSearch = this.closeSearch.bind(this)
@@ -90,6 +91,9 @@ class App extends React.Component {
 
   closeSuggest () {
     this.setState({showSuggestModal: false})
+  }
+  showLanding() {
+    this.setState({showLanding: true})
   }
 
   submitQuiz (event) {
@@ -295,6 +299,11 @@ class App extends React.Component {
           this.homePage()
         }}>
         Home
+        </button>
+        <button onClick={() => {
+          this.showDetails()
+        }}>
+        landing
         </button>
 
       {this.state.showQuizResults ?
