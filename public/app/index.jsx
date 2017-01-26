@@ -91,6 +91,7 @@ class App extends React.Component {
   openDetails (movie) {
     var context = this;
     this.setState({
+      showSearchResults: false,
       showDetails: true,
       showSearchResults: false,
       showQuizResults: false,
@@ -224,6 +225,7 @@ class App extends React.Component {
           this.state.showSearchResults ?
             <SearchMovieList
               movies={this.state.searchResult}
+               openDetails = {this.openDetails}
             />
             :
           this.state.showDetails ?

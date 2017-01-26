@@ -28,7 +28,8 @@ class SearchMovieList extends React.Component {
 				<Grid style = {{border: 1+'px solid black'}}>
 					<Row>
 						<Col sm={5} md={5}>
-		  	  		<img src={front.poster} />
+		  	  		<img src={front.poster} 
+						onClick={() => {this.props.openDetails(front)}}/>
 		  	  	</Col>
 		  	  	<Col sm={7} md={7}>
 		  	  	<p>{front.title}</p>
@@ -36,12 +37,12 @@ class SearchMovieList extends React.Component {
 		  	  	</Col>
 		    		<p>
 		    			<Button bsStyle="primary">Save for later(nonfunctional)</Button>
-		    			<Button bsStyle="primary">See full description(nonfunctional)</Button>
+		    			<Button bsStyle="primary" onClick={() => {this.props.openDetails(front)}}>See full description</Button>
 		    		</p>
 		    	</Row>
     		</Grid>
   		</Jumbotron>
-  		<h1>Next closest picks</h1>
+  		<h1>Search Results</h1>
 			<Grid>
 				<Row>
 					{movies.map((movie, i) => (
@@ -49,7 +50,8 @@ class SearchMovieList extends React.Component {
 		        	frontId={frontId}
 		        	changeFront={this.changeFront}
 			        key={i}
-			        movie={movie} />
+			        movie={movie}
+					openDetails = {this.props.openDetails} />
 		     	))}
 				</Row>
 			</Grid>

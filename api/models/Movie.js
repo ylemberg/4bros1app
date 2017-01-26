@@ -27,11 +27,11 @@ let movieSchema = new mongoose.Schema({
   },
   banner: {
     type: String,
-    default: null
+    default: 'http://www.waytoblue.com/wp-content/uploads/2015/10/HP-Movies-Banner.jpg'
   },
   trailer: {
     type: String,
-    default: null
+    default: 'https://www.youtube.com/embed/OE2p4KUMT1E'
   },
   genres: {
     type: [String]
@@ -94,6 +94,10 @@ let movieSchema = new mongoose.Schema({
   },
   imdbId: {
     type: String
+  },
+  type: {
+    type: String,
+    default: 'movie'
   }
 })
 
