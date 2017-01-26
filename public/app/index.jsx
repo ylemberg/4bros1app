@@ -1,5 +1,20 @@
 import React from 'react'
 import {render} from 'react-dom'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import reduxThunk from 'redux-thunk';
+
+import App as AppMain from './components/app';
+import Signin from './components/auth/signin';
+import Signout from './components/auth/signout';
+import Signup from './components/auth/signup';
+import Feature from './components/feature';
+import RequireAuth from './components/auth/require_auth';
+import Welcome from './components/welcome';
+import reducers from './reducers';
+import { AUTH_USER } from './actions/types';
+
 import MovieList from './movieList.jsx'
 import QuizMovieList from './quizMovieList.jsx'
 import SearchMovieList from './searchMovieList.jsx'
@@ -10,7 +25,19 @@ import { MenuItem } from 'react-bootstrap'
 import axios from 'axios'
 
 
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
+const token = localStorage.getItem('token');
+// If we have a token, consider the user to be signed in
+if (token) {
+  // we need to update application state
+  store.dispatch({ type: AUTH_USER });
+}
+
+
 class App extends React.Component {
+
   constructor (props) {
   super(props)
   this.state = {
@@ -243,4 +270,19 @@ class App extends React.Component {
   }
 }
 
-render(<App />, document.getElementById('app'))
+//render(<App />, document.getElementById('app'))
+
+// ReactDOM.
+render(
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={AppMain}>
+        <IndexRoute component={Welcome} />
+        <Route path="signin" component={Signin} />
+        <Route path="signout" component={Signout} />
+        <Route path="signup" component={Signup} />
+        <Route path="feature" component={RequireAuth(App)} />
+      </Route>
+    </Router>
+  </Provider>
+  , document.getElementById('app'));
