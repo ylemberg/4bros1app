@@ -58,4 +58,15 @@ router.route('/signin', function () {
 })
   .post([requireLogin, AuthenticationController.signin]);
 
+// app.get('*', function (request, response){
+//   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+// })
+
+
+router
+    .route('*')
+    .get(function (req,res) { res.send('hello world') } )
+    
+  
+
 module.exports = router
