@@ -13,6 +13,7 @@ class QuizMovieEntry extends React.Component {
 		var movie = this.props.movie
 		var front= this.props.front
 		var style = movie === front ? {border: 1+'px solid red'} : {border: 1+'px solid black'}
+		console.log('this movie is from', this.props.movie.year)
 	  return (
 	  <div>
 		  	<Col sm={2} md={2} style={style}

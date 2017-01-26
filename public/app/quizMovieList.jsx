@@ -8,9 +8,13 @@ class QuizMovieList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			front: this.props.movies[0]
+			front: null
 		}
 		this.changeFront = this.changeFront.bind(this)
+	}
+
+	componentWillMount() {
+		this.changeFront(this.props.movies[0])
 	}
 
 	changeFront(newFront) {
