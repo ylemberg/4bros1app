@@ -46,6 +46,7 @@ class App extends React.Component {
       searchResult: [],
       showSearchModal: false,
       showSuggestModal: false,
+      showGameQuizModal: false,
       showQuizResults: false,
       showDetails: false,
       showSearchResults: false,
@@ -56,6 +57,8 @@ class App extends React.Component {
   this.closeSearch = this.closeSearch.bind(this)
   this.openSuggest = this.openSuggest.bind(this)
   this.closeSuggest = this.closeSuggest.bind(this)
+  this.openGameQuiz = this.openGameQuiz.bind(this)
+  this.closeGameQuiz = this.closeGameQuiz.bind(this)
   this.submitQuiz = this.submitQuiz.bind(this)
   this.homePage = this.homePage.bind(this)
   this.submitSearch = this.submitSearch.bind(this)
@@ -94,6 +97,15 @@ class App extends React.Component {
   closeSuggest () {
     this.setState({showSuggestModal: false})
   }
+
+  openGameQuiz () {
+    this.setState({showGameQuizModal: true})
+  }
+
+  closeGameQuiz () {
+    this.setState({showGameQuizModal: false})
+  }
+
   showLanding() {
     this.setState({showLanding: true})
   }
@@ -103,65 +115,62 @@ class App extends React.Component {
     event.preventDefault();
     var context = this;
     this.closeSuggest();
+    this.closeGameQuiz();
     var quizResults = []
     var genre = document.getElementById('genre').value
+    if(genre === "Blue") {genre='Comedy'}
+    else if(genre === "Green") {genre='Action'}
+    else if(genre === "Red") {genre='Romance'}
+    else if(genre === "Purple") {genre='Drama'}
+    else {genre='Indifferent'}
+
     var era = document.getElementById('era').value
-    var sortBy = document.getElementById('sort').value
+    var provider = document.getElementById('sort').value
+    if(provider === "Cat") {provider="amazon"}
+    else if(provider === "Doggo") {provider='netflix'}
+    else if(provider === "Hamster") {provider='hulu'}
+    else if(provider === "Fish") {provider='hbo'}
+    else {provider="search all"}
     console.log('the genre you selected is', genre, era, sort)
     //default to return everything
     var test = function() {
       return true
     }
-    if (era === "Classic(1960-2000)") {
+    if (era === "Classic(1960-2000)" || era === "Child") {
       test = function(year) {
         if(year >= 1960 && year<=2000) {
           return true
         } else return false
       }
     }
-    else if(era === "Modern(Post-2000)") {
+    else if(era === "Modern(Post-2000)" || era ==="Teenager") {
       test = function(year) {
         if(year > 2000) {
           return true
         } else return false
       }
     }
-    else if(era === "New(2015-Now)") {
+    else if(era === "New(2015-Now)" || era === "Adult") {
       test = function(year) {
         if(year >= 2015) {
           return true
         } else return false
       }
     }
-    else if(era === "Old(pre-1960)") {
+    else if(era === "Old(pre-1960)" || era === "Senior") {
       test = function(year) {
         if(year < 1960) {
           return true
         } else return false
       }
     }
-
-    var order=''
-    if(sortBy === 'Awards') {
-      order = function() {
-
-      }
-    }
-    else if(sortBy === 'Rating') {
-      order = function(a,b) {
-        return b.imdb - a.imdb
-      }
-    }
-    else if(sortBy === 'Recommended') {
-      order = function() {
-
-      }
-    }
-    else if(sortBy === 'Popularity') {
-      order = function() {
-
-      }
-    }
+    //exampel of how to order by imdb rating
+    // if(sortBy === 'Rating') {
+    //   order = function(a,b) {
+    //     return b.imdb - a.imdb
+    //   }
+    // }
+ 
 
     axios.get('/api/sortByGenre', {
       headers: {
@@ -170,12 +179,20 @@ class App extends React.Component {
     })
     .then(resp => {
       console.log('quiz submitted, movies that matched "' + genre + '" are :' + resp.data.map( (movie) => movie.title))
-      for(let i = 0; i<resp.data.length; i++) {
-        if(test(resp.data[i].year)){
-          quizResults.push(resp.data[i])
+      console.log('you want to see', provider)
+      if(provider === 'search all') {
+        for(var i = 0; i<resp.data.length; i++) {
+          if(test(resp.data[i].year)){
+            quizResults.push(resp.data[i])
+          }
+        }
+      } else {
+        for(var i = 0; i<resp.data.length; i++) {
+          if(test(resp.data[i].year)&&resp.data[i][provider]){
+            quizResults.push(resp.data[i])
+          }
         }
       }
-      quizResults.sort(order)
       context.setState({
         showQuizResults: true,
         quizMovies: [quizResults[0],quizResults[1],quizResults[2],quizResults[3],quizResults[4]]
@@ -364,13 +381,69 @@ class App extends React.Component {
 
                 <p>
                 <label>
-                  How should we sort this (sort not yet implemented)
+                  What streaming service do you use?(note: make this a radio button)
                   <select id="sort">
-                    <option>Awards</option>
-                    <option>Rating</option>
-                    <option>Recommended</option>
-                    <option>Popularity</option>
-                    <option>Indifferent</option>
+                    <option>amazon</option>
+                    <option>hbo</option>
+                    <option>hulu</option>
+                    <option>netflix</option>
+                    <option>search all</option>
+                  </select>
+                </label>
+                </p>
+                <input type="submit" value="Submit" />
+              </form>
+          </Modal.Body>
+        </Modal>
+
+      <button onClick={() => {
+          this.openGameQuiz()
+        }}>
+        Play a game?
+        </button>
+
+      <Modal show={this.state.showGameQuizModal} onHide={this.closeGameQuiz}>
+          <Modal.Header closeButton>
+            <Modal.Title>Play a game and let us choose!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+              <form onSubmit={this.submitQuiz}>
+                <p>
+                 <label>
+                  What's your favorite color?
+                  <select id ="genre">
+                    <option>Blue</option>
+                    <option>Green</option>
+                    <option>Red</option>
+                    <option>Purple</option>
+                    <option>I'm colorblind</option>
+                  </select>
+                </label>
+                </p>
+
+                <p>
+                <label>
+                  How old are you?
+                  <select id="era">
+                    <option>Child</option>
+                    <option>Teenager</option>
+                    <option>Adult</option>
+                    <option>Senior</option>
+                    <option>Age is a social construct</option>
+                  </select>
+                </label>
+                </p>
+
+                <p>
+                <label>
+                Favorite Pet?
+                  <select id="sort">
+                    <option>Cat</option>
+                    <option>Doggo</option>
+                    <option>Hamster</option>
+                    <option>Fish</option>
+                    <option>Don't like animals</option>
                   </select>
                 </label>
                 </p>
@@ -387,7 +460,7 @@ class App extends React.Component {
         <button onClick={() => {
           this.showDetails()
         }}>
-        landing
+        landing(nonfunctional)
         </button>
 
       {this.state.showQuizResults ?
