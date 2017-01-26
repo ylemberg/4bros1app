@@ -57,7 +57,7 @@ class movieDescription extends React.Component {
 	  <h4>Genres: </h4><p>{genres}</p>
 
 	  <h4>Directors: </h4><p>{directors}</p>
-	  <h4>Where to Watch: </h4>
+	  <h4>Where to watch: </h4>
 	  {hbo}
 		{hulu}
 		{netflix}
