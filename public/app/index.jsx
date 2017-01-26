@@ -105,7 +105,7 @@ class App extends React.Component {
     var quizResults = []
     var genre = document.getElementById('genre').value
     var era = document.getElementById('era').value
-    var sort = document.getElementById('sort').value
+    var sortBy = document.getElementById('sort').value
     console.log('the genre you selected is', genre, era, sort)
     //default to return everything
     var test = function() {
@@ -140,6 +140,28 @@ class App extends React.Component {
       }
     }
 
+    var order=''
+    if(sortBy === 'Awards') {
+      order = function() {
+
+      }
+    }
+    else if(sortBy === 'Rating') {
+      order = function(a,b) {
+        return b.imdb - a.imdb
+      }
+    }
+    else if(sortBy === 'Recommended') {
+      order = function() {
+
+      }
+    }
+    else if(sortBy === 'Popularity') {
+      order = function() {
+
+      }
+    }
+
     axios.get('/api/sortByGenre', {
       headers: {
         genre: genre
@@ -152,6 +174,7 @@ class App extends React.Component {
           quizResults.push(resp.data[i])
         }
       }
+      quizResults.sort(order)
       context.setState({
         showQuizResults: true,
         quizMovies: [quizResults[0],quizResults[1],quizResults[2],quizResults[3],quizResults[4]]

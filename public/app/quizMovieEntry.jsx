@@ -11,9 +11,14 @@ class QuizMovieEntry extends React.Component {
 
 	render() {
 		var movie = this.props.movie
+		if (movie === undefined) {
+			movie = {title: 'sorry, could not find any more results', thumbnail: 'not found', genres:['not found']}
+		}
 		var front= this.props.front
 		var style = movie === front ? {border: 1+'px solid red'} : {border: 1+'px solid black'}
-		console.log('this movie is from', this.props.movie.year)
+		console.log('this movie is', movie.title, 'and is from', movie.year)
+		console.log('this movie has an imdb rating of', movie.imdb)
+		console.log('this movie genres are', movie.genres.join(','))
 	  return (
 	  <div>
 		  	<Col sm={2} md={2} style={style}
