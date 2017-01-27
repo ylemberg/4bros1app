@@ -21,6 +21,9 @@ import SearchMovieList from './searchMovieList.jsx'
 import MovieDescription from './movieDescription.jsx'
 import { Modal } from 'react-bootstrap'
 import { DropdownButton } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
+import { ButtonGroup } from 'react-bootstrap'
+
 import { MenuItem } from 'react-bootstrap'
 import axios from 'axios'
 
@@ -363,11 +366,13 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <button onClick={() => {
+      <ButtonGroup>
+        <DropdownButton title="Dropdown" bsStyle="primary" id="bg-vertical-dropdown-3">
+        <MenuItem eventKey="1" onClick={() => {
         this.openSearch()
       }}>
         Search
-        </button>
+        </MenuItem>
 
         <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
         <Modal.Header closeButton>
@@ -411,11 +416,11 @@ class App extends React.Component {
           </Modal.Body>
       </Modal>
 
-        <button onClick={() => {
+        <MenuItem eventKey="2" onClick={() => {
         this.openSuggest()
       }}>
         Pick a Flick
-        </button>
+        </MenuItem>
 
         <Modal show={this.state.showSuggestModal} onHide={this.closeSuggest}>
         <Modal.Header closeButton>
@@ -468,11 +473,11 @@ class App extends React.Component {
               </form>
           </Modal.Body>
       </Modal>
-      <button onClick={() => {
+      <MenuItem eventKey="3" onClick={() => {
           this.openGameQuiz()
         }}>
         Play a game?
-        </button>
+        </MenuItem>
 
       <Modal show={this.state.showGameQuizModal} onHide={this.closeGameQuiz}>
           <Modal.Header closeButton>
@@ -523,12 +528,13 @@ class App extends React.Component {
               </form>
           </Modal.Body>
         </Modal>
+       </DropdownButton>
 
-      <button onClick={() => {
+      <Button bsStyle="primary" onClick={() => {
           this.homePage()
         }}>
         Home
-        </button>
+        </Button></ButtonGroup>
       {
           this.state.showSpinner ?
           <img src = 'https://68.media.tumblr.com/345127a42a4baf76158920730f808f3b/tumblr_nak5muSmwi1r2geqjo1_500.gif'/>

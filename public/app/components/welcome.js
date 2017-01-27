@@ -32,11 +32,16 @@ export default () => < div >
         }
     } > <div style = {{
       textAlign: 'center',
-      margin: 200,
-    }}>< h1 style={{ color: '161D26' }}> Pick A Flick < /h1></div> <
+      margin: 200
+
+    }}>< h1 style={{ color: '161D26',
+    fontWeight: 400,
+    fontSize: 75
+
+   }}> Pick A Flick < /h1></div> <
     /div> <
     /Parallax> <div id="welcomeMiddle"style={{ marginTop: 200 }}>
-    
+
     <Grid>
     <Row>
     <Col xs={6} md={4}>
