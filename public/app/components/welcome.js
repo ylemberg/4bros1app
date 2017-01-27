@@ -36,6 +36,7 @@ export default () => < div >
     }}>< h1 style={{ color: '161D26' }}> Pick A Flick < /h1></div> <
     /div> <
     /Parallax> <div id="welcomeMiddle"style={{ marginTop: 200 }}>
+    
     <Grid>
     <Row>
     <Col xs={6} md={4}>
@@ -110,8 +111,12 @@ export default () => < div >
         padding: 10 ,
         textAlign: 'center',
       }}>
-    <h2 style={{ color: '161D26' }}>4bros1app</h2>
-    <h4>Commited to simplify the decision making process in your movie and television watching experience</h4>
+    <h2 style={{ color: '161D26',
+    fontWeight: 300,
+    fontSize: 75
+
+   }}>4bros1app</h2>
+    <h4 style={{ color: '161D26' }}>Commited to simplify the decision making process in your movie and television watching experience</h4>
     <div style={{ marginTop: 10 }}>
       <Grid>
         <Row>
