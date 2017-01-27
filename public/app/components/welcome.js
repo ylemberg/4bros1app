@@ -97,41 +97,49 @@ export default () => < div >
     <div style={{ marginTop: 10 }}>
       <Grid>
         <Row>
-          <Col xs={6} md={4}>
+          <Col xs={6} md={6}>
             <Image style={{
-              marginTop: 10,
+              marginTop: 20,
         		   width: 170,
         		   height: 180 }} src="/images/big_boss.jpg" circle />
                <h3>Daniel Osaki</h3>
                <h4>Project Owner</h4>
+               <h5>Stuff but also things</h5>
+
 
           </Col>
-          <Col xs={6} md={4}>
+          <Col xs={6} md={6}>
             <Image style={{
-              marginTop: 10,
+              marginTop: 20,
         		   width: 170,
         		   height: 180 }} src="/images/big_boss.jpg" circle />
                <h3>David Park</h3>
                <h4>Auth</h4>
+               <h5>Stuff but also things</h5>
 
           </Col>
-          <Col xs={6} md={4}>
+          </Row>
+          <Row>
+          <Col xs={6} md={6}>
             <Image style={{
-              marginTop: 10,
+              marginTop: 20,
         		   width: 170,
         		   height: 180 }} src="/images/big_boss.jpg" circle />
                <h3>Jesse Nocon</h3>
                <h4>Backend</h4>
+               <h5>Stuff but also things</h5>
 
           </Col>
-          <Col xs={6} md={4}>
+          <Col xs={6} md={6}>
             <Image style={{
-              marginTop: 10,
+              marginTop: 20,
 
                width: 170,
-               height: 180 }} src="/images/big_boss.jpg" circle />
+               height: 180 }} src="/images/brit.png" circle />
                <h3>Richard Durazo</h3>
                <h4>Scrum</h4>
+               <h5>Stuff but also things</h5>
+
 
           </Col>
         </Row>
