@@ -37,7 +37,6 @@ if (token) {
 class App extends React.Component {
 
   constructor (props) {
-<<<<<<< HEAD
   super(props)
   this.state = {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
@@ -129,7 +128,6 @@ class App extends React.Component {
     else if(genre === "I'm colorblind"){genre='Indifferent'}
 
     var era = document.getElementById('era').value
-<<<<<<< HEAD
     var provider = document.getElementById('sort').value
     if(provider === "Cat") {provider="amazon"}
     else if(provider === "Doggo") {provider='netflix'}
@@ -141,14 +139,14 @@ class App extends React.Component {
     var test = function() {
       return true
     }
-    if (era === "Classic(1960-2000)" || era === "Child") {
+    if (era === "Classic(1970-2000)" || era === "Teenager") {
       test = function(year) {
-        if(year >= 1960 && year<=2000) {
+        if(year >= 1970 && year<=2000) {
           return true
         } else return false
       }
     }
-    else if(era === "Modern(Post-2000)" || era ==="Teenager") {
+    else if(era === "Modern(Post-2000)" || era ==="Child") {
       test = function(year) {
         if(year > 2000) {
           return true
@@ -162,9 +160,9 @@ class App extends React.Component {
         } else return false
       }
     }
-    else if(era === "Old(pre-1960)" || era === "Senior") {
+    else if(era === "Old(pre-1970)" || era === "Senior") {
       test = function(year) {
-        if(year < 1960) {
+        if(year < 1970) {
           return true
         } else return false
       }
@@ -239,7 +237,27 @@ class App extends React.Component {
     // })
   }
 
+  saveForLater (movie) {
+    axios.get('/api/saveMovieToUser', {
+      headers: {
+        //email: this email address,
+        movie: movie
+      }
+    })
+    .then(resp => {
+      console.log('success in saving movie to database', resp)
+    })
+    .catch(err => {
+      console.log('error in saving movie to user', err)
+    })
+  }
+
   submitSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
     var context = this
     event.preventDefault()
     this.closeSearch()
@@ -254,6 +272,7 @@ class App extends React.Component {
       // let searchArr =[];
       // searchArr.push(resp.data);
       context.setState({searchResult: resp.data,
+        showSpinner: false,
         showSearchResults: true, 
         showQuizResults: false
       })
@@ -261,6 +280,11 @@ class App extends React.Component {
   }
 
   submitShowSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
     var context = this
     event.preventDefault()
     this.closeSearch()
@@ -274,13 +298,20 @@ class App extends React.Component {
     .then(resp => {
       // let searchArr =[];
       // searchArr.push(resp.data);
-      context.setState({searchResult: resp.data,
-        showSearchResults: true   
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false   
       })
     })
   }
 
   submitGenreSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
     var context = this
     event.preventDefault()
     this.closeSearch()
@@ -294,13 +325,20 @@ class App extends React.Component {
     .then(resp => {
       // let searchArr =[];
       // searchArr.push(resp.data);
-      context.setState({searchResult: resp.data,
-        showSearchResults: true
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false
       })
     })
   }
 
   submitRelatedSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
      var context = this
      event.preventDefault()
      this.closeSearch()
@@ -314,8 +352,10 @@ class App extends React.Component {
     .then(resp => {
       // let searchArr =[];
       // searchArr.push(resp.data);
-      context.setState({searchResult: resp.data,
-        showSearchResults: true
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false
       })
     })
    }
