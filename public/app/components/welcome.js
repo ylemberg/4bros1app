@@ -26,14 +26,14 @@ export default () => < div >
 div style = {
         {
             width: 800,
-            height: 500,
+            height: 300,
         }
     } > <div style = {{
       textAlign: 'center',
       margin: 200,
     }}>< h1 > Pick A Flick < /h1></div> <
     /div> <
-    /Parallax> <div>
+    /Parallax> <div style={{ marginTop: 200 }}>
     <Image src="/images/mongodb.jpg" style={{
 		  height: 80,
 		  margin: 10}}/>
@@ -46,14 +46,32 @@ div style = {
 		  margin:10}}/>
 		<Image src="/images/node.png" style={{
 		  height: 80,
-		  margin:10}}/> </div><footer class="content-footer" style={{
-        backgroundColor: 'D0C3B7',
-        marginTop: 10,
+		  margin:10}}/>
+    <div style={{ margin: 200 }}>  </div>
+      <Parallax strength={300}>
+            <Background>
+  			<img src="/images/banner.jpg" />
+              <div style={{
+                 width: 500,
+                 height: 300,
+                }}></div>
+  			<img src="/images/banner.png"/>
+            </Background>
+  	  <Col xs={6} md={4}>
+
+  	  <div style={{
+  		   width: 600,
+  		   height: 500,
+  		}}></div>
+  	  </Col>
+  	  </Parallax>
+      </div><footer class="content-footer" style={{
+        backgroundColor: '74818C',
         padding: 10 ,
         textAlign: 'center',
       }}>
     <p>footer placeholder:</p>
-    <div>
+    <div style={{ marginTop: 200 }}>
         <ul class="icons">
             <li>
                 <i class="fa fa-google-plus"></i>

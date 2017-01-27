@@ -18,39 +18,39 @@ class movieDescription extends React.Component {
 		var genres = (this.props.movie.genres).join(' ');
 		var actors = (this.props.movie.actors).slice(0,5).join(', ');
 		var directors = (this.props.movie.directors).join(' ');
-		var hbo = this.props.movie.hbo ? 
+		var hbo = this.props.movie.hbo ?
 		<Image src="/images/hbo.png" style={{
-		  height: 20, 
+		  height: 20,
 		  margin: 5}}/> : null;
-		var hulu = this.props.movie.hulu ? 
+		var hulu = this.props.movie.hulu ?
 		<Image src="/images/Hulu_Logo_Option_A.png" style={{
-		  height: 20, 
+		  height: 20,
 		  margin:5}}/> : null;
 		var netflix = this.props.movie.netflix ?
 		<Image src="/images/netflix-logo-small.png" style={{
-		  height: 20, 
+		  height: 20,
 		  margin:5}}/> : null;
 		var amazon = this.props.movie.amazon ?
 		<Image src="/images/amazon_logo.png" style={{
-		  height: 20, 
-		  margin:5}}/> : null;	  
+		  height: 20,
+		  margin:5}}/> : null;
 
 	  return (<div><Parallax strength={300}>
           <Background>
 			<img src={this.props.movie.banner} />
             <div style={{
-               width: 800, 
-               height: 300, 
+               width: 800,
+               height: 300,
               }}></div>
 			<img src={this.props.movie.banner} />
           </Background>
 	  <Col xs={6} md={4}>
 
 	  <div style={{
-		   width: 800, 
-		   height: 600, 
+		   width: 800,
+		   height: 300, 
 		}}></div>
-	  </Col>		  
+	  </Col>
 	  </Parallax>
 	  <Col xs={6} md={4}>
 	  <Image src={this.props.movie.poster} responsive />
@@ -72,10 +72,10 @@ class movieDescription extends React.Component {
 	  <iframe className="embed-responsive-item" src={this.props.movie.trailer} allowFullScreen></iframe>
 	  </div>
 	  </div>
-	  </Col>        
+	  </Col>
 	  </div>
 	  );
 	}
 }
 
-export default movieDescription 
+export default movieDescription
