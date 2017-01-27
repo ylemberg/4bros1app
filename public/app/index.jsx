@@ -51,6 +51,7 @@ class App extends React.Component {
       showDetails: false,
       showSearchResults: false,
       detailMovie: null,
+      showSpinner: false
     }
   this.openSearch = this.openSearch.bind(this)
   this.closeSearch = this.closeSearch.bind(this)
@@ -111,6 +112,11 @@ class App extends React.Component {
   submitQuiz (event) {
     //prevent submission from reloading page
     event.preventDefault();
+    this.setState({
+      showSpinner: true,
+      showQuizResults: false,
+      quizMovies: null
+    })
     var context = this;
     this.closeSuggest();
     this.closeGameQuiz();
@@ -120,7 +126,7 @@ class App extends React.Component {
     else if(genre === "Green") {genre='Action'}
     else if(genre === "Red") {genre='Romance'}
     else if(genre === "Purple") {genre='Drama'}
-    else {genre='Indifferent'}
+    else if(genre === "I'm colorblind"){genre='Indifferent'}
 
     var era = document.getElementById('era').value
     var provider = document.getElementById('sort').value
@@ -128,8 +134,8 @@ class App extends React.Component {
     else if(provider === "Doggo") {provider='netflix'}
     else if(provider === "Hamster") {provider='hulu'}
     else if(provider === "Fish") {provider='hbo'}
-    else {provider="search all"}
-    console.log('the genre you selected is', genre, era, sort)
+    else if(provider === "Don't like animals"){provider="search all"}
+    console.log('the genre you selected is', genre, era, provider)
     //default to return everything
     var test = function() {
       return true
@@ -192,6 +198,7 @@ class App extends React.Component {
         }
       }
       context.setState({
+        showSpinner: false,
         showQuizResults: true,
         quizMovies: [quizResults[0],quizResults[1],quizResults[2],quizResults[3],quizResults[4]]
       })
@@ -247,7 +254,8 @@ class App extends React.Component {
       // let searchArr =[];
       // searchArr.push(resp.data);
       context.setState({searchResult: resp.data,
-        showSearchResults: true 
+        showSearchResults: true, 
+        showQuizResults: false
       })
     })
   }
@@ -267,7 +275,7 @@ class App extends React.Component {
       // let searchArr =[];
       // searchArr.push(resp.data);
       context.setState({searchResult: resp.data,
-        showSearchResults: true 
+        showSearchResults: true   
       })
     })
   }
@@ -456,7 +464,11 @@ class App extends React.Component {
         Home
         </button>
 
-      {this.state.showQuizResults ?
+      {
+          this.state.showSpinner ?
+          <img src = 'http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif'/>
+          :
+          this.state.showQuizResults ?
           <QuizMovieList
             movies ={this.state.quizMovies}
             openDetails = {this.openDetails}
@@ -464,7 +476,7 @@ class App extends React.Component {
           this.state.showSearchResults ?
             <SearchMovieList
               movies={this.state.searchResult}
-               openDetails = {this.openDetails}
+              openDetails = {this.openDetails}
             />
             :
           this.state.showDetails ?
