@@ -1,6 +1,9 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+
 import { PageHeader } from 'react-bootstrap';
 import { Parallax, Background } from 'react-parallax';
 
@@ -89,25 +92,49 @@ export default () => < div >
         padding: 10 ,
         textAlign: 'center',
       }}>
-    <p>footer placeholder:</p>
-    <div style={{ marginTop: 200 }}>
-        <ul class="icons">
-            <li>
-                <i class="fa fa-google-plus"></i>
-            </li>
-            <li>
-                <a href="https://www.instagram.com/">
-                    <i class="fa fa-instagram"></i></a>
-            </li>
-            <li>
-                <a href="https://github.com/">
-                    <i class="fa fa-github"></i></a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/">
-                    <i class="fa fa-linkedin"></i></a>
-            </li>
+    <h2>4bros1app</h2>
+    <h4>Commited to simplify the decision making process in your movie and television watching experience</h4>
+    <div style={{ marginTop: 10 }}>
+      <Grid>
+        <Row>
+          <Col xs={6} md={4}>
+            <Image style={{
+              marginTop: 10,
+        		   width: 170,
+        		   height: 180 }} src="/images/big_boss.jpg" circle />
+               <h3>Daniel Osaki</h3>
+               <h4>Project Owner</h4>
 
-        </ul>
+          </Col>
+          <Col xs={6} md={4}>
+            <Image style={{
+              marginTop: 10,
+        		   width: 170,
+        		   height: 180 }} src="/images/big_boss.jpg" circle />
+               <h3>David Park</h3>
+               <h4>Auth</h4>
+
+          </Col>
+          <Col xs={6} md={4}>
+            <Image style={{
+              marginTop: 10,
+        		   width: 170,
+        		   height: 180 }} src="/images/big_boss.jpg" circle />
+               <h3>Jesse Nocon</h3>
+               <h4>Backend</h4>
+
+          </Col>
+          <Col xs={6} md={4}>
+            <Image style={{
+              marginTop: 10,
+
+               width: 170,
+               height: 180 }} src="/images/big_boss.jpg" circle />
+               <h3>Richard Durazo</h3>
+               <h4>Scrum</h4>
+
+          </Col>
+        </Row>
+      </Grid>
     </div>
 </footer>< /div>;
