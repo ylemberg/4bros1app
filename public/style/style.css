@@ -2,6 +2,33 @@
   color: red;
 }
 
-.landingh {
+.landing {
   text-align: center;
+}
+
+#app {
+	background-color: 161d26;
+	color: a6a292;
+}
+
+#welcomeMiddle{
+	background-color: 74818c;
+}
+
+.descriptionPage{
+	background-color: 566273;
+	color: 161d26;
+}
+
+.movieEntry {
+  border-width: 3px;
+  border-color: 566273;   
+  border-style: solid; 
+}
+
+.col-md-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
 }

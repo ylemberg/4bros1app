@@ -35,12 +35,30 @@ class movieDescription extends React.Component {
 		  height: 20,
 		  margin:5}}/> : null;
 
+		var imdb = this.props.movie.imdb ?
+		<div>
+			<Image src="https://static1.squarespace.com/static/5425e1d3e4b0e2d40dd970f6/t/5441c6ede4b0c5dff241c7c7/1413596909982/IMDb_logo.png" style={{
+				height:30,
+				margin:5}}/> {this.props.movie.imdb}
+		</div> : null;
+		var metaCritic = this.props.movie.metaCritic ?
+		<div>
+			<Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metacritic.svg/2000px-Metacritic.svg.png" style={{
+				height:30,
+				margin:5}}/> {this.props.movie.metaCritic}
+		</div> : null;
+		var rottenTomatoes = this.props.movie.rottenTomatoes ?
+		<div>
+			<Image src="https://userscontent2.emaze.com/images/edb77feb-b05f-47b3-810c-61dd741c087b/bd3895dd67e7612dd9fcfb4c801c7c8a.png" style={{
+				height:30,
+				margin:5}}/> {this.props.movie.rottenTomatoes} %
+		</div> : null		
 	  return (<div><Parallax strength={300}>
           <Background>
 			<img src={this.props.movie.banner} />
             <div style={{
                width: 800,
-               height: 300,
+               height: 300
               }}></div>
 			<img src={this.props.movie.banner} />
           </Background>
@@ -48,11 +66,11 @@ class movieDescription extends React.Component {
 
 	  <div style={{
 		   width: 800,
-		   height: 300, 
+		   height: 300
 		}}></div>
 	  </Col>
 	  </Parallax>
-	  <Col xs={6} md={4}>
+	  <Col xs={6} md={4} className="descriptionPage">
 	  <Image src={this.props.movie.poster} responsive />
 	  <h4>Genres: </h4><p>{genres}</p>
 
@@ -62,8 +80,12 @@ class movieDescription extends React.Component {
 		{hulu}
 		{netflix}
 		{amazon}
+		<h4>Ratings: </h4>
+		{imdb}
+		{metaCritic}
+		{rottenTomatoes}
 	  </Col>
-	  <Col xs={12} md={8}>
+	  <Col xs={12} md={8} className="descriptionPage">
 	  <PageHeader>{this.props.movie.title}<small> {this.props.movie.year}</small></PageHeader>
 	  <p>{this.props.movie.description}</p>  <h3>Actors: </h3><p>{actors}</p>
 	  <h3>Trailer</h3>

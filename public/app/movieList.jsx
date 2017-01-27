@@ -17,7 +17,7 @@ class MovieList extends React.Component {
 	console.log('movies at render is', movies)
 	return(
 		<div>
-			<h1>Most popular</h1>
+			<h1 className="text-center">Most popular</h1>
 			<Grid>
 				<Row>
 				{movies.map((movie, i) => (
@@ -29,7 +29,7 @@ class MovieList extends React.Component {
 				</Row>
 			</Grid>
 			
-			<h1>Highest Rated</h1>
+			<h1 className="text-center">Highest Rated</h1>
 			<Grid>
 				<Row>
 				{movies.map((movie, i) => (
@@ -41,7 +41,7 @@ class MovieList extends React.Component {
 				</Row>
 			</Grid>
 
-			<h1>Staff Recommendations</h1>
+			<h1 className="text-center">Staff Recommendations</h1>
 			<Grid>
 				<Row>
 				{movies.map((movie, i) => (
