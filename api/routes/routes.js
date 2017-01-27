@@ -6,8 +6,8 @@ let express = require('express');
 let searchController = require('../controllers/searchController.js')
 let detailsController = require('../controllers/detailsController')
 let findFirstFive = require('../controllers/findFirstFive.js')
-
 let sortByGenre = require('../controllers/sortByGenre.js')
+let saveMovieToUser = require('../controllers/saveMovieToUser.js')
 
 const AuthenticationController = require('../controllers/authentication_controller');
 const passportService = require('../../services/passport');
@@ -50,6 +50,10 @@ router
 router
     .route('/sortByGenre')
     .get(sortByGenre)
+
+router
+    .route('/saveMovieToUser')
+    .get(saveMovieToUser)
 
 router.route('/signup', function () {
   console.log('THIS ROUTE /api/signup')

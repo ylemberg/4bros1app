@@ -139,14 +139,14 @@ class App extends React.Component {
     var test = function() {
       return true
     }
-    if (era === "Classic(1960-2000)" || era === "Child") {
+    if (era === "Classic(1970-2000)" || era === "Teenager") {
       test = function(year) {
-        if(year >= 1960 && year<=2000) {
+        if(year >= 1970 && year<=2000) {
           return true
         } else return false
       }
     }
-    else if(era === "Modern(Post-2000)" || era ==="Teenager") {
+    else if(era === "Modern(Post-2000)" || era ==="Child") {
       test = function(year) {
         if(year > 2000) {
           return true
@@ -160,9 +160,9 @@ class App extends React.Component {
         } else return false
       }
     }
-    else if(era === "Old(pre-1960)" || era === "Senior") {
+    else if(era === "Old(pre-1970)" || era === "Senior") {
       test = function(year) {
-        if(year < 1960) {
+        if(year < 1970) {
           return true
         } else return false
       }
@@ -235,6 +235,21 @@ class App extends React.Component {
     // .catch(err => {
     //   console.log('error in component did mount in index', err)
     // })
+  }
+
+  saveForLater (movie) {
+    axios.get('/api/saveMovieToUser', {
+      headers: {
+        //email: this email address,
+        movie: movie
+      }
+    })
+    .then(resp => {
+      console.log('success in saving movie to database', resp)
+    })
+    .catch(err => {
+      console.log('error in saving movie to user', err)
+    })
   }
 
   submitSearch (event) {
