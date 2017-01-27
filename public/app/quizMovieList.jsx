@@ -31,11 +31,11 @@ class QuizMovieList extends React.Component {
 	console.log('movies at render is', movies)
 	return(
 		<div>
-			<Jumbotron>
-				<Grid style = {{border: 1+'px solid black'}}>
-					<Row>
+			<Jumbotron className = "searchResults">
+				<Grid>
+					<Row className = "searchResults">
 						<Col sm={5} md={5}>
-		  	  		<img onClick={() => {this.props.openDetails(front)}} src={front.poster} />
+		  	  		<img className = "movieEntry" onClick={() => {this.props.openDetails(front)}} src={front.poster} />
 		  	  	</Col>
 		  	  	<Col sm={7} md={7}>
 		  	  	<p>{front.title}</p>

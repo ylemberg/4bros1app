@@ -442,10 +442,10 @@ class App extends React.Component {
                   <label>
                   What era?
                   <select id='era'>
-                    <option>Classic(1960-2000)</option>
+                    <option>Classic(1970-2000)</option>
                     <option>Modern(Post-2000)</option>
                     <option>New(2015-Now)</option>
-                    <option>Old(pre-1960)</option>
+                    <option>Old(pre-1970)</option>
                     <option>Indifferent</option>
                   </select>
                 </label>
@@ -531,7 +531,7 @@ class App extends React.Component {
         </button>
       {
           this.state.showSpinner ?
-          <img src = 'http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif'/>
+          <img src = 'https://68.media.tumblr.com/345127a42a4baf76158920730f808f3b/tumblr_nak5muSmwi1r2geqjo1_500.gif'/>
           :
           this.state.showQuizResults ?
           <QuizMovieList

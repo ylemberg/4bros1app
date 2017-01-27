@@ -11,13 +11,13 @@ class SearchMovieEntry extends React.Component {
   render () {
     var movie = this.props.movie
     var frontId = this.props.frontId
-    var style = movie === frontId ? {border: 1 + 'px solid red'} : {border: 1 + 'px solid black'}
+    var style = movie === frontId ? {border: 3 + 'px solid red'} : {border: 3 + 'px solid gray'}
     return (
       <div>
-        <Col sm={2} md={2} style={style}
+        <Col sm={2} md={2}
           onMouseEnter={() => { this.props.changeFront(movie) }}
           onClick={() => {this.props.openDetails(movie)}}>
-          <img src={movie.thumbnail} />
+          <img  style={style} src={movie.thumbnail} />
           <p>{movie.title}</p>
         </Col>
       </div>
