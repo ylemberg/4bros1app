@@ -33,20 +33,24 @@ div style = {
       margin: 200,
     }}>< h1 > Pick A Flick < /h1></div> <
     /div> <
-    /Parallax> <div style={{ marginTop: 200 }}>
-    <Image src="/images/mongodb.jpg" style={{
-		  height: 80,
-		  margin: 10}}/>
-
-		<Image src="/images/express.jpg" style={{
-		  height: 80,
-		  margin:10}}/>
+    /Parallax> <div id="welcomeMiddle"style={{ marginTop: 200 }}>
 		<Image src="/images/react.png" style={{
 		  height: 80,
-		  margin:10}}/>
+		  margin:10,
+      marginTop:100}}/>
+    <Image src="https://webassets.mongodb.com/_com_assets/cms/MongoDB-Logo-5c3a7405a85675366beb3a5ec4c032348c390b3f142f5e6dddf1d78e2df5cb5c.png" style={{
+      height: 80,
+      margin: 10,
+      marginTop:100}}/>
+    <Image src="http://mean.io/wp-content/themes/twentysixteen-child/images/express.png" style={{
+      height: 80,
+      margin:10,
+      marginTop:100}}/>
 		<Image src="/images/node.png" style={{
 		  height: 80,
-		  margin:10}}/>
+		  margin:10,
+      marginTop:100}}/>
+
     <div style={{ margin: 200 }}>  </div>
       <Parallax strength={300}>
             <Background>
