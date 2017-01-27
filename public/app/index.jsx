@@ -37,7 +37,6 @@ if (token) {
 class App extends React.Component {
 
   constructor (props) {
-<<<<<<< HEAD
   super(props)
   this.state = {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
@@ -129,7 +128,6 @@ class App extends React.Component {
     else if(genre === "I'm colorblind"){genre='Indifferent'}
 
     var era = document.getElementById('era').value
-<<<<<<< HEAD
     var provider = document.getElementById('sort').value
     if(provider === "Cat") {provider="amazon"}
     else if(provider === "Doggo") {provider='netflix'}
