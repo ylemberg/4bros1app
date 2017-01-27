@@ -22,8 +22,7 @@ export default () => < div >
     <
     /Background>
 
-<
-div style = {
+<div style = {
         {
             width: 800,
             height: 300,
