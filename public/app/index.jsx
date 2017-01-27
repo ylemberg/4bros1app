@@ -238,6 +238,11 @@ class App extends React.Component {
   }
 
   submitSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
     var context = this
     event.preventDefault()
     this.closeSearch()
@@ -252,6 +257,7 @@ class App extends React.Component {
       // let searchArr =[];
       // searchArr.push(resp.data);
       context.setState({searchResult: resp.data,
+        showSpinner: false,
         showSearchResults: true, 
         showQuizResults: false
       })
@@ -259,6 +265,11 @@ class App extends React.Component {
   }
 
   submitShowSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
     var context = this
     event.preventDefault()
     this.closeSearch()
@@ -272,13 +283,20 @@ class App extends React.Component {
     .then(resp => {
       // let searchArr =[];
       // searchArr.push(resp.data);
-      context.setState({searchResult: resp.data,
-        showSearchResults: true   
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false   
       })
     })
   }
 
   submitGenreSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
     var context = this
     event.preventDefault()
     this.closeSearch()
@@ -292,13 +310,20 @@ class App extends React.Component {
     .then(resp => {
       // let searchArr =[];
       // searchArr.push(resp.data);
-      context.setState({searchResult: resp.data,
-        showSearchResults: true
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false
       })
     })
   }
 
   submitRelatedSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
      var context = this
      event.preventDefault()
      this.closeSearch()
@@ -312,8 +337,10 @@ class App extends React.Component {
     .then(resp => {
       // let searchArr =[];
       // searchArr.push(resp.data);
-      context.setState({searchResult: resp.data,
-        showSearchResults: true
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false
       })
     })
    }
