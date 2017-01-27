@@ -15,17 +15,17 @@ class QuizMovieEntry extends React.Component {
 			movie = {title: 'sorry, could not find any more results', thumbnail: 'not found', genres:['not found']}
 		}
 		var front= this.props.front
-		var style = movie === front ? {border: 1+'px solid red'} : {border: 1+'px solid black'}
+		var style = movie === front ? {border: 3+'px solid red'} : {border: 3+'px solid gray'}
 		console.log('this movie is', movie.title, 'and is from', movie.year)
 		console.log('this movie has an imdb rating of', movie.imdb)
 		console.log('this movie genres are', movie.genres.join(','))
 	  return (
 	  <div>
-		  	<Col sm={2} md={2} style={style}
+		  	<Col sm={2} md={2}
 		  	onMouseEnter = {() => {this.props.changeFront(movie)}}
 		  	onClick = {() => {this.props.openDetails(movie)}}
 		  	>
-		  		<img src={movie.thumbnail}/>
+		  		<img src={movie.thumbnail}  style={style}/>
       		<p>{movie.title}</p>
 		  	</Col>
 	  </div>
