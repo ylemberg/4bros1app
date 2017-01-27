@@ -12,8 +12,8 @@ class movieEntry extends React.Component {
 	render() {
 		var movie = this.props.movie
 	  return (
-      <Col sm={2} md={2} style={{border: 1+'px solid black'}}> 
-      	<img 
+      <Col sm={2} md={2}> 
+      	<img className="movieEntry"
 		  onClick = {() => {this.props.openDetails(movie)}} 
 		  src={movie.thumbnail}/>
       	<p>{movie.title}</p>
