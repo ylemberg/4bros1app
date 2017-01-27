@@ -188,8 +188,9 @@ utils.addShowToDb = gbOptions => {
 utils.addRelatedToDB = gbOptions => {
   return new Promise(function (resolve, reject) {
     let relatedArr = []
+    let length = 5;
     let checkForResolve = array => {
-      if (array.length === 5) {
+      if (array.length === 5 || array.length === length) {
         resolve(relatedArr)
       }
     }
@@ -197,6 +198,7 @@ utils.addRelatedToDB = gbOptions => {
     request(gbOptions)
     .then(resp => {
       let tempArr = resp.results
+      length = tempArr.length
       tempArr = tempArr.slice(0, 5)
       tempArr.forEach(mov => {
         Movie.find({guideboxId: mov.id})
@@ -206,7 +208,6 @@ utils.addRelatedToDB = gbOptions => {
             checkForResolve(relatedArr)
             console.log('in forEach found in db')
           } else {
-            console.log('is it here = ', mov.id)
             let movOptions = {
               uri: 'http://api-public.guidebox.com/v2/movies/' + mov.id,
               headers: {
