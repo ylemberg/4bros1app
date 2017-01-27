@@ -27,6 +27,10 @@ router
 router
     .route('/searchByGenre')
     .get(searchController.byGenre)
+
+router
+    .route('/searchByRelated')
+    .get(searchController.byRelated)
     
 router
     .route('/searchByMovieTitle/:id')

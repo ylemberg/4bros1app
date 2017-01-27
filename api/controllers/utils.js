@@ -88,6 +88,7 @@ utils.addToDb = gbOptions => {
             if (resp.imdbRating === 'N/A') {
               movieObj.imdb = null
             }
+            console.log(movieObj)
             Movie.create(movieObj)
             .then(function (resp) {
               if (resp) {
@@ -181,6 +182,51 @@ utils.addShowToDb = gbOptions => {
           })
         })
       })
+  })
+}
+
+utils.addRelatedToDB = gbOptions => {
+  return new Promise(function (resolve, reject) {
+    let relatedArr = []
+    let checkForResolve = array => {
+      if (array.length === 5) {
+        resolve(relatedArr)
+      }
+    }
+
+    request(gbOptions)
+    .then(resp => {
+      let tempArr = resp.results
+      tempArr = tempArr.slice(0, 5)
+      tempArr.forEach(mov => {
+        Movie.find({guideboxId: mov.id})
+        .then(resp => {
+          if (resp.length > 0) {
+            relatedArr.push(resp[0])
+            checkForResolve(relatedArr)
+            console.log('in forEach found in db')
+          } else {
+            console.log('is it here = ', mov.id)
+            let movOptions = {
+              uri: 'http://api-public.guidebox.com/v2/movies/' + mov.id,
+              headers: {
+                'User-Agent': 'Request-Promise',
+                'Authorization': '53d39189c3ecb7ab6757b6bc311f4e5b76c8f792'
+              },
+              json: true
+            }
+            utils.addToDb(movOptions)
+            .then(resp => {
+              relatedArr.push(resp)
+              checkForResolve(relatedArr)
+            })
+            .catch(error => {
+              reject(error)
+            })
+          }
+        })
+      })
+    })
   })
 }
 module.exports = utils

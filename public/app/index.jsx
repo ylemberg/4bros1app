@@ -1,19 +1,19 @@
 import React from 'react'
 import {render} from 'react-dom'
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import reduxThunk from 'redux-thunk';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import reduxThunk from 'redux-thunk'
 
-import AppMain from './components/app';
-import Signin from './components/auth/signin';
-import Signout from './components/auth/signout';
-import Signup from './components/auth/signup';
-import Feature from './components/feature';
-import RequireAuth from './components/auth/require_auth';
-import Welcome from './components/welcome';
-import reducers from './reducers';
-import { AUTH_USER } from './actions/types';
+import AppMain from './components/app'
+import Signin from './components/auth/signin'
+import Signout from './components/auth/signout'
+import Signup from './components/auth/signup'
+import Feature from './components/feature'
+import RequireAuth from './components/auth/require_auth'
+import Welcome from './components/welcome'
+import reducers from './reducers'
+import { AUTH_USER } from './actions/types'
 
 import MovieList from './movieList.jsx'
 import QuizMovieList from './quizMovieList.jsx'
@@ -24,21 +24,20 @@ import { DropdownButton } from 'react-bootstrap'
 import { MenuItem } from 'react-bootstrap'
 import axios from 'axios'
 
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore)
+const store = createStoreWithMiddleware(reducers)
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers);
-
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('token')
 // If we have a token, consider the user to be signed in
 if (token) {
   // we need to update application state
-  store.dispatch({ type: AUTH_USER });
+  store.dispatch({ type: AUTH_USER })
 }
-
 
 class App extends React.Component {
 
   constructor (props) {
+<<<<<<< HEAD
   super(props)
   this.state = {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
@@ -65,17 +64,18 @@ class App extends React.Component {
   this.submitShowSearch = this.submitShowSearch.bind(this)
   this.openDetails = this.openDetails.bind(this)
   this.submitGenreSearch = this.submitGenreSearch.bind(this)
+  this.submitRelatedSearch = this.submitRelatedSearch.bind(this)
 }
 
   componentDidMount () {
-    var context = this;
+    var context = this
     axios.get('/api/getFirstFive')
     .then(result => {
       context.setState({
         movies: result.data,
         quizMovies: result.data
       })
-      console.log('movie data set to', context.state.movies);
+      console.log('movie data set to', context.state.movies)
     })
     .catch(err => {
       console.log('error in component did mount in index', err)
@@ -105,7 +105,7 @@ class App extends React.Component {
     this.setState({showGameQuizModal: false})
   }
 
-  showLanding() {
+  showLanding () {
     this.setState({showLanding: true})
   }
 
@@ -129,6 +129,7 @@ class App extends React.Component {
     else if(genre === "I'm colorblind"){genre='Indifferent'}
 
     var era = document.getElementById('era').value
+<<<<<<< HEAD
     var provider = document.getElementById('sort').value
     if(provider === "Cat") {provider="amazon"}
     else if(provider === "Doggo") {provider='netflix'}
@@ -176,6 +177,7 @@ class App extends React.Component {
     // }
  
 
+
     axios.get('/api/sortByGenre', {
       headers: {
         genre: genre
@@ -200,14 +202,12 @@ class App extends React.Component {
       context.setState({
         showSpinner: false,
         showQuizResults: true,
-        quizMovies: [quizResults[0],quizResults[1],quizResults[2],quizResults[3],quizResults[4]]
+        quizMovies: [quizResults[0], quizResults[1], quizResults[2], quizResults[3], quizResults[4]]
       })
     })
     .catch(error => {
       console.log('error in fetching quiz results', error)
     })
-
- 
   }
 
   homePage () {
@@ -219,7 +219,7 @@ class App extends React.Component {
   }
 
   openDetails (movie) {
-    var context = this;
+    var context = this
     this.setState({
       showSearchResults: false,
       showDetails: true,
@@ -243,7 +243,7 @@ class App extends React.Component {
     var context = this
     event.preventDefault()
     this.closeSearch()
-    var query = ""
+    var query = ''
     query = document.getElementById('movieTitle').value
     axios.get('/api/searchByMovieTitle', {
       headers: {
@@ -264,7 +264,7 @@ class App extends React.Component {
     var context = this
     event.preventDefault()
     this.closeSearch()
-    var query = ""
+    var query = ''
     query = document.getElementById('showTitle').value
     axios.get('/api/searchByShowTitle', {
       headers: {
@@ -284,7 +284,7 @@ class App extends React.Component {
     var context = this
     event.preventDefault()
     this.closeSearch()
-    var genre = ""
+    var genre = ''
     genre = document.getElementById('genre').value
     axios.get('/api/searchByGenre', {
       headers: {
@@ -295,87 +295,113 @@ class App extends React.Component {
       // let searchArr =[];
       // searchArr.push(resp.data);
       context.setState({searchResult: resp.data,
-        showSearchResults: true 
+        showSearchResults: true
       })
     })
   }
 
-  render () {
+  submitRelatedSearch (event) {
+     var context = this
+     event.preventDefault()
+     this.closeSearch()
+     var query = ''
+     query = document.getElementById('related').value
+     axios.get('/api/searchByRelated', {
+      headers: {
+        query: query
+      }
+    })
+    .then(resp => {
+      // let searchArr =[];
+      // searchArr.push(resp.data);
+      context.setState({searchResult: resp.data,
+        showSearchResults: true
+      })
+    })
+   }
 
+  render () {
     return (
       <div>
-      <button onClick={() => {
-      this.openSearch()
-    }}>
+        <button onClick={() => {
+        this.openSearch()
+      }}>
         Search
         </button>
 
-      <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
-          <Modal.Header closeButton>
+        <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
+        <Modal.Header closeButton>
             <Modal.Title>Find a film!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+        <Modal.Body>
             <form>
-           <label>
+              <label>
             Movie Title:
             <input type='text' id='movieTitle' />
-          </label>
-           <button onClick={this.submitSearch}>Search!</button>
-         </form>
-         <form>
+           </label>
+              <button onClick={this.submitSearch}>Search!</button>
+            </form>
+            <form>
            <label>
             TV Show Title:
             <input type='text' id='showTitle' />
-          </label>
+           </label>
            <button onClick={this.submitShowSearch}>Search!</button>
          </form>
-         <p>
-                 <label>
+            <form>
+           <label>
+            Search Movies Related To:
+            <input type='text' id='related' />
+           </label>
+           <button onClick={this.submitRelatedSearch}>Search!</button>
+         </form>
+            <p>
+           <label>
                  Choose Genre
-                  <select id ="genre">
+                  <select id='genre'>
                     <option>Action</option>
                     <option>Comedy</option>
                     <option>Drama</option>
                     <option>Romance</option>
                     <option>Horro</option>
                   </select>
-                </label>
-                 <button onClick={this.submitGenreSearch}>Search!</button>
-                </p>
+                 </label>
+           <button onClick={this.submitGenreSearch}>Search!</button>
+         </p>
           </Modal.Body>
-        </Modal>
+      </Modal>
 
-      <button onClick={() => {
-          this.openSuggest()
-        }}>
+        <button onClick={() => {
+        this.openSuggest()
+      }}>
         Pick a Flick
         </button>
 
-      <Modal show={this.state.showSuggestModal} onHide={this.closeSuggest}>
-          <Modal.Header closeButton>
+        <Modal show={this.state.showSuggestModal} onHide={this.closeSuggest}>
+        <Modal.Header closeButton>
             <Modal.Title>Let us help you!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+        <Modal.Body>
             <p>Fill out some quiz</p>
 
-              <form onSubmit={this.submitQuiz}>
+            <form onSubmit={this.submitQuiz}>
                 <p>
-                 <label>
+                  <label>
                   What genre do you want to watch?
-                  <select id ="genre">
+                  <select id='genre'>
                     <option>Action</option>
                     <option>Comedy</option>
                     <option>Drama</option>
                     <option>Romance</option>
                     <option>Indifferent</option>
                   </select>
-                </label>
+                 </label>
                 </p>
 
                 <p>
-                <label>
+                  <label>
                   What era?
-                  <select id="era">
+                  <select id='era'>
                     <option>Classic(1960-2000)</option>
                     <option>Modern(Post-2000)</option>
                     <option>New(2015-Now)</option>
@@ -394,14 +420,14 @@ class App extends React.Component {
                     <option>hulu</option>
                     <option>netflix</option>
                     <option>search all</option>
+
                   </select>
                 </label>
                 </p>
-                <input type="submit" value="Submit" />
+                <input type='submit' value='Submit' />
               </form>
           </Modal.Body>
-        </Modal>
-
+      </Modal>
       <button onClick={() => {
           this.openGameQuiz()
         }}>
@@ -463,7 +489,6 @@ class App extends React.Component {
         }}>
         Home
         </button>
-
       {
           this.state.showSpinner ?
           <img src = 'http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif'/>
@@ -480,13 +505,13 @@ class App extends React.Component {
             />
             :
           this.state.showDetails ?
-            <MovieDescription 
+            <MovieDescription
               movie={this.state.detailMovie}
             />
           :
-          <MovieList
-            movies= {this.state.movies}
-            openDetails = {this.openDetails}
+              <MovieList
+            movies={this.state.movies}
+            openDetails ={this.openDetails}
       		/>
         }
       </div>
@@ -494,19 +519,19 @@ class App extends React.Component {
   }
 }
 
-//render(<App />, document.getElementById('app'))
+// render(<App />, document.getElementById('app'))
 
 // ReactDOM.
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={AppMain}>
+      <Route path='/' component={AppMain}>
         <IndexRoute component={Welcome} />
-        <Route path="signin" component={Signin} />
-        <Route path="signout" component={Signout} />
-        <Route path="signup" component={Signup} />
-        <Route path="feature" component={RequireAuth(App)} />
+        <Route path='signin' component={Signin} />
+        <Route path='signout' component={Signout} />
+        <Route path='signup' component={Signup} />
+        <Route path='feature' component={RequireAuth(App)} />
       </Route>
     </Router>
   </Provider>
-  , document.getElementById('app'));
+  , document.getElementById('app'))
