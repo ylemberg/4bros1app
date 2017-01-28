@@ -136,11 +136,11 @@ class App extends React.Component {
     this.closeGameQuiz();
     var quizResults = []
     var genre = document.getElementById('genre').value
-    if(genre === "Blue") {genre='Comedy'}
-    else if(genre === "Green") {genre='Action'}
-    else if(genre === "Red") {genre='Romance'}
-    else if(genre === "Purple") {genre='Drama'}
-    else if(genre === "I'm colorblind"){genre='Indifferent'}
+    if(genre === "Blue") {genre='comedy'}
+    else if(genre === "Green") {genre='action'}
+    else if(genre === "Red") {genre='romance'}
+    else if(genre === "Purple") {genre='drama'}
+    else if(genre === "I'm colorblind"){genre='indifferent'}
 
     var era = document.getElementById('era').value
     var provider = document.getElementById('sort').value
@@ -416,11 +416,11 @@ class App extends React.Component {
            <label>
                  Choose Genre
                   <select id='genre'>
-                    <option>Action</option>
-                    <option>Comedy</option>
-                    <option>Drama</option>
-                    <option>Romance</option>
-                    <option>Horro</option>
+                    <option>action</option>
+                    <option>comedy</option>
+                    <option>drama</option>
+                    <option>romance</option>
+                    <option>horror</option>
                   </select>
                  </label>
            <button onClick={this.submitGenreSearch}>Search!</button>
@@ -446,11 +446,11 @@ class App extends React.Component {
                   <label>
                   What genre do you want to watch?
                   <select id='genre'>
-                    <option>Action</option>
-                    <option>Comedy</option>
-                    <option>Drama</option>
-                    <option>Romance</option>
-                    <option>Indifferent</option>
+                    <option>action</option>
+                    <option>comedy</option>
+                    <option>drama</option>
+                    <option>romance</option>
+                    <option>indifferent</option>
                   </select>
                  </label>
                 </p>
@@ -569,7 +569,7 @@ class App extends React.Component {
             />
           :
 
-          <MovieList
+              <MovieList
             staffMovies={this.state.staffMovies}
             movies={this.state.movies}
             openDetails ={this.openDetails}
