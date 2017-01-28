@@ -85,10 +85,10 @@ detailsController.movieGetOne = (req, res) => {
                 .json(response.message);
         });
 }
-
-// detailsController.movieAddOne = function(req, res) {
+// pass in guidebox id update counter; findone and update,
+// detailsController.updateCounter = function(req, res) {
 //     var name = req.body.name;
-
+//
 //     var description = req.body.description;
 //     Movie
 //         .create({
@@ -106,7 +106,8 @@ detailsController.movieGetOne = (req, res) => {
 //                     .json(movie);
 //             }
 //         });
-
+//
 // };
+
 
 module.exports = detailsController

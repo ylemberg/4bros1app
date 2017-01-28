@@ -52,7 +52,19 @@ class movieDescription extends React.Component {
 			<Image src="https://userscontent2.emaze.com/images/edb77feb-b05f-47b3-810c-61dd741c087b/bd3895dd67e7612dd9fcfb4c801c7c8a.png" style={{
 				height:30,
 				margin:5}}/> {this.props.movie.rottenTomatoes} %
-		</div> : null		
+		</div> : null;
+		var apple = this.props.movie.appleBuy ?
+		<div>
+		<Image src="/images/itunes.png" style={{
+		  height: 20,
+			margin:5}}/> <p>$ {this.props.movie.appleBuyPrice}</p>
+			</div> : null;
+		var amazonBuy = this.props.movie.amazonBuy ?
+		<div>
+		<Image src="/images/amazonBuy.png" style={{
+		  height: 20,
+			margin:5}}/> <p>$ {this.props.movie.amazonBuyPrice}</p>
+			</div> : null;
 	  return (<div><Parallax strength={300}>
           <Background>
 			<img src={this.props.movie.banner} />
@@ -80,6 +92,9 @@ class movieDescription extends React.Component {
 		{hulu}
 		{netflix}
 		{amazon}
+		<h4>buy/rent:</h4>
+		{apple}
+		{amazonBuy}
 		<h4>Ratings: </h4>
 		{imdb}
 		{metaCritic}
