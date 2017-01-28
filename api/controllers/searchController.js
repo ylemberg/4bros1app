@@ -18,14 +18,23 @@ searchController.byMovieTitle = (req, res) => {
           if (resp.length > 0) {
             console.log('found in database')
             var searchResult = resp
-            Movie.find()
-                    .then(resp => {
-                      for (var i = 0; i < 4; i++) {
-                        searchResult.push(resp[i])
-                      }
-                      console.log(searchResult)
-                      res.status(200).send(searchResult)
-                    })
+            let genre = resp[0].genres[0]
+            Movie.find({genres: genre})
+              .then(function (resp) {
+                let tempArr = resp
+                let length = tempArr.length
+                console.log('resp  = ', length)
+                let randomize = respArr => {
+                  return Math.floor(Math.random() * length)
+                }
+                let i = 0
+                while (i < 4) {
+                  searchResult.push(tempArr[randomize(tempArr)])
+                  i++
+                }
+                console.log('resp after genre = ')
+                res.status(200).send(searchResult)
+              })
           } else {
             let gbOptions = {
               uri: 'http://api-public.guidebox.com/v2/search?type=movie&field=title&query=' + query,
@@ -44,13 +53,23 @@ searchController.byMovieTitle = (req, res) => {
                               console.log('added to database = ', resp)
                               var searchRes = []
                               searchRes.push(resp)
-                              Movie.find()
-                                    .then(resp => {
-                                      for (var i = 0; i < 4; i++) {
-                                        searchRes.push(resp[i])
-                                      }
-                                      res.status(200).send(searchRes)
-                                    })
+                              let genre = resp.genres[0]
+                              Movie.find({genres: genre})
+                                .then(function (resp) {
+                                  let tempArr = resp
+                                  let length = tempArr.length
+                                  console.log('resp  = ', length)
+                                  let randomize = respArr => {
+                                    return Math.floor(Math.random() * length)
+                                  }
+                                  let i = 0
+                                  while (i < 4) {
+                                    searchRes.push(tempArr[randomize(tempArr)])
+                                    i++
+                                  }
+                                  console.log('resp after genre = ')
+                                  res.status(200).send(searchRes)
+                                })
                             })
                     })
           }
@@ -69,13 +88,23 @@ searchController.byShowTitle = (req, res) => {
           if (resp.length > 0) {
             console.log('found in database')
             var searchResult = resp
-            Movie.find()
-                    .then(resp => {
-                      for (var i = 0; i < 4; i++) {
-                        searchResult.push(resp[i])
-                      }
-                      res.status(200).send(searchResult)
-                    })
+            let genre = resp[0].genres[0]
+            Movie.find({genres: genre})
+              .then(function (resp) {
+                let tempArr = resp
+                let length = tempArr.length
+                console.log('resp  = ', length)
+                let randomize = respArr => {
+                  return Math.floor(Math.random() * length)
+                }
+                let i = 0
+                while (i < 4) {
+                  searchResult.push(tempArr[randomize(tempArr)])
+                  i++
+                }
+                console.log('resp after genre = ')
+                res.status(200).send(searchResult)
+              })
           } else {
             let gbOptions = {
               uri: 'http://api-public.guidebox.com/v2/search?type=show&field=title&query=' + query,
@@ -94,13 +123,23 @@ searchController.byShowTitle = (req, res) => {
                               console.log('added to database = ', resp)
                               var searchRes = []
                               searchRes.push(resp)
-                              Movie.find()
-                                    .then(resp => {
-                                      for (var i = 0; i < 4; i++) {
-                                        searchRes.push(resp[i])
-                                      }
-                                      res.status(200).send(searchRes)
-                                    })
+                              let genre = resp.genres[0]
+                              Movie.find({genres: genre})
+                                     .then(function (resp) {
+                                       let tempArr = resp
+                                       let length = tempArr.length
+                                       console.log('resp  = ', length)
+                                       let randomize = respArr => {
+                                         return Math.floor(Math.random() * length)
+                                       }
+                                       let i = 0
+                                       while (i < 4) {
+                                         searchRes.push(tempArr[randomize(tempArr)])
+                                         i++
+                                       }
+                                       console.log('resp after genre = ')
+                                       res.status(200).send(searchRes)
+                                     })
                             })
                     })
           }
@@ -116,12 +155,23 @@ searchController.byGenre = (req, res) => {
 
   Movie.find({ genres: genre })
   .then(function (resp) {
-    var result = resp.slice(0, 5)
-    console.log('resp after genre = ', result)
+    let tempArr = resp
+    let length = tempArr.length
+    console.log('resp  = ', length)
+    let randomize = respArr => {
+      return Math.floor(Math.random() * length)
+    }
+    let i = 0
+    let result = []
+    while (i < 5) {
+      result.push(tempArr[randomize(tempArr)])
+      i++
+    }
+    console.log('resp after genre = ')
     res.status(200).send(result)
   })
   .catch(function (err) {
-  	res.status(500).send(err)
+    res.status(500).send(err)
     console.log('error is', err)
   })
 }
@@ -132,15 +182,15 @@ searchController.byRelated = (req, res) => {
   .then(resp => {
     if (resp.length > 0) {
       console.log('already in database')
-        gbOptions = {
-          uri: 'http://api-public.guidebox.com/v2/movies/' + resp[0].guideboxId + '/related',
-          headers: {
-            'User-Agent': 'Request-Promise',
-            'Authorization': '53d39189c3ecb7ab6757b6bc311f4e5b76c8f792'
-          },
-          json: true // Automatically parses the JSON string in the response
-        }
-        utils.addRelatedToDB(gbOptions)
+      let gbOptions = {
+        uri: 'http://api-public.guidebox.com/v2/movies/' + resp[0].guideboxId + '/related',
+        headers: {
+          'User-Agent': 'Request-Promise',
+          'Authorization': '53d39189c3ecb7ab6757b6bc311f4e5b76c8f792'
+        },
+        json: true // Automatically parses the JSON string in the response
+      }
+      utils.addRelatedToDB(gbOptions)
         .then(resp => {
           res.status(200).send(resp)
         })
@@ -151,9 +201,9 @@ searchController.byRelated = (req, res) => {
       let gbOptions = {
         uri: 'http://api-public.guidebox.com/v2/search?type=movie&field=title&query=' + query,
         headers: {
-                'User-Agent': 'Request-Promise',
-                'Authorization': '53d39189c3ecb7ab6757b6bc311f4e5b76c8f792'
-              },
+          'User-Agent': 'Request-Promise',
+          'Authorization': '53d39189c3ecb7ab6757b6bc311f4e5b76c8f792'
+        },
         json: true // Automatically parses the JSON string in the response
       }
       request(gbOptions)

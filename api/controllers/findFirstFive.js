@@ -7,13 +7,50 @@ let Movie = require('../models/Movie.js')
 let User = require('../models/User.js')
 
 let findFirstFive = (req, res) => {
-  Movie.find({})
-  .then(function(resp){
-    res.status(200).send([resp[0],resp[1],resp[2], resp[3], resp[4]])
-  })
-  .catch(function(err){
+  let gbOptions = {
+    uri: 'http://api-public.guidebox.com/v2/movies',
+    headers: {
+      'User-Agent': 'Request-Promise',
+      'Authorization': '53d39189c3ecb7ab6757b6bc311f4e5b76c8f792'
+    },
+    json: true // Automatically parses the JSON string in the response
+  }
+  let popArr = []
+  request(gbOptions)
+ .then(resp => {
+   let length = resp.results.length
+   let tempArr = resp.results
+   let randomize = respArr => {
+     return Math.floor(Math.random() * length)
+   }
+   let i = 0
+   while (i < 5) {
+     let n = randomize(tempArr)
+     popArr.push(tempArr[n])
+     tempArr.splice(n, 1)
+     length = tempArr.length
+     i++
+   }
+   let resultArr = []
+   let checkForResult = arr => {
+     if (arr.length === 5) {
+       res.status(200).send(resultArr)
+     }
+   }
+   console.log('popArr = ', popArr)
+
+   popArr.forEach(movie => {
+     Movie.find({guideboxId: movie.id})
+     .then(resp => {
+       resultArr.push(resp[0])
+       checkForResult(resultArr)
+     })
+     .catch(function (err) {
     console.log('error is', err)
   })
+   })
+ })
+
 }
 
 module.exports = findFirstFive
