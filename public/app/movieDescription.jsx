@@ -55,16 +55,19 @@ class movieDescription extends React.Component {
 		</div> : null;
 		var apple = this.props.movie.appleBuy ?
 		<div>
+		<a href={this.props.movie.appleBuyLink} target="_blank">
+
 		<Image src="/images/itunes.png" style={{
 		  height: 20,
 			margin:5}}/> <p>$ {this.props.movie.appleBuyPrice}</p>
-			</div> : null;
+		</a>	</div> : null;
 		var amazonBuy = this.props.movie.amazonBuy ?
 		<div>
+		<a href={this.props.movie.amazonBuyLink} target="_blank">
 		<Image src="/images/amazonBuy.png" style={{
 		  height: 20,
 			margin:5}}/> <p>$ {this.props.movie.amazonBuyPrice}</p>
-			</div> : null;
+			</a></div> : null;
 	  return (<div><Parallax strength={300}>
           <Background>
 			<img src={this.props.movie.banner} />
