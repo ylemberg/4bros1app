@@ -6,6 +6,10 @@ let movieSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  alternativeTitles: {
+    type: [String],
+    default: []
+  },
   description: {
   	type: String,
   	required: true,
@@ -52,17 +56,53 @@ let movieSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  netflixLink: {
+    type: String,
+    default: ''
+  },
   hulu: {
     type: Boolean,
     default: false
+  },
+  huluLink: {
+    type: String,
+    default: ''
   },
   amazon: {
     type: Boolean,
     default: false
   },
+  amazonLink: {
+    type: String,
+    default: ''
+  },
   hbo: {
     type: Boolean,
     default: false
+  },
+  appleBuy: {
+    type: Boolean,
+    default: false
+  },
+  appleBuyLink: {
+    type: String,
+    default: ''
+  },
+  appleBuyPrice: {
+    type: String,
+    default: ''
+  },
+  amazonBuy: {
+    type: Boolean,
+    default: false
+  },
+  amazonBuyLink: {
+    type: String,
+    default: ''
+  },
+  amazonBuyPrice: {
+    type: String,
+    default: ''
   },
   mpaa: {
     type: String,
@@ -83,11 +123,11 @@ let movieSchema = new mongoose.Schema({
   },
   clicked: {
     type: Number,
-  	default: 0
+    default: 0
   },
   saved: {
-  	type: Number,
-  	default: 0
+    type: Number,
+    default: 0
   },
   guideboxId: {
     type: Number

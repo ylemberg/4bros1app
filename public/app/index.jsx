@@ -569,7 +569,7 @@ class App extends React.Component {
             />
           :
 
-          <MovieList
+              <MovieList
             staffMovies={this.state.staffMovies}
             movies={this.state.movies}
             openDetails ={this.openDetails}

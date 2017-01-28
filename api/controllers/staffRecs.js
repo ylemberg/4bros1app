@@ -7,7 +7,7 @@ let Movie = require('../models/Movie.js')
 let User = require('../models/User.js')
 
 let staffRecs = (req, res) => {
-    recArr = ["zootopia", 'the usual suspects', 'emperors new groove', 'captain america: civil war', 'stand by me']
+    recArr = ["zootopia", 'the usual suspects', "the emperor's new groove", 'captain america: civil war', 'stand by me']
     recResultArr = []
     recArr.forEach(rec => {
         Movie.find({title: rec})

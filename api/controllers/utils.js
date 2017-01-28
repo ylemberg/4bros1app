@@ -12,7 +12,7 @@ utils.addToDb = gbOptions => {
       .then(function (resp) {
         var movieObj = {
           title: resp.title.toLowerCase(),
-          description: resp.overview,
+          description: resp.overview.toLowerCase(),
           poster: resp.poster_400x570,
           thumbnail: resp.poster_120x171,
           mpaa: resp.rating,
@@ -24,19 +24,23 @@ utils.addToDb = gbOptions => {
         if (resp.trailers.web.length > 0) {
           movieObj.trailer = resp.trailers.web[0].embed
         }
+        movieObj.alternativeTitles = []
+        for (let title of resp.alternate_titles) {
+          movieObj.alternativeTitles.push(title.toLowerCase())
+        }
         movieObj.directors = []
         for (let director of resp.directors) {
-          movieObj.directors.push(director.name)
+          movieObj.directors.push(director.name.toLowerCase())
         }
 
         movieObj.actors = []
         for (let actor of resp.cast) {
-          movieObj.actors.push(actor.name)
+          movieObj.actors.push(actor.name.toLowerCase())
         }
 
         movieObj.genres = []
         for (let genre of resp.genres) {
-          movieObj.genres.push(genre.title)
+          movieObj.genres.push(genre.title.toLowerCase())
         }
 
         for (let sub of resp.tv_everywhere_web_sources) {
@@ -47,16 +51,32 @@ utils.addToDb = gbOptions => {
         for (let sub of resp.subscription_web_sources) {
           if (sub.source === 'netflix') {
             movieObj.netflix = true
+            movieObj.netflixLink = sub.link
           } else if (sub.source === 'amazon_prime') {
             movieObj.amazon = true
+            movieObj.amazonLink = sub.link
           } else if (sub.source === 'hulu_plus') {
             movieObj.hulu = true
+            movieObj.huluLink = sub.link
+          }
+        }
+
+        for (let sub of resp.purchase_web_sources) {
+          if (sub.source === 'itunes') {
+            movieObj.appleBuy = true
+            movieObj.appleBuyLink = sub.link
+            movieObj.appleBuyPrice = sub.formats[0].price
+          }
+          if (sub.source === 'amazon_buy') {
+            movieObj.amazonBuy = true
+            movieObj.amazonBuyLink = sub.link
+            movieObj.amazonBuyPrice = sub.formats[0].price
           }
         }
 
         movieObj.keywords = []
         for (let keyword of resp.tags) {
-          movieObj.keywords.push(keyword.tag)
+          movieObj.keywords.push(keyword.tag.toLowerCase())
         }
         gbOptions.uri = 'http://api-public.guidebox.com/v2/movies/' + movieObj.guideboxId + '/images'
 
