@@ -69,6 +69,7 @@ class App extends React.Component {
   this.openDetails = this.openDetails.bind(this)
   this.submitGenreSearch = this.submitGenreSearch.bind(this)
   this.submitRelatedSearch = this.submitRelatedSearch.bind(this)
+  this.submitKeywordSearch = this.submitKeywordSearch.bind(this)
 }
 
   componentDidMount () {
@@ -375,6 +376,33 @@ class App extends React.Component {
     })
    }
 
+    submitKeywordSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
+    var context = this
+    event.preventDefault()
+    this.closeSearch()
+    var keyword = ''
+    keyword = document.getElementById('keyword').value
+    axios.get('/api/searchByKeyword', {
+      headers: {
+        keyword: keyword
+      }
+    })
+    .then(resp => {
+      // let searchArr =[];
+      // searchArr.push(resp.data);
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false
+      })
+    })
+  }
+
   render () {
     return (
       <div>
@@ -404,6 +432,13 @@ class App extends React.Component {
             <input type='text' id='showTitle' />
            </label>
            <button onClick={this.submitShowSearch}>Search!</button>
+         </form>
+          <form>
+           <label>
+            Keyword:
+            <input type='text' id='keyword' />
+           </label>
+           <button onClick={this.submitKeywordSearch}>Search!</button>
          </form>
             <form>
            <label>
