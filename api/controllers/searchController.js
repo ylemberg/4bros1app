@@ -150,10 +150,37 @@ searchController.byShowTitle = (req, res) => {
 }
 
 searchController.byGenre = (req, res) => {
-  let genre = req.headers.genre
+  let query = req.headers.genre
   console.log('you asked to find movies with genre:', genre)
 
-  Movie.find({ genres: genre })
+  Movie.find({ genres: query })
+  .then(function (resp) {
+    let tempArr = resp
+    let length = tempArr.length
+    console.log('resp  = ', length)
+    let randomize = respArr => {
+      return Math.floor(Math.random() * length)
+    }
+    let i = 0
+    let result = []
+    while (i < 5) {
+      result.push(tempArr[randomize(tempArr)])
+      i++
+    }
+    console.log('resp after genre = ')
+    res.status(200).send(result)
+  })
+  .catch(function (err) {
+    res.status(500).send(err)
+    console.log('error is', err)
+  })
+}
+
+searchController.byKeyword = (req, res) => {
+  let query = req.headers.keyword.toLowerCase()
+  console.log('you asked to find movies with genre:', query)
+
+  Movie.find({ keywords: query })
   .then(function (resp) {
     let tempArr = resp
     let length = tempArr.length
