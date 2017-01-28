@@ -45,6 +45,7 @@ class App extends React.Component {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
       quizMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj', '6laksdjf;adslk', '324', 'the sixth item'],
       searchResult: [],
+      user: "osaki.daniel@gmail.com",
       showSearchModal: false,
       showSuggestModal: false,
       showGameQuizModal: false,
@@ -52,7 +53,7 @@ class App extends React.Component {
       showDetails: false,
       showSearchResults: false,
       detailMovie: null,
-      showSpinner: false
+      showSpinner: true
     }
   this.openSearch = this.openSearch.bind(this)
   this.closeSearch = this.closeSearch.bind(this)
@@ -75,7 +76,7 @@ class App extends React.Component {
     .then(result => {
       context.setState({
         movies: result.data,
-        quizMovies: result.data
+        showSpinner: false
       })
       console.log('movie data set to', context.state.movies)
     })
@@ -543,22 +544,24 @@ class App extends React.Component {
           <QuizMovieList
             movies ={this.state.quizMovies}
             openDetails = {this.openDetails}
-          /> :
+          /> 
+          :
           this.state.showSearchResults ?
             <SearchMovieList
               movies={this.state.searchResult}
               openDetails = {this.openDetails}
             />
-            :
+          :
           this.state.showDetails ?
             <MovieDescription
               movie={this.state.detailMovie}
             />
           :
-              <MovieList
+          <MovieList
             movies={this.state.movies}
             openDetails ={this.openDetails}
-      		/>
+            user={this.state.user}
+    		  />
         }
       </div>
     )
