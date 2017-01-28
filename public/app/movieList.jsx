@@ -43,6 +43,7 @@ class MovieList extends React.Component {
 	var savedMovieEntries = this.state.savedMovies.map((movie, i) => {
 		return <li key={i} onClick={()=>{this.deleteMovie(i)}} >{movie}</li>
 	})
+	var staffMovies = this.props.staffMovies
 	console.log('movies at render is', movies)
 	console.log('saved movies for', this.props.user, 'are', savedMovieEntries)
 	return(
@@ -65,23 +66,10 @@ class MovieList extends React.Component {
 			      </Col>
 				</Row>
 			</Grid>
-			
-			<h1 className="text-center">Highest Rated</h1>
-			<Grid>
-				<Row>
-				{movies.map((movie, i) => (
-			        <MovieEntry
-				        key={i}
-								openDetails = {this.props.openDetails}
-				        movie={movie} />
-			     	))}
-				</Row>
-			</Grid>
-
 			<h1 className="text-center">Staff Recommendations</h1>
 			<Grid>
 				<Row>
-				{movies.map((movie, i) => (
+				{staffMovies.map((movie, i) => (
 			        <MovieEntry
 				        key={i}
 								openDetails = {this.props.openDetails}

@@ -43,6 +43,7 @@ class App extends React.Component {
   super(props)
   this.state = {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
+      staffMovies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
       quizMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj', '6laksdjf;adslk', '324', 'the sixth item'],
       searchResult: [],
       user: "osaki.daniel@gmail.com",
@@ -79,6 +80,16 @@ class App extends React.Component {
         showSpinner: false
       })
       console.log('movie data set to', context.state.movies)
+      axios.get('/api/getStaffRecs')
+      .then(result => {
+        context.setState({
+          staffMovies: result.data
+        })
+        console.log('movie data set to', context.state.staffMovies)
+      })
+      .catch(err => {
+        console.log('error in component did mount in index', err)
+      })
     })
     .catch(err => {
       console.log('error in component did mount in index', err)
@@ -557,7 +568,9 @@ class App extends React.Component {
               movie={this.state.detailMovie}
             />
           :
+
           <MovieList
+            staffMovies={this.state.staffMovies}
             movies={this.state.movies}
             openDetails ={this.openDetails}
             user={this.state.user}

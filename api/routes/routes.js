@@ -9,6 +9,7 @@ let findFirstFive = require('../controllers/findFirstFive.js')
 let sortByGenre = require('../controllers/sortByGenre.js')
 let saveMovieToUser = require('../controllers/saveMovieToUser.js')
 let savedMovies = require('../controllers/savedMovies.js')
+let staffRecs = require('../controllers/staffRecs.js')
 
 const AuthenticationController = require('../controllers/authentication_controller');
 const passportService = require('../../services/passport');
@@ -47,6 +48,10 @@ router
 router
     .route('/getFirstFive')
     .get(findFirstFive)
+
+router
+    .route('/getStaffRecs')
+    .get(staffRecs)
 
 router
     .route('/sortByGenre')
