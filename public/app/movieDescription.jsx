@@ -19,21 +19,25 @@ class movieDescription extends React.Component {
 		var actors = (this.props.movie.actors).slice(0,5).join(', ');
 		var directors = (this.props.movie.directors).join(' ');
 		var hbo = this.props.movie.hbo ?
+		<a href='http://www.hbo.com/' target="_blank">
 		<Image src="/images/hbo.png" style={{
 		  height: 20,
-		  margin: 5}}/> : null;
+		  margin: 5}}/> </a>: null;
 		var hulu = this.props.movie.hulu ?
+		<a href={this.props.movie.huluLink} target="_blank">
 		<Image src="/images/Hulu_Logo_Option_A.png" style={{
 		  height: 20,
-		  margin:5}}/> : null;
+		  margin:5}}/> </a>: null;
 		var netflix = this.props.movie.netflix ?
+		<a href={this.props.movie.netflixLink} target="_blank">
 		<Image src="/images/netflix-logo-small.png" style={{
 		  height: 20,
-		  margin:5}}/> : null;
+		  margin:5}}/> </a>: null;
 		var amazon = this.props.movie.amazon ?
+		<a href={this.props.movie.amazonLink} target="_blank">
 		<Image src="/images/amazon_logo.png" style={{
 		  height: 20,
-		  margin:5}}/> : null;
+		  margin:5}}/> </a>: null;
 
 		var imdb = this.props.movie.imdb ?
 		<div>
