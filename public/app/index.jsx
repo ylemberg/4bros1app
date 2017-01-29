@@ -40,13 +40,13 @@ if (token) {
 class App extends React.Component {
 
   constructor (props) {
-  super(props)
-  this.state = {
+    super(props)
+    this.state = {
       movies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
       staffMovies: ['movieObject1', 'movieObject2', 'movieobject3', 'moveiobject4', 'movieobjec5'],
       quizMovies: ['movieObject3', '4ma;dsfjas;', '5ds;afjds;lfakj', '6laksdjf;adslk', '324', 'the sixth item'],
       searchResult: [],
-      user: "osaki.daniel@gmail.com",
+      user: 'osaki.daniel@gmail.com',
       showSearchModal: false,
       showSuggestModal: false,
       showGameQuizModal: false,
@@ -56,21 +56,22 @@ class App extends React.Component {
       detailMovie: null,
       showSpinner: true
     }
-  this.openSearch = this.openSearch.bind(this)
-  this.closeSearch = this.closeSearch.bind(this)
-  this.openSuggest = this.openSuggest.bind(this)
-  this.closeSuggest = this.closeSuggest.bind(this)
-  this.openGameQuiz = this.openGameQuiz.bind(this)
-  this.closeGameQuiz = this.closeGameQuiz.bind(this)
-  this.submitQuiz = this.submitQuiz.bind(this)
-  this.homePage = this.homePage.bind(this)
-  this.submitSearch = this.submitSearch.bind(this)
-  this.submitShowSearch = this.submitShowSearch.bind(this)
-  this.openDetails = this.openDetails.bind(this)
-  this.submitGenreSearch = this.submitGenreSearch.bind(this)
-  this.submitRelatedSearch = this.submitRelatedSearch.bind(this)
-  this.submitKeywordSearch = this.submitKeywordSearch.bind(this)
-}
+    this.openSearch = this.openSearch.bind(this)
+    this.closeSearch = this.closeSearch.bind(this)
+    this.openSuggest = this.openSuggest.bind(this)
+    this.closeSuggest = this.closeSuggest.bind(this)
+    this.openGameQuiz = this.openGameQuiz.bind(this)
+    this.closeGameQuiz = this.closeGameQuiz.bind(this)
+    this.submitQuiz = this.submitQuiz.bind(this)
+    this.homePage = this.homePage.bind(this)
+    this.submitSearch = this.submitSearch.bind(this)
+    this.submitShowSearch = this.submitShowSearch.bind(this)
+    this.openDetails = this.openDetails.bind(this)
+    this.submitGenreSearch = this.submitGenreSearch.bind(this)
+    this.submitRelatedSearch = this.submitRelatedSearch.bind(this)
+    this.submitKeywordSearch = this.submitKeywordSearch.bind(this)
+    this.submitActorSearch = this.submitActorSearch.bind(this)
+  }
 
   componentDidMount () {
     var context = this
@@ -125,72 +126,59 @@ class App extends React.Component {
   }
 
   submitQuiz (event) {
-    //prevent submission from reloading page
-    event.preventDefault();
+    // prevent submission from reloading page
+    event.preventDefault()
     this.setState({
       showSpinner: true,
       showQuizResults: false,
       quizMovies: null
     })
-    var context = this;
-    this.closeSuggest();
-    this.closeGameQuiz();
+    var context = this
+    this.closeSuggest()
+    this.closeGameQuiz()
     var quizResults = []
     var genre = document.getElementById('genre').value
-    if(genre === "Blue") {genre='comedy'}
-    else if(genre === "Green") {genre='action'}
-    else if(genre === "Red") {genre='romance'}
-    else if(genre === "Purple") {genre='drama'}
-    else if(genre === "I'm colorblind"){genre='indifferent'}
+    if (genre === 'Blue') { genre = 'comedy' } else if (genre === 'Green') { genre = 'action' } else if (genre === 'Red') { genre = 'romance' } else if (genre === 'Purple') { genre = 'drama' } else if (genre === "I'm colorblind") { genre = 'indifferent' }
 
     var era = document.getElementById('era').value
     var provider = document.getElementById('sort').value
-    if(provider === "Cat") {provider="amazon"}
-    else if(provider === "Doggo") {provider='netflix'}
-    else if(provider === "Hamster") {provider='hulu'}
-    else if(provider === "Fish") {provider='hbo'}
-    else if(provider === "Don't like animals"){provider="search all"}
+    if (provider === 'Cat') { provider = 'amazon' } else if (provider === 'Doggo') { provider = 'netflix' } else if (provider === 'Hamster') { provider = 'hulu' } else if (provider === 'Fish') { provider = 'hbo' } else if (provider === "Don't like animals") { provider = 'search all' }
     console.log('the genre you selected is', genre, era, provider)
-    //default to return everything
-    var test = function() {
+    // default to return everything
+    var test = function () {
       return true
     }
-    if (era === "Classic(1970-2000)" || era === "Teenager") {
-      test = function(year) {
-        if(year >= 1970 && year<=2000) {
+    if (era === 'Classic(1970-2000)' || era === 'Teenager') {
+      test = function (year) {
+        if (year >= 1970 && year <= 2000) {
+          return true
+        } else return false
+      }
+    } else if (era === 'Modern(Post-2000)' || era === 'Child') {
+      test = function (year) {
+        if (year > 2000) {
+          return true
+        } else return false
+      }
+    } else if (era === 'New(2015-Now)' || era === 'Adult') {
+      test = function (year) {
+        if (year >= 2015) {
+          return true
+        } else return false
+      }
+    } else if (era === 'Old(pre-1970)' || era === 'Senior') {
+      test = function (year) {
+        if (year < 1970) {
           return true
         } else return false
       }
     }
-    else if(era === "Modern(Post-2000)" || era ==="Child") {
-      test = function(year) {
-        if(year > 2000) {
-          return true
-        } else return false
-      }
-    }
-    else if(era === "New(2015-Now)" || era === "Adult") {
-      test = function(year) {
-        if(year >= 2015) {
-          return true
-        } else return false
-      }
-    }
-    else if(era === "Old(pre-1970)" || era === "Senior") {
-      test = function(year) {
-        if(year < 1970) {
-          return true
-        } else return false
-      }
-    }
-    //exampel of how to order by imdb rating
+    // exampel of how to order by imdb rating
     // if(sortBy === 'Rating') {
     //   order = function(a,b) {
     //     return b.imdb - a.imdb
     //   }
     // }
- 
-
 
     axios.get('/api/sortByGenre', {
       headers: {
@@ -198,17 +186,17 @@ class App extends React.Component {
       }
     })
     .then(resp => {
-      console.log('quiz submitted, movies that matched "' + genre + '" are :' + resp.data.map( (movie) => movie.title))
+      console.log('quiz submitted, movies that matched "' + genre + '" are :' + resp.data.map((movie) => movie.title))
       console.log('you want to see', provider)
-      if(provider === 'search all') {
-        for(var i = 0; i<resp.data.length; i++) {
-          if(test(resp.data[i].year)){
+      if (provider === 'search all') {
+        for (var i = 0; i < resp.data.length; i++) {
+          if (test(resp.data[i].year)) {
             quizResults.push(resp.data[i])
           }
         }
       } else {
-        for(var i = 0; i<resp.data.length; i++) {
-          if(test(resp.data[i].year)&&resp.data[i][provider]){
+        for (var i = 0; i < resp.data.length; i++) {
+          if (test(resp.data[i].year) && resp.data[i][provider]) {
             quizResults.push(resp.data[i])
           }
         }
@@ -256,7 +244,7 @@ class App extends React.Component {
   saveForLater (movie) {
     axios.get('/api/saveMovieToUser', {
       headers: {
-        //email: this email address,
+        // email: this email address,
         movie: movie
       }
     })
@@ -289,7 +277,7 @@ class App extends React.Component {
       // searchArr.push(resp.data);
       context.setState({searchResult: resp.data,
         showSpinner: false,
-        showSearchResults: true, 
+        showSearchResults: true,
         showQuizResults: false
       })
     })
@@ -317,7 +305,7 @@ class App extends React.Component {
       context.setState({
         searchResult: resp.data,
         showSearchResults: true,
-        showSpinner: false   
+        showSpinner: false
       })
     })
   }
@@ -355,12 +343,12 @@ class App extends React.Component {
       showSearchResults: false,
       searchResult: []
     })
-     var context = this
-     event.preventDefault()
-     this.closeSearch()
-     var query = ''
-     query = document.getElementById('related').value
-     axios.get('/api/searchByRelated', {
+    var context = this
+    event.preventDefault()
+    this.closeSearch()
+    var query = ''
+    query = document.getElementById('related').value
+    axios.get('/api/searchByRelated', {
       headers: {
         query: query
       }
@@ -374,9 +362,9 @@ class App extends React.Component {
         showSpinner: false
       })
     })
-   }
+  }
 
-    submitKeywordSearch (event) {
+  submitKeywordSearch (event) {
     this.setState({
       showSpinner: true,
       showSearchResults: false,
@@ -389,8 +377,8 @@ class App extends React.Component {
     keyword = document.getElementById('keyword').value
     axios.get('/api/searchByKeyword', {
       headers: {
-        keyword: keyword
-      }
+          keyword: keyword
+        }
     })
     .then(resp => {
       // let searchArr =[];
@@ -403,52 +391,86 @@ class App extends React.Component {
     })
   }
 
+  submitActorSearch (event) {
+     this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
+     var context = this
+     event.preventDefault()
+     this.closeSearch()
+     var actor = ''
+     actor = document.getElementById('actor').value
+     axios.get('/api/searchByActor', {
+      headers: {
+          actor: actor
+        }
+    })
+    .then(resp => {
+      // let searchArr =[];
+      // searchArr.push(resp.data);
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false
+      })
+    })
+   }
+
   render () {
     return (
       <div>
-      <ButtonGroup>
-        <DropdownButton title="Dropdown" bsStyle="primary" id="bg-vertical-dropdown-3">
-        <MenuItem eventKey="1" onClick={() => {
-        this.openSearch()
-      }}>
+        <ButtonGroup>
+          <DropdownButton title='Dropdown' bsStyle='primary' id='bg-vertical-dropdown-3'>
+            <MenuItem eventKey='1' onClick={() => {
+            this.openSearch()
+          }}>
         Search
         </MenuItem>
 
-        <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
-        <Modal.Header closeButton>
-            <Modal.Title>Find a film!</Modal.Title>
-          </Modal.Header>
-        <Modal.Body>
-            <form>
+            <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
+            <Modal.Header closeButton>
+              <Modal.Title>Find a film!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <form>
               <label>
             Movie Title:
             <input type='text' id='movieTitle' />
-           </label>
+            </label>
               <button onClick={this.submitSearch}>Search!</button>
             </form>
-            <form>
-           <label>
+              <form>
+              <label>
             TV Show Title:
             <input type='text' id='showTitle' />
-           </label>
-           <button onClick={this.submitShowSearch}>Search!</button>
-         </form>
-          <form>
-           <label>
+            </label>
+              <button onClick={this.submitShowSearch}>Search!</button>
+            </form>
+              <form>
+              <label>
             Keyword:
             <input type='text' id='keyword' />
-           </label>
-           <button onClick={this.submitKeywordSearch}>Search!</button>
-         </form>
-            <form>
-           <label>
+            </label>
+              <button onClick={this.submitKeywordSearch}>Search!</button>
+            </form>
+              <form>
+              <label>
+            Actor:
+            <input type='text' id='actor' />
+            </label>
+              <button onClick={this.submitActorSearch}>Search!</button>
+            </form>
+              <form>
+              <label>
             Search Movies Related To:
             <input type='text' id='related' />
-           </label>
-           <button onClick={this.submitRelatedSearch}>Search!</button>
-         </form>
-            <p>
-           <label>
+            </label>
+              <button onClick={this.submitRelatedSearch}>Search!</button>
+            </form>
+              <p>
+              <label>
                  Choose Genre
                   <select id='genre'>
                     <option>action</option>
@@ -457,28 +479,28 @@ class App extends React.Component {
                     <option>romance</option>
                     <option>horror</option>
                   </select>
-                 </label>
-           <button onClick={this.submitGenreSearch}>Search!</button>
-         </p>
-          </Modal.Body>
-      </Modal>
+            </label>
+              <button onClick={this.submitGenreSearch}>Search!</button>
+            </p>
+            </Modal.Body>
+          </Modal>
 
-        <MenuItem eventKey="2" onClick={() => {
-        this.openSuggest()
-      }}>
+            <MenuItem eventKey='2' onClick={() => {
+            this.openSuggest()
+          }}>
         Pick a Flick
         </MenuItem>
 
-        <Modal show={this.state.showSuggestModal} onHide={this.closeSuggest}>
-        <Modal.Header closeButton>
-            <Modal.Title>Let us help you!</Modal.Title>
-          </Modal.Header>
-        <Modal.Body>
-            <p>Fill out some quiz</p>
+            <Modal show={this.state.showSuggestModal} onHide={this.closeSuggest}>
+            <Modal.Header closeButton>
+              <Modal.Title>Let us help you!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Fill out some quiz</p>
 
-            <form onSubmit={this.submitQuiz}>
-                <p>
-                  <label>
+              <form onSubmit={this.submitQuiz}>
+              <p>
+              <label>
                   What genre do you want to watch?
                   <select id='genre'>
                     <option>action</option>
@@ -487,11 +509,11 @@ class App extends React.Component {
                     <option>romance</option>
                     <option>indifferent</option>
                   </select>
-                 </label>
-                </p>
+                </label>
+            </p>
 
-                <p>
-                  <label>
+              <p>
+              <label>
                   What era?
                   <select id='era'>
                     <option>Classic(1970-2000)</option>
@@ -501,12 +523,12 @@ class App extends React.Component {
                     <option>Indifferent</option>
                   </select>
                 </label>
-                </p>
+            </p>
 
-                <p>
-                <label>
+              <p>
+              <label>
                   What streaming service do you use?(note: make this a radio button)
-                  <select id="sort">
+                  <select id='sort'>
                     <option>amazon</option>
                     <option>hbo</option>
                     <option>hulu</option>
@@ -515,87 +537,87 @@ class App extends React.Component {
 
                   </select>
                 </label>
-                </p>
-                <input type='submit' value='Submit' />
-              </form>
-          </Modal.Body>
-      </Modal>
-      <MenuItem eventKey="3" onClick={() => {
-          this.openGameQuiz()
-        }}>
+            </p>
+              <input type='submit' value='Submit' />
+            </form>
+            </Modal.Body>
+          </Modal>
+            <MenuItem eventKey='3' onClick={() => {
+            this.openGameQuiz()
+          }}>
         Play a game?
         </MenuItem>
 
-      <Modal show={this.state.showGameQuizModal} onHide={this.closeGameQuiz}>
-          <Modal.Header closeButton>
-            <Modal.Title>Play a game and let us choose!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+            <Modal show={this.state.showGameQuizModal} onHide={this.closeGameQuiz}>
+            <Modal.Header closeButton>
+              <Modal.Title>Play a game and let us choose!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
 
               <form onSubmit={this.submitQuiz}>
-                <p>
-                 <label>
+            <p>
+                <label>
                   What's your favorite color?
-                  <select id ="genre">
+                  <select id='genre'>
                     <option>Blue</option>
                     <option>Green</option>
                     <option>Red</option>
                     <option>Purple</option>
                     <option>I'm colorblind</option>
                   </select>
-                </label>
-                </p>
+                  </label>
+              </p>
 
-                <p>
+            <p>
                 <label>
                   How old are you?
-                  <select id="era">
+                  <select id='era'>
                     <option>Child</option>
                     <option>Teenager</option>
                     <option>Adult</option>
                     <option>Senior</option>
                     <option>Age is a social construct</option>
                   </select>
-                </label>
-                </p>
+                  </label>
+              </p>
 
-                <p>
+            <p>
                 <label>
                 Favorite Pet?
-                  <select id="sort">
+                  <select id='sort'>
                     <option>Cat</option>
                     <option>Doggo</option>
                     <option>Hamster</option>
                     <option>Fish</option>
                     <option>Don't like animals</option>
                   </select>
-                </label>
-                </p>
-                <input type="submit" value="Submit" />
-              </form>
-          </Modal.Body>
-        </Modal>
-       </DropdownButton>
+                  </label>
+              </p>
+            <input type='submit' value='Submit' />
+          </form>
+            </Modal.Body>
+          </Modal>
+          </DropdownButton>
 
-      <Button bsStyle="primary" onClick={() => {
-          this.homePage()
-        }}>
+          <Button bsStyle='primary' onClick={() => {
+            this.homePage()
+          }}>
         Home
         </Button></ButtonGroup>
-      {
+        {
           this.state.showSpinner ?
-          <img src = 'https://68.media.tumblr.com/345127a42a4baf76158920730f808f3b/tumblr_nak5muSmwi1r2geqjo1_500.gif'/>
+            <img src='https://68.media.tumblr.com/345127a42a4baf76158920730f808f3b/tumblr_nak5muSmwi1r2geqjo1_500.gif' />
           :
           this.state.showQuizResults ?
-          <QuizMovieList
-            movies ={this.state.quizMovies}
-            openDetails = {this.openDetails}
-          /> 
+            <QuizMovieList
+              movies={this.state.quizMovies}
+              openDetails={this.openDetails}
+          />
           :
           this.state.showSearchResults ?
             <SearchMovieList
               movies={this.state.searchResult}
-              openDetails = {this.openDetails}
+              openDetails={this.openDetails}
             />
           :
           this.state.showDetails ?
@@ -605,10 +627,10 @@ class App extends React.Component {
           :
 
               <MovieList
-            staffMovies={this.state.staffMovies}
-            movies={this.state.movies}
-            openDetails ={this.openDetails}
-            user={this.state.user}
+                staffMovies={this.state.staffMovies}
+                movies={this.state.movies}
+                openDetails={this.openDetails}
+                user={this.state.user}
     		  />
         }
       </div>

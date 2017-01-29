@@ -65,12 +65,17 @@ utils.addToDb = gbOptions => {
           if (sub.source === 'itunes') {
             movieObj.appleBuy = true
             movieObj.appleBuyLink = sub.link
-            movieObj.appleBuyPrice = sub.formats[0].price
+            if (sub.formats.length > 0) {
+              movieObj.appleBuyPrice = sub.formats[0].price
+            }
           }
           if (sub.source === 'amazon_buy') {
+            console.log('amazon price details = ', sub)
             movieObj.amazonBuy = true
             movieObj.amazonBuyLink = sub.link
-            movieObj.amazonBuyPrice = sub.formats[0].price
+            if (sub.formats.length > 0) {
+              movieObj.amazonBuyPrice = sub.formats[0].price
+            }
           }
         }
 
@@ -208,7 +213,7 @@ utils.addShowToDb = gbOptions => {
 utils.addRelatedToDB = gbOptions => {
   return new Promise(function (resolve, reject) {
     let relatedArr = []
-    let length = 5;
+    let length = 5
     let checkForResolve = array => {
       if (array.length === 5 || array.length === length) {
         resolve(relatedArr)
