@@ -37,11 +37,12 @@ let findFirstFive = (req, res) => {
        res.status(200).send(resultArr)
      }
    }
-   console.log('popArr = ', popArr)
 
    popArr.forEach(movie => {
+     console.log( 'testing for bug id = ', movie, movie.id)
      Movie.find({guideboxId: movie.id})
      .then(resp => {
+       console.log( 'testing for bug = ', resp[0].title, resp[0].thumbnail)
        resultArr.push(resp[0])
        checkForResult(resultArr)
      })
