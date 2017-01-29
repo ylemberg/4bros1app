@@ -85,7 +85,7 @@ class movieDescription extends React.Component {
 
 	  <div style={{
 		   width: 800,
-		   height: 300
+		   height: 200
 		}}></div>
 	  </Col>
 	  </Parallax>

@@ -5,13 +5,16 @@
 .landing {
   text-align: center;
 }
-
-#app {
-	background-color: 161d26;
-	color: a6a292;
+.navbar {
+  background-color: 1A212D !important;
 }
 
-#welcomeMiddle{
+#app {
+  background-color: F0EAE5;
+	color: 'white';
+}
+
+#stack{
 	background-color: 74818c;
 }
 
@@ -21,14 +24,14 @@
 }
 
 .descriptionPage{
-	background-color: 566273;
-	color: 161d26;
+	background-color: CACACA;
+	color: CACACA;
 }
 
 .movieEntry {
   border-width: 3px;
-  border-color: 566273;   
-  border-style: solid; 
+  border-color: 566273;
+  border-style: solid;
 }
 
 .col-md-15 {
@@ -37,4 +40,3 @@
     padding-right: 10px;
     padding-left: 10px;
 }
-
