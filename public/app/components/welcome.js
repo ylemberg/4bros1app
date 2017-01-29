@@ -6,42 +6,66 @@ import { Row } from 'react-bootstrap';
 
 import { PageHeader } from 'react-bootstrap';
 import { Parallax, Background } from 'react-parallax';
+import { Thumbnail } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
-export default () => < div >
-    <
-    Parallax strength = { 300 } >
-    <
-    Background >
-    <
-    img src = "/images/cover.jpg" / >
-    <
-    div style = {
+
+export default () => <div>
+    <Parallax strength = {300}>
+    <Background>
+    <img src = "/images/cover.jpg" />
+    <div style = {
+      {
+        width: 800,
+        height: 300
+      }}>
+    </div>
+    <img src = "/images/cover.jpg" />
+    </Background>
+    <div style = {
         {
             width: 800,
-            height: 300,
-        }
-    } > < /div> <
-    img src = "/images/cover.jpg" / >
-    <
-    /Background>
-
-<div style = {
+            height: 300
+        }}>
+    <div style = {
+      {
+        textAlign: 'center',
+        margin: 200
+      }}>
+      <h1 style = {
         {
-            width: 800,
-            height: 300,
-        }
-    } > <div style = {{
-      textAlign: 'center',
-      margin: 200
-
-    }}>< h1 style={{ color: '161D26',
-    fontWeight: 400,
-    fontSize: 75
-
-   }}> Pick A Flick < /h1></div> <
-    /div> <
-    /Parallax> <div id="welcomeMiddle"style={{ marginTop: 200 }}>
-
+          color: '161D26',
+          fontWeight: 400,
+          fontSize: 75
+        }}> Pick A Flick </h1>
+      </div>
+      </div>
+      </Parallax>
+      <div>
+      <div id="welcomeMiddle" style = {
+        {
+          marginTop: 80,
+          marginBottom: 80,
+        }}>
+        <Grid>
+          <Row>
+            <Col xs={6} md={4}>
+              <h1>Step 1</h1>
+              <h3>Sign up/Sign In</h3>
+          </Col>
+          <Col xs={6} md={4}>
+            <h1>Step 2</h1>
+            <h3>Search</h3>
+            <h3>or let us choose</h3>
+          </Col>
+          <Col xsHidden md={4}>
+            <h1>Step 3</h1>
+            <h3>Enjoy!</h3>
+          </Col>
+        </Row>
+      </Grid>
+  </div>
+  <div id="stack">
     <Grid>
     <Row>
     <Col xs={6} md={4}>
@@ -86,14 +110,14 @@ export default () => < div >
       <Col xs={6} md={6}>
       <Image src="/images/passport.png" style={{
         display: 'block',
-        marginBottom: 30,
+        marginBottom: 80,
         marginRight: 'auto',
         marginLeft: 'auto',
         height: 80}}/>
         </Col>
         </Row>
         </Grid>
-    <div style={{ margin: 80 }}>  </div>
+      </div>
       <Parallax strength={300}>
             <Background>
   			<img src="/images/banner.jpg" />
@@ -111,8 +135,10 @@ export default () => < div >
   		}}></div>
   	  </Col>
   	  </Parallax>
-      </div><footer class="content-footer" style={{
-        backgroundColor: 'A6A292',
+      </div>
+
+      <footer class="content-footer" style={{
+        backgroundColor: 'F0EAE5',
         padding: 10 ,
         textAlign: 'center',
       }}>
