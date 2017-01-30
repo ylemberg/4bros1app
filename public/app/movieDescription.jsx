@@ -44,8 +44,8 @@ class movieDescription extends React.Component {
 
 		var imdb = this.props.movie.imdb ?
 		<div>
-			<Image src="https://static1.squarespace.com/static/5425e1d3e4b0e2d40dd970f6/t/5441c6ede4b0c5dff241c7c7/1413596909982/IMDb_logo.png" style={{
-				height:30,
+			<Image src="http://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" style={{
+				height:22,
 				margin:5}}/> {this.props.movie.imdb}
 		</div> : null;
 		var metaCritic = this.props.movie.metaCritic ?

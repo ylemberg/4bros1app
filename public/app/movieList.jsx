@@ -51,7 +51,9 @@ class MovieList extends React.Component {
 			<h1 className="text-center">Most popular</h1>
 			<Grid>
 				<Row>
-				{movies.map((movie, i) => (
+					<Col md={1}>
+					</Col>
+					{movies.map((movie, i) => (
 			        <MovieEntry
 				        key={i}
 								openDetails = {this.props.openDetails}
@@ -69,12 +71,14 @@ class MovieList extends React.Component {
 			<h1 className="text-center">Staff Recommendations</h1>
 			<Grid>
 				<Row>
-				{staffMovies.map((movie, i) => (
-			        <MovieEntry
-				        key={i}
-								openDetails = {this.props.openDetails}
-				        movie={movie} />
-			     	))}
+				<Col md={1}>
+				</Col>
+					{staffMovies.map((movie, i) => (
+				        <MovieEntry
+					        key={i}
+									openDetails = {this.props.openDetails}
+					        movie={movie} />
+				     	))}
 				</Row>
 			</Grid>
 

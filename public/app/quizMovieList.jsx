@@ -50,9 +50,11 @@ class QuizMovieList extends React.Component {
 		    	</Row>
     		</Grid>
   		</Jumbotron>
-  		<h1>Next closest picks</h1>
+  		<h1 className = "text-center">Next closest picks</h1>
 			<Grid>
 				<Row>
+					<Col md={1}>
+					</Col>
 					{movies.map((movie, i) => (
 		        <QuizMovieEntry
 		        	front={front}
