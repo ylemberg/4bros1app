@@ -97,6 +97,9 @@ class movieDescription extends React.Component {
 	  <Col xs={12} md={8} className="descriptionPage">
 	  <PageHeader>{this.props.movie.title}<small> {this.props.movie.year}</small></PageHeader>
 	  <p>{this.props.movie.description}</p>  <h3>Actors: </h3><p>{actors}</p>
+		<h4>Genres: </h4><p>{genres}</p>
+
+		<h4>Directors: </h4><p>{directors}</p>
 	  <h3>Trailer</h3>
 	  <div style={{width: 660, height: 'auto'}}>
 	  <div className="embed-responsive embed-responsive-4by3">
@@ -106,9 +109,7 @@ class movieDescription extends React.Component {
 	  </Col>
 		<Col xs={6} md={4} className="descriptionPage">
 	  <Image src={this.props.movie.poster} responsive />
-	  <h4>Genres: </h4><p>{genres}</p>
 
-	  <h4>Directors: </h4><p>{directors}</p>
 	  <h4>Where to watch: </h4>
 	  {hbo}
 		{hulu}
