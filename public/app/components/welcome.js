@@ -226,7 +226,7 @@ export default () => <div>
                width: 170,
                height: 180 }} src="/images/rich.jpg" circle />
                <h3 style={{ color: '161D26' }}>Richard Durazo</h3>
-               <h4 style={{ color: '161D26' }}>Scrum/CSS Master</h4>
+               <h4 style={{ color: '161D26' }}>Scrum/Design/CSS</h4>
 
           </Col>
         </Row>

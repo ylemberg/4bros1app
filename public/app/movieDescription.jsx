@@ -114,13 +114,24 @@ class movieDescription extends React.Component {
 		{hulu}
 		{netflix}
 		{amazon}
+		<div>
+<Grid>
+	<Row>
+		<Col>
 		<h4>buy/rent:</h4>
 		{apple}
 		{amazonBuy}
+	</Col>
+	<Col>
 		<h4>Ratings: </h4>
 		{imdb}
 		{metaCritic}
 		{rottenTomatoes}
+	</Col>
+
+</Row>
+</Grid>
+	</div>
 	  </Col>
 	</Row>
 	</Grid>

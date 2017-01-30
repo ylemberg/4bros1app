@@ -8,6 +8,9 @@
 .navbar {
   background-color: 1A212D !important;
 }
+.navbar-brand, .nav-link{
+  color: white;
+}
 
 #app {
   background-color: F0EAE5;
