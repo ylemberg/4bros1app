@@ -23,6 +23,9 @@ import { Modal } from 'react-bootstrap'
 import { DropdownButton } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
 import { ButtonGroup } from 'react-bootstrap'
+import { Grid } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 
 import { MenuItem } from 'react-bootstrap'
 import axios from 'axios'
@@ -633,6 +636,29 @@ class App extends React.Component {
                 user={this.state.user}
     		  />
         }
+        <div>
+        <footer class="content-footer" style={{
+    				backgroundColor: '#343434',
+    				padding: 50,
+    				color: 'white'
+    		}}>
+    					<Grid>
+    						<Row>
+    							<Col xs={6} md={4}>
+    								<div>
+    									<p>4bros1app 2017</p>
+    							</div>
+
+    							</Col>
+    							<Col xs={6} md={4}>
+    							</Col>
+    							<Col xsHidden md={4}>
+    							</Col>
+    						</Row>
+    					</Grid>
+    			</footer>
+        </div>
+
       </div>
     )
   }
