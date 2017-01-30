@@ -42,8 +42,7 @@ class QuizMovieList extends React.Component {
 		  	  	<p>{front.description}</p>
 		  	  	</Col>
 		    		<p>
-		    			<Button bsStyle="primary">Save for later(nonfunctional)</Button>
-		    			<Button bsStyle="primary"
+		    			<Button bsStyle="default"
 		    			onClick = {() => {this.props.openDetails(front)}}
 		    			>See full description</Button>
 		    		</p>

@@ -28,7 +28,7 @@ class SearchMovieList extends React.Component {
 				<Grid>
 					<Row className = "searchResults">
 						<Col sm={5} md={5}>
-		  	  		<img className="movieEntry" src={front.poster} 
+		  	  		<img className="movieEntry" src={front.poster}
 						onClick={() => {this.props.openDetails(front)}}/>
 		  	  	</Col>
 		  	  	<Col sm={7} md={7}>
@@ -36,8 +36,7 @@ class SearchMovieList extends React.Component {
 		  	  	<p>{front.description}</p>
 		  	  	</Col>
 		    		<p>
-		    			<Button bsStyle="primary">Save for later(nonfunctional)</Button>
-		    			<Button bsStyle="primary" onClick={() => {this.props.openDetails(front)}}>See full description</Button>
+		    			<Button bsStyle="default" onClick={() => {this.props.openDetails(front)}}>See full description</Button>
 		    		</p>
 		    	</Row>
     		</Grid>

@@ -9,7 +9,11 @@ import { PageHeader } from 'react-bootstrap';
 import { Parallax, Background } from 'react-parallax';
 import { Thumbnail } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+import { FontAwesome } from 'react-fontawesome';
 
+
+var Falinkedin = require('react-icons/lib/fa/linkedin');
+var Fa_github = require('react-icons/lib/fa/github');
 
 export default () => <div>
     <Parallax strength = {300}>
@@ -194,19 +198,28 @@ export default () => <div>
             <Image style={{
               marginTop: 20,
         		   width: 170,
-        		   height: 180 }} src="/images/big_boss.jpg" circle />
+        		   height: 180 }} src="/images/dan.jpg" circle />
                <h3 style={{ color: '161D26' }}>Daniel Osaki</h3>
                <h4 style={{ color: '161D26' }}>Project Owner</h4>
-
+               <a href="https://www.linkedin.com/in/daniel-osaki-507837118" target="_blank">
+               <Falinkedin /></a>
+               <span style = {{ marginRight: 10 }}></span>
+               <a href="https://github.com/dpawsit" target="_blank">
+               <Fa_github /></a>
 
           </Col>
           <Col xs={6} md={6}>
             <Image style={{
               marginTop: 20,
         		   width: 170,
-        		   height: 180 }} src="/images/big_boss.jpg" circle />
+        		   height: 180 }} src="/images/dave.jpg" circle />
                <h3 style={{ color: '161D26' }}>David Park</h3>
                <h4 style={{ color: '161D26' }}>Authentication Dev Team</h4>
+               <a href="https://www.linkedin.com/in/david-park-ba72b3133" target="_blank">
+               <Falinkedin /></a>
+               <span style = {{ marginRight: 10 }}></span>
+               <a href="https://github.com/menaduke" target="_blank">
+               <Fa_github /></a>
 
           </Col>
           </Row>
@@ -218,6 +231,11 @@ export default () => <div>
         		   height: 180 }} src="/images/jesse.jpg" circle />
                <h3 style={{ color: '161D26' }}>Jesse Nocon</h3>
                <h4 style={{ color: '161D26' }}>Vice Chairman Dev Team</h4>
+               <a href="https://www.linkedin.com/in/jnocon" target="_blank">
+               <Falinkedin /></a>
+               <span style = {{ marginRight: 10 }}></span>
+               <a href="https://github.com/jnocon" target="_blank">
+               <Fa_github /></a>
 
           </Col>
           <Col xs={6} md={6}>
@@ -227,6 +245,11 @@ export default () => <div>
                height: 180 }} src="/images/rich.jpg" circle />
                <h3 style={{ color: '161D26' }}>Richard Durazo</h3>
                <h4 style={{ color: '161D26' }}>Scrum/Design/CSS</h4>
+               <a href="https://www.linkedin.com/in/rdurazo" target="_blank">
+               <Falinkedin /></a>
+               <span style = {{ marginRight: 10 }}></span>
+               <a href="https://github.com/richdurazo" target="_blank">
+               <Fa_github /></a>
 
           </Col>
         </Row>
