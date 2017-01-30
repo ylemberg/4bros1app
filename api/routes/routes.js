@@ -25,6 +25,9 @@ router
     .route('/searchByActor')
     .get(searchController.byActor)
 router
+    .route('/searchByDirector')
+    .get(searchController.byDirector)
+router
     .route('/searchByShowTitle')
     .get(searchController.byShowTitle)
 

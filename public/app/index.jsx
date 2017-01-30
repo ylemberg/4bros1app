@@ -74,6 +74,7 @@ class App extends React.Component {
     this.submitRelatedSearch = this.submitRelatedSearch.bind(this)
     this.submitKeywordSearch = this.submitKeywordSearch.bind(this)
     this.submitActorSearch = this.submitActorSearch.bind(this)
+    this.submitDirectorSearch = this.submitDirectorSearch.bind(this)
   }
 
   componentDidMount () {
@@ -420,7 +421,33 @@ class App extends React.Component {
       })
     })
   }
-
+  
+  submitDirectorSearch (event) {
+    this.setState({
+      showSpinner: true,
+      showSearchResults: false,
+      searchResult: []
+    })
+    var context = this
+    event.preventDefault()
+    this.closeSearch()
+    var director = ''
+    director = document.getElementById('director').value
+    axios.get('/api/searchByDirector', {
+      headers: {
+        director: director
+      }
+    })
+    .then(resp => {
+      // let searchArr =[];
+      // searchArr.push(resp.data);
+      context.setState({
+        searchResult: resp.data,
+        showSearchResults: true,
+        showSpinner: false
+      })
+    })
+  }
   render () {
     return (
       <div>
@@ -514,6 +541,13 @@ class App extends React.Component {
             <input type='text' id='actor' />
                 </label>
                   <button onClick={this.submitActorSearch}>Search!</button>
+                </form>
+           <form>
+                  <label>
+            Director:
+            <input type='text' id='director' />
+                </label>
+                  <button onClick={this.submitDirectorSearch}>Search!</button>
                 </form>
                 <form>
                   <label>
