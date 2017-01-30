@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios'
 import { Col } from 'react-bootstrap'
+import { Grid } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
+
 import { Image } from 'react-bootstrap'
 import { PageHeader } from 'react-bootstrap'
 import { Parallax, Background } from 'react-parallax'
@@ -12,7 +15,7 @@ class movieDescription extends React.Component {
 		super(props);
 		this.state = {
 
-		}
+		};
 	}
     render() {
 		var genres = (this.props.movie.genres).join(' ');
@@ -20,7 +23,7 @@ class movieDescription extends React.Component {
 		var directors = (this.props.movie.directors).join(' ');
 		var hbo = this.props.movie.hbo ?
 		<a href='http://www.hbo.com/' target="_blank">
-		<Image src="/images/hbo.png" style={{
+		<Image src="/images/hbo.png" style = {{
 		  height: 20,
 		  margin: 5}}/> </a>: null;
 		var hulu = this.props.movie.hulu ?
@@ -72,24 +75,36 @@ class movieDescription extends React.Component {
 		  height: 20,
 			margin:5}}/> <p>$ {this.props.movie.amazonBuyPrice}</p>
 			</a></div> : null;
-	  return (<div><Parallax strength={300}>
+	  return (
+			<div>
+				<Parallax strength={300}>
           <Background>
-			<img src={this.props.movie.banner} />
-            <div style={{
-               width: 800,
-               height: 300
-              }}></div>
-			<img src={this.props.movie.banner} />
-          </Background>
-	  <Col xs={6} md={4}>
+						<img src={this.props.movie.banner} />
+						<div style={{
+							width: 800,
+              height: 300
+						}}></div>
+						<img src={this.props.movie.banner} />
+					</Background>
+						<div style={{
+							width: 800,
+		   				height: 200
+						}}></div>
+				</Parallax>
+				<Grid>
+					<Row>
 
-	  <div style={{
-		   width: 800,
-		   height: 200
-		}}></div>
+	  <Col xs={12} md={8} className="descriptionPage">
+	  <PageHeader>{this.props.movie.title}<small> {this.props.movie.year}</small></PageHeader>
+	  <p>{this.props.movie.description}</p>  <h3>Actors: </h3><p>{actors}</p>
+	  <h3>Trailer</h3>
+	  <div style={{width: 660, height: 'auto'}}>
+	  <div className="embed-responsive embed-responsive-4by3">
+	  <iframe className="embed-responsive-item" src={this.props.movie.trailer} allowFullScreen></iframe>
+	  </div>
+	  </div>
 	  </Col>
-	  </Parallax>
-	  <Col xs={6} md={4} className="descriptionPage">
+		<Col xs={6} md={4} className="descriptionPage">
 	  <Image src={this.props.movie.poster} responsive />
 	  <h4>Genres: </h4><p>{genres}</p>
 
@@ -107,16 +122,8 @@ class movieDescription extends React.Component {
 		{metaCritic}
 		{rottenTomatoes}
 	  </Col>
-	  <Col xs={12} md={8} className="descriptionPage">
-	  <PageHeader>{this.props.movie.title}<small> {this.props.movie.year}</small></PageHeader>
-	  <p>{this.props.movie.description}</p>  <h3>Actors: </h3><p>{actors}</p>
-	  <h3>Trailer</h3>
-	  <div style={{width: 660, height: 'auto'}}>
-	  <div className="embed-responsive embed-responsive-4by3">
-	  <iframe className="embed-responsive-item" src={this.props.movie.trailer} allowFullScreen></iframe>
-	  </div>
-	  </div>
-	  </Col>
+	</Row>
+	</Grid>
 	  </div>
 	  );
 	}
