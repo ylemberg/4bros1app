@@ -31,7 +31,7 @@ class MovieList extends React.Component {
 		var prevMovieList = this.state.savedMovies
 		var removed = prevMovieList.splice(index, 1)
 		this.setState({
-			savedMovies: prevMovieList 
+			savedMovies: prevMovieList
 		})
 
 		//axios.delete removed
@@ -57,13 +57,13 @@ class MovieList extends React.Component {
 								openDetails = {this.props.openDetails}
 				        movie={movie} />
 			     	))}
-					  <Col sm={2} md={2} className="descriptionPage"> 
+					  {/* <Col sm={2} md={2} className="descriptionPage">
 			      	<p>Hello {user}!</p>
 			      	<p>Your saved movies</p>
 			      	<ul>
 			      		{savedMovieEntries}
 			      	</ul>
-			      </Col>
+			      </Col> */}
 				</Row>
 			</Grid>
 			<h1 className="text-center">Staff Recommendations</h1>
