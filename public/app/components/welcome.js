@@ -29,41 +29,81 @@ export default () => <div>
         }}>
     <div style = {
       {
-        textAlign: 'center',
         margin: 200
       }}>
       <h1 style = {
         {
           color: '161D26',
-          fontWeight: 400,
-          fontSize: 75
+          fontWeight: 300,
+          fontSize: 75,
+          textAlign: 'center'
         }}> Pick A Flick </h1>
       </div>
       </div>
       </Parallax>
-      <div>
-      <div id="welcomeMiddle" style = {
-        {
-          marginTop: 80,
-          marginBottom: 80,
-        }}>
+      <div className="container" style={{
+        marginTop: 40,
+        marginBottom: 80 }}>
+        <div style = {
+          {
+            textAlign: 'center',
+            marginTop: 2,
+            marginBottom: 40
+
+
+          }}>
+          <h2 style={{ color: '161D26',
+          fontWeight: 300,
+          fontSize: 75
+        }}>Our Mission</h2>
+          <h3 >The app that takes decision making out of your movie streaming experience. </h3>
+            <h4 style = {{
+                marginTop: 40}}>Our goal is for you to watch shows and movies without having to wade through each service's vast catalogue. Let us help you spend less time searching and more time watching! </h4>
+        </div>
         <Grid>
           <Row>
             <Col xs={6} md={4}>
-              <h1>Step 1</h1>
-              <h3>Sign up/Sign In</h3>
+              <div style = {
+                {
+                  textAlign: 'center',
+
+                }}>
+                <h1 style = {{
+                    fontWeight: 300}}>Step 1</h1>
+                <h3>Sign up/Sign In</h3>
+            </div>
           </Col>
           <Col xs={6} md={4}>
-            <h1>Step 2</h1>
-            <h3>Search</h3>
-            <h3>or let us choose</h3>
+            <div style = {
+              {
+                textAlign: 'center'
+              }}>
+            <h1 style = {{
+                fontWeight: 300}}>Step 2</h1>
+            <h3>Search or Let Us Choose</h3>
+          </div>
           </Col>
           <Col xsHidden md={4}>
-            <h1>Step 3</h1>
+            <div style = {
+              {
+                textAlign: 'center'
+              }}>
+              <h1 style = {{
+                  fontWeight: 300}}>Step 3</h1>
             <h3>Enjoy!</h3>
+          </div>
           </Col>
         </Row>
       </Grid>
+      <div style = {
+        {
+          textAlign: 'center',
+          marginTop: 40
+
+        }}>
+      <Button href="/signin" bsSize="large"> Get Started</Button>
+      </div>
+
   </div>
   <div id="stack">
     <Grid>
@@ -135,7 +175,6 @@ export default () => <div>
   		}}></div>
   	  </Col>
   	  </Parallax>
-      </div>
 
       <footer class="content-footer" style={{
         backgroundColor: 'F0EAE5',
@@ -158,7 +197,6 @@ export default () => <div>
         		   height: 180 }} src="/images/big_boss.jpg" circle />
                <h3 style={{ color: '161D26' }}>Daniel Osaki</h3>
                <h4 style={{ color: '161D26' }}>Project Owner</h4>
-               <h5 style={{ color: '161D26' }}>Stuff but also things</h5>
 
 
           </Col>
@@ -168,8 +206,7 @@ export default () => <div>
         		   width: 170,
         		   height: 180 }} src="/images/big_boss.jpg" circle />
                <h3 style={{ color: '161D26' }}>David Park</h3>
-               <h4 style={{ color: '161D26' }}>Auth</h4>
-               <h5 style={{ color: '161D26' }}>Stuff but also things</h5>
+               <h4 style={{ color: '161D26' }}>Authentication Dev Team</h4>
 
           </Col>
           </Row>
@@ -178,22 +215,18 @@ export default () => <div>
             <Image style={{
               marginTop: 30,
         		   width: 170,
-        		   height: 180 }} src="/images/big_boss.jpg" circle />
+        		   height: 180 }} src="/images/jesse.jpg" circle />
                <h3 style={{ color: '161D26' }}>Jesse Nocon</h3>
-               <h4 style={{ color: '161D26' }}>Backend</h4>
-               <h5 style={{ color: '161D26' }}>Stuff but also things</h5>
+               <h4 style={{ color: '161D26' }}>Vice Chairman Dev Team</h4>
 
           </Col>
           <Col xs={6} md={6}>
             <Image style={{
               marginTop: 30,
-
                width: 170,
-               height: 180 }} src="/images/brit.png" circle />
+               height: 180 }} src="/images/rich.jpg" circle />
                <h3 style={{ color: '161D26' }}>Richard Durazo</h3>
-               <h4 style={{ color: '161D26' }}>Scrum</h4>
-               <h5 style={{ color: '161D26' }}>Stuff but also things</h5>
-
+               <h4 style={{ color: '161D26' }}>Scrum/CSS Master</h4>
 
           </Col>
         </Row>
