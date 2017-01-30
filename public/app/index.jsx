@@ -380,8 +380,8 @@ class App extends React.Component {
     keyword = document.getElementById('keyword').value
     axios.get('/api/searchByKeyword', {
       headers: {
-          keyword: keyword
-        }
+        keyword: keyword
+      }
     })
     .then(resp => {
       // let searchArr =[];
@@ -395,20 +395,20 @@ class App extends React.Component {
   }
 
   submitActorSearch (event) {
-     this.setState({
+    this.setState({
       showSpinner: true,
       showSearchResults: false,
       searchResult: []
     })
-     var context = this
-     event.preventDefault()
-     this.closeSearch()
-     var actor = ''
-     actor = document.getElementById('actor').value
-     axios.get('/api/searchByActor', {
+    var context = this
+    event.preventDefault()
+    this.closeSearch()
+    var actor = ''
+    actor = document.getElementById('actor').value
+    axios.get('/api/searchByActor', {
       headers: {
-          actor: actor
-        }
+        actor: actor
+      }
     })
     .then(resp => {
       // let searchArr =[];
@@ -419,197 +419,15 @@ class App extends React.Component {
         showSpinner: false
       })
     })
-   }
+  }
 
   render () {
     return (
       <div>
-      <div className='padding'>
+      <div className ='padding'>
         
       </div>
-        <ButtonGroup>
-          <DropdownButton title='Dropdown' bsStyle='primary' id='bg-vertical-dropdown-3'>
-            <MenuItem eventKey='1' onClick={() => {
-            this.openSearch()
-          }}>
-        Search
-        </MenuItem>
-
-            <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
-            <Modal.Header closeButton>
-              <Modal.Title>Find a film!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <form>
-              <label>
-            Movie Title:
-            <input type='text' id='movieTitle' />
-            </label>
-              <button onClick={this.submitSearch}>Search!</button>
-            </form>
-              <form>
-              <label>
-            TV Show Title:
-            <input type='text' id='showTitle' />
-            </label>
-              <button onClick={this.submitShowSearch}>Search!</button>
-            </form>
-              <form>
-              <label>
-            Keyword:
-            <input type='text' id='keyword' />
-            </label>
-              <button onClick={this.submitKeywordSearch}>Search!</button>
-            </form>
-              <form>
-              <label>
-            Actor:
-            <input type='text' id='actor' />
-            </label>
-              <button onClick={this.submitActorSearch}>Search!</button>
-            </form>
-              <form>
-              <label>
-            Search Movies Related To:
-            <input type='text' id='related' />
-            </label>
-              <button onClick={this.submitRelatedSearch}>Search!</button>
-            </form>
-              <p>
-              <label>
-                 Choose Genre
-                  <select id='genre'>
-                    <option>action</option>
-                    <option>comedy</option>
-                    <option>drama</option>
-                    <option>romance</option>
-                    <option>horror</option>
-                  </select>
-            </label>
-              <button onClick={this.submitGenreSearch}>Search!</button>
-            </p>
-            </Modal.Body>
-          </Modal>
-
-            <MenuItem eventKey='2' onClick={() => {
-            this.openSuggest()
-          }}>
-        Pick a Flick
-        </MenuItem>
-
-            <Modal show={this.state.showSuggestModal} onHide={this.closeSuggest}>
-            <Modal.Header closeButton>
-              <Modal.Title>Let us help you!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>Fill out some quiz</p>
-
-              <form onSubmit={this.submitQuiz}>
-              <p>
-              <label>
-                  What genre do you want to watch?
-                  <select id='genre'>
-                    <option>action</option>
-                    <option>comedy</option>
-                    <option>drama</option>
-                    <option>romance</option>
-                    <option>indifferent</option>
-                  </select>
-                </label>
-            </p>
-
-              <p>
-              <label>
-                  What era?
-                  <select id='era'>
-                    <option>Classic(1970-2000)</option>
-                    <option>Modern(Post-2000)</option>
-                    <option>New(2015-Now)</option>
-                    <option>Old(pre-1970)</option>
-                    <option>Indifferent</option>
-                  </select>
-                </label>
-            </p>
-
-              <p>
-              <label>
-                  What streaming service do you use?(note: make this a radio button)
-                  <select id='sort'>
-                    <option>amazon</option>
-                    <option>hbo</option>
-                    <option>hulu</option>
-                    <option>netflix</option>
-                    <option>search all</option>
-
-                  </select>
-                </label>
-            </p>
-              <input type='submit' value='Submit' />
-            </form>
-            </Modal.Body>
-          </Modal>
-            <MenuItem eventKey='3' onClick={() => {
-            this.openGameQuiz()
-          }}>
-        Play a game?
-        </MenuItem>
-
-            <Modal show={this.state.showGameQuizModal} onHide={this.closeGameQuiz}>
-            <Modal.Header closeButton>
-              <Modal.Title>Play a game and let us choose!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-
-              <form onSubmit={this.submitQuiz}>
-            <p>
-                <label>
-                  What's your favorite color?
-                  <select id='genre'>
-                    <option>Blue</option>
-                    <option>Green</option>
-                    <option>Red</option>
-                    <option>Purple</option>
-                    <option>I'm colorblind</option>
-                  </select>
-                  </label>
-              </p>
-
-            <p>
-                <label>
-                  How old are you?
-                  <select id='era'>
-                    <option>Child</option>
-                    <option>Teenager</option>
-                    <option>Adult</option>
-                    <option>Senior</option>
-                    <option>Age is a social construct</option>
-                  </select>
-                  </label>
-              </p>
-
-            <p>
-                <label>
-                Favorite Pet?
-                  <select id='sort'>
-                    <option>Cat</option>
-                    <option>Doggo</option>
-                    <option>Hamster</option>
-                    <option>Fish</option>
-                    <option>Don't like animals</option>
-                  </select>
-                  </label>
-              </p>
-            <input type='submit' value='Submit' />
-          </form>
-            </Modal.Body>
-          </Modal>
-          </DropdownButton>
-
-          <Button bsStyle='primary' onClick={() => {
-            this.homePage()
-          }}>
-        Back
-        </Button></ButtonGroup>
+        
         {
           this.state.showSpinner ?
             <img src='https://68.media.tumblr.com/345127a42a4baf76158920730f808f3b/tumblr_nak5muSmwi1r2geqjo1_500.gif' />
@@ -640,26 +458,207 @@ class App extends React.Component {
     		  />
         }
         <div>
-        <footer class="content-footer" style={{
+          <footer class='content-footer' style={{
     				backgroundColor: '#343434',
     				padding: 50,
     				color: 'white'
     		}}>
-    					<Grid>
-    						<Row>
-    							<Col xs={6} md={4}>
-    								<div>
-    									<p>4bros1app 2017</p>
-    							</div>
+            <Grid>
+              <Row>
+              <Col xs={6} md={4}>
+          <Button bsStyle='default' onClick={() => {
+          this.homePage()
+        }}>
+        Back
+        </Button>
 
-    							</Col>
-    							<Col xs={6} md={4}>
-    							</Col>
-    							<Col xsHidden md={4}>
-    							</Col>
-    						</Row>
-    					</Grid>
-    			</footer>
+
+        </Col>
+              <Col xs={6} md={4}> 
+          
+            <Button Button bsStyle='default' onClick={() => {
+              this.openSearch()
+            }}>
+        Search
+        </Button>
+
+            <Modal show={this.state.showSearchModal} onHide={this.closeSearch}>
+              <Modal.Header closeButton>
+                <Modal.Title>Find a film!</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <form>
+                  <label>
+            Movie Title:
+            <input type='text' id='movieTitle' />
+                </label>
+                  <button onClick={this.submitSearch}>Search!</button>
+                </form>
+                <form>
+                  <label>
+            TV Show Title:
+            <input type='text' id='showTitle' />
+                </label>
+                  <button onClick={this.submitShowSearch}>Search!</button>
+                </form>
+                <form>
+                  <label>
+            Keyword:
+            <input type='text' id='keyword' />
+                </label>
+                  <button onClick={this.submitKeywordSearch}>Search!</button>
+                </form>
+                <form>
+                  <label>
+            Actor:
+            <input type='text' id='actor' />
+                </label>
+                  <button onClick={this.submitActorSearch}>Search!</button>
+                </form>
+                <form>
+                  <label>
+            Search Movies Related To:
+            <input type='text' id='related' />
+                </label>
+                  <button onClick={this.submitRelatedSearch}>Search!</button>
+                </form>
+                <p>
+                  <label>
+                 Choose Genre
+                  <select id='genre'>
+                    <option>action</option>
+                    <option>comedy</option>
+                    <option>drama</option>
+                    <option>romance</option>
+                    <option>horror</option>
+                  </select>
+                </label>
+                  <button onClick={this.submitGenreSearch}>Search!</button>
+                </p>
+              </Modal.Body>
+            </Modal>
+
+          
+        
+              </Col>
+              
+              <Col xsHidden md={4}> 
+                <Button bsStyle='default'onClick={() => {
+              this.openSuggest()
+            }}>
+        Pick a Flick
+        </Button>
+
+            <Modal show={this.state.showSuggestModal} onHide={this.closeSuggest}>
+              <Modal.Header closeButton>
+                <Modal.Title>Let us help you!</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>Fill out some quiz</p>
+
+                <form onSubmit={this.submitQuiz}>
+                  <p>
+                  <label>
+                  What genre do you want to watch?
+                  <select id='genre'>
+                    <option>action</option>
+                    <option>comedy</option>
+                    <option>drama</option>
+                    <option>romance</option>
+                    <option>indifferent</option>
+                  </select>
+                  </label>
+                </p>
+
+                  <p>
+                  <label>
+                  What era?
+                  <select id='era'>
+                    <option>Classic(1970-2000)</option>
+                    <option>Modern(Post-2000)</option>
+                    <option>New(2015-Now)</option>
+                    <option>Old(pre-1970)</option>
+                    <option>Indifferent</option>
+                  </select>
+                  </label>
+                </p>
+
+                  <p>
+                  <label>
+                  What streaming service do you use?(note: make this a radio button)
+                  <select id='sort'>
+                    <option>amazon</option>
+                    <option>hbo</option>
+                    <option>hulu</option>
+                    <option>netflix</option>
+                    <option>search all</option>
+
+                  </select>
+                  </label>
+                </p>
+                  <input type='submit' value='Submit' />
+                </form>
+              </Modal.Body>
+            </Modal>
+            <Button bsStyle='default' onClick={() => {
+              this.openGameQuiz()
+            }}>
+        Play a game?
+        </Button>
+
+            <Modal show={this.state.showGameQuizModal} onHide={this.closeGameQuiz}>
+              <Modal.Header closeButton>
+                <Modal.Title>Play a game and let us choose!</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+
+                <form onSubmit={this.submitQuiz}>
+                  <p>
+                  <label>
+                  What's your favorite color?
+                  <select id='genre'>
+                    <option>Blue</option>
+                    <option>Green</option>
+                    <option>Red</option>
+                    <option>Purple</option>
+                    <option>I'm colorblind</option>
+                  </select>
+                  </label>
+                </p>
+
+                  <p>
+                  <label>
+                  How old are you?
+                  <select id='era'>
+                    <option>Child</option>
+                    <option>Teenager</option>
+                    <option>Adult</option>
+                    <option>Senior</option>
+                    <option>Age is a social construct</option>
+                  </select>
+                  </label>
+                </p>
+
+                  <p>
+                  <label>
+                Favorite Pet?
+                  <select id='sort'>
+                    <option>Cat</option>
+                    <option>Doggo</option>
+                    <option>Hamster</option>
+                    <option>Fish</option>
+                    <option>Don't like animals</option>
+                  </select>
+                  </label>
+                </p>
+                  <input type='submit' value='Submit' />
+                </form>
+              </Modal.Body>
+            </Modal>
+</Col>
+            </Row>
+            </Grid>
+          </footer>
         </div>
 
       </div>
