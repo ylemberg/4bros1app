@@ -21,7 +21,7 @@ class QuizMovieEntry extends React.Component {
 		console.log('this movie genres are', movie.genres.join(','))
 	  return (
 	  <div>
-		  	<Col sm={2} md={2}
+		  	<Col sm={6} md={2}
 		  	onMouseEnter = {() => {this.props.changeFront(movie)}}
 		  	onClick = {() => {this.props.openDetails(movie)}}
 		  	>

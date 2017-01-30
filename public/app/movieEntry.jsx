@@ -12,7 +12,7 @@ class movieEntry extends React.Component {
 	render() {
 		var movie = this.props.movie
 	  return (
-      <Col sm={2} md={2}> 
+      <Col sm={6} md={2}> 
       	<img className="movieEntry"
 		  onClick = {() => {this.props.openDetails(movie)}} 
 		  src={movie.thumbnail}/>

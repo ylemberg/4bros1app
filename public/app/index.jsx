@@ -82,14 +82,14 @@ class App extends React.Component {
     axios.get('/api/getFirstFive')
     .then(result => {
       context.setState({
-        movies: result.data,
-        showSpinner: false
+        movies: result.data
       })
       console.log('movie data set to', context.state.movies)
       axios.get('/api/getStaffRecs')
       .then(result => {
         context.setState({
-          staffMovies: result.data
+          staffMovies: result.data,
+          showSpinner: false
         })
         console.log('movie data set to', context.state.staffMovies)
       })

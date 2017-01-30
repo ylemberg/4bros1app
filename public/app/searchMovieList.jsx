@@ -42,9 +42,11 @@ class SearchMovieList extends React.Component {
 		    	</Row>
     		</Grid>
   		</Jumbotron>
-  		<h1>Search Results</h1>
+  		<h1 className = "text-center">Search Results</h1>
 			<Grid>
 				<Row>
+					<Col md={1}>
+					</Col>
 					{movies.map((movie, i) => (
 		        <SearchMovieEntry
 		        	frontId={frontId}
