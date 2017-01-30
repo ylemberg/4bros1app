@@ -424,6 +424,9 @@ class App extends React.Component {
   render () {
     return (
       <div>
+      <div className='padding'>
+        
+      </div>
         <ButtonGroup>
           <DropdownButton title='Dropdown' bsStyle='primary' id='bg-vertical-dropdown-3'>
             <MenuItem eventKey='1' onClick={() => {
@@ -605,7 +608,7 @@ class App extends React.Component {
           <Button bsStyle='primary' onClick={() => {
             this.homePage()
           }}>
-        Home
+        Back
         </Button></ButtonGroup>
         {
           this.state.showSpinner ?
