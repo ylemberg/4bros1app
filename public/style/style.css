@@ -47,3 +47,12 @@
 .padding {
   margin-top: 50px;
 }
+.movieEntry:hover {
+    background-color: #45223B;
+    border-color: #cf3d0e;
+    cursor: pointer;
+}
+.spin {
+display: block;
+margin: auto;
+}

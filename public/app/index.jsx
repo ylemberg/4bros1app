@@ -452,12 +452,12 @@ class App extends React.Component {
     return (
       <div>
       <div className ='padding'>
-        
+
       </div>
-        
+
         {
           this.state.showSpinner ?
-            <img src='https://68.media.tumblr.com/345127a42a4baf76158920730f808f3b/tumblr_nak5muSmwi1r2geqjo1_500.gif' />
+            <img className="spin" src='https://68.media.tumblr.com/345127a42a4baf76158920730f808f3b/tumblr_nak5muSmwi1r2geqjo1_500.gif' />
           :
           this.state.showQuizResults ?
             <QuizMovieList
@@ -501,8 +501,8 @@ class App extends React.Component {
 
 
         </Col>
-              <Col xs={6} md={4}> 
-          
+              <Col xs={6} md={4}>
+
             <Button Button bsStyle='default' onClick={() => {
               this.openSearch()
             }}>
@@ -572,12 +572,12 @@ class App extends React.Component {
               </Modal.Body>
             </Modal>
 
-          
-        
+
+
               </Col>
-              
-              <Col xsHidden md={4}> 
-                <Button bsStyle='default'onClick={() => {
+
+              <Col xs={6} md={4}>
+                <Button className="pickAFlick" bsStyle='default'onClick={() => {
               this.openSuggest()
             }}>
         Pick a Flick
@@ -634,7 +634,7 @@ class App extends React.Component {
                 </form>
               </Modal.Body>
             </Modal>
-            <Button bsStyle='default' onClick={() => {
+            <Button className="playAGame" bsStyle='default' onClick={() => {
               this.openGameQuiz()
             }}>
         Play a game?
