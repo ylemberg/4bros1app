@@ -3,6 +3,7 @@ import { Col } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
 import { Grid } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 import { PageHeader } from 'react-bootstrap';
 import { Parallax, Background } from 'react-parallax';
@@ -101,8 +102,7 @@ export default () => <div>
           marginTop: 40
 
         }}>
-      <Button href="/signin" bsSize="large"> Get Started</Button>
-      </div>
+<Link className = "nav-link" to = "/signin"> <Button bsSize="large"> GET STARTED </Button> </Link>      </div>
 
   </div>
   <div id="stack">
