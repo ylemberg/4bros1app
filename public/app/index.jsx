@@ -58,7 +58,9 @@ class App extends React.Component {
       showDetails: false,
       showSearchResults: false,
       detailMovie: null,
-      showSpinner: true
+      showSpinner: true,
+      socket: io(),
+      linksAnswers: ['test1', 'test2', 'test3']
     }
     this.openSearch = this.openSearch.bind(this)
     this.closeSearch = this.closeSearch.bind(this)
@@ -124,7 +126,6 @@ class App extends React.Component {
     this.setState({showGameQuizModal: true})
   }
   openMovieLinks() {
-    console.log('openMovieLinks');
     this.setState({showMovieLinksModal: true})
   }
   closeGameQuiz () {
@@ -651,7 +652,13 @@ class App extends React.Component {
             <Modal.Header closeButton>
               <Modal.Title>When it's your turn, submit a Movie title, with a Link to the current movie!</Modal.Title>
               <Modal.Body>
-                <p>This is the Modal Body!</p>
+                <p>User Answers:</p>
+                {this.state.linksAnswers.map(answer => {
+                  return <div className='chatMessage'>
+                  {answer}
+                  </div>
+                })}
+
               </Modal.Body>
             </Modal.Header>
           </Modal>
