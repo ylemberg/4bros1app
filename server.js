@@ -44,10 +44,9 @@ io.on('connection', socket => {
     console.log('player disconnected');
   });
 
-  socket.on('answerSubmit', answerObj => {
-    console.log('Player submitted movie ', answerObj.movie);
-    console.log('and the link is ', answerObj.link);
-    io.emit('sendBackAnswer', 'My movie is ' + answerObj.movie + ', linked by ' + answerObj.link);
+  socket.on('answerSubmit', answer => {
+    console.log('message received: ', answer);
+    io.emit('sendBackAnswer', answer);
   });
 });
 

@@ -59,7 +59,6 @@ class App extends React.Component {
       showSearchResults: false,
       detailMovie: null,
       showSpinner: true,
-      socket: io(),
       linksAnswers: ['test1', 'test2', 'test3']
     }
     this.openSearch = this.openSearch.bind(this)
@@ -67,9 +66,11 @@ class App extends React.Component {
     this.openSuggest = this.openSuggest.bind(this)
     this.closeSuggest = this.closeSuggest.bind(this)
     this.openGameQuiz = this.openGameQuiz.bind(this)
-    this.openMovieLinks = this.openMovieLinks.bind(this)
     this.closeGameQuiz = this.closeGameQuiz.bind(this)
+    this.openMovieLinks = this.openMovieLinks.bind(this)
     this.closeMovieLinks = this.closeMovieLinks.bind(this)
+    this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this)
+    this.handleNewAnswer = this.handleNewAnswer.bind(this)
     this.submitQuiz = this.submitQuiz.bind(this)
     this.homePage = this.homePage.bind(this)
     this.submitSearch = this.submitSearch.bind(this)
@@ -106,6 +107,22 @@ class App extends React.Component {
       console.log('error in component did mount in index', err)
     })
   }
+  handleAnswerSubmit(ev) {
+    ev.preventDefault();
+    let inputAnswer = document.getElementById('answer');
+    console.log('inputAnswer.value is ', inputAnswer.value);
+    socket.emit('answerSubmit', inputAnswer.value);
+    inputAnswer.value = '';
+  }
+  handleNewAnswer() {
+    let answers = this.state.linksAnswers;
+    socket.on('sendBackAnswer', answer => {
+      console.log('handleNewAnswer listener: ', answer);
+      answers.push(answer);
+      this.setState({linksAnswers: answers});
+    });
+  }
+
   openSearch () {
     this.setState({ showSearchModal: true })
   }
@@ -658,6 +675,13 @@ class App extends React.Component {
                   {answer}
                   </div>
                 })}
+                <form onSubmit={this.handleAnswerSubmit}>
+                  <label>
+                    Pick a related movie!
+                    <input type='text'id='answer'/>
+                  </label>
+                  <input type='submit' value='Submit'/>
+                </form>
 
               </Modal.Body>
             </Modal.Header>
