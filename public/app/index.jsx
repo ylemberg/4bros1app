@@ -83,30 +83,6 @@ class App extends React.Component {
     this.submitDirectorSearch = this.submitDirectorSearch.bind(this)
   }
 
-  componentDidMount () {
-    var context = this
-    axios.get('/api/getFirstFive')
-    .then(result => {
-      context.setState({
-        movies: result.data
-      })
-      console.log('movie data set to', context.state.movies)
-      axios.get('/api/getStaffRecs')
-      .then(result => {
-        context.setState({
-          staffMovies: result.data,
-          showSpinner: false
-        })
-        console.log('movie data set to', context.state.staffMovies)
-      })
-      .catch(err => {
-        console.log('error in component did mount in index', err)
-      })
-    })
-    .catch(err => {
-      console.log('error in component did mount in index', err)
-    })
-  }
   handleAnswerSubmit(ev) {
     ev.preventDefault();
     let inputAnswer = document.getElementById('answer');
@@ -475,6 +451,35 @@ class App extends React.Component {
       })
     })
   }
+
+  componentDidMount () {
+    var context = this;
+
+    this.handleNewAnswer();
+
+    axios.get('/api/getFirstFive')
+    .then(result => {
+      context.setState({
+        movies: result.data
+      })
+      console.log('movie data set to', context.state.movies)
+      axios.get('/api/getStaffRecs')
+      .then(result => {
+        context.setState({
+          staffMovies: result.data,
+          showSpinner: false
+        })
+        console.log('movie data set to', context.state.staffMovies)
+      })
+      .catch(err => {
+        console.log('error in component did mount in index', err)
+      })
+    })
+    .catch(err => {
+      console.log('error in component did mount in index', err)
+    })
+  }
+
   render () {
     return (
       <div>

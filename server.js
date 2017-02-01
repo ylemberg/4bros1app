@@ -46,7 +46,7 @@ io.on('connection', socket => {
 
   socket.on('answerSubmit', answer => {
     console.log('message received: ', answer);
-    io.emit('sendBackAnswer', answer);
+    socket.emit('sendBackAnswer', answer);
   });
 });
 
