@@ -67,6 +67,7 @@ class App extends React.Component {
     this.openGameQuiz = this.openGameQuiz.bind(this)
     this.openMovieLinks = this.openMovieLinks.bind(this)
     this.closeGameQuiz = this.closeGameQuiz.bind(this)
+    this.closeMovieLinks = this.closeMovieLinks.bind(this)
     this.submitQuiz = this.submitQuiz.bind(this)
     this.homePage = this.homePage.bind(this)
     this.submitSearch = this.submitSearch.bind(this)
@@ -123,7 +124,8 @@ class App extends React.Component {
     this.setState({showGameQuizModal: true})
   }
   openMovieLinks() {
-    this.setState({showMovieQuizModal: true})
+    console.log('openMovieLinks');
+    this.setState({showMovieLinksModal: true})
   }
   closeGameQuiz () {
     this.setState({showGameQuizModal: false})
@@ -642,9 +644,18 @@ class App extends React.Component {
               </Modal.Body>
             </Modal>
 
-        <Button className='MovieLinks' bsStyle = 'default' onClick={() => this.openMovieLinks()}>
-          Let's play MovieLinks!
-        </Button>    
+        <Button className='MovieLinks' bsStyle = 'default' onClick={() => {this.openMovieLinks()}}>
+          Let's play a movie link game!
+        </Button>
+          <Modal show={this.state.showMovieLinksModal} onHide={this.closeMovieLinks}>
+            <Modal.Header closeButton>
+              <Modal.Title>When it's your turn, submit a Movie title, with a Link to the current movie!</Modal.Title>
+              <Modal.Body>
+                <p>This is the Modal Body!</p>
+              </Modal.Body>
+            </Modal.Header>
+          </Modal>
+
         <Button className="playAGame" bsStyle='default' onClick={() => {
           this.openGameQuiz()
         }}>
