@@ -455,6 +455,8 @@ class App extends React.Component {
   componentDidMount () {
     var context = this;
 
+    this.socket = io('/');
+
     this.handleNewAnswer();
 
     axios.get('/api/getFirstFive')
