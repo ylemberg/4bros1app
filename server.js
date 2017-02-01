@@ -7,6 +7,8 @@ var Router = require('react-router')
 
 let port = 3000
 let app = express()
+let io = require('socket.io')(app)
+
 app.use(function (req, res, next) {
   console.log(req.method, req.url)
   next()
@@ -34,7 +36,19 @@ app.get('*', function (request, response){
 })
 
 
+io.on('connection', socket => {
+  console.log('player connected');
 
+  socket.on('disconnect', () => {
+    console.log('player disconnected');
+  });
+
+  socket.on('answerSubmit', answerObj => {
+    console.log('Player submitted movie ', answerObj.movie);
+    console.log('and the link is ', answerObj.link);
+    io.emit('sendBackAnswer', 'My movie is ' + answerObj.movie + ', linked by ' + answerObj.link);
+  });
+});
 
 //start the server
 app.listen(port, () => {
