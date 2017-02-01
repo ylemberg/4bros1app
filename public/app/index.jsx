@@ -53,6 +53,7 @@ class App extends React.Component {
       showSearchModal: false,
       showSuggestModal: false,
       showGameQuizModal: false,
+      showMovieLinksModal: false,
       showQuizResults: false,
       showDetails: false,
       showSearchResults: false,
@@ -64,6 +65,7 @@ class App extends React.Component {
     this.openSuggest = this.openSuggest.bind(this)
     this.closeSuggest = this.closeSuggest.bind(this)
     this.openGameQuiz = this.openGameQuiz.bind(this)
+    this.openMovieLinks = this.openMovieLinks.bind(this)
     this.closeGameQuiz = this.closeGameQuiz.bind(this)
     this.submitQuiz = this.submitQuiz.bind(this)
     this.homePage = this.homePage.bind(this)
@@ -120,9 +122,14 @@ class App extends React.Component {
   openGameQuiz () {
     this.setState({showGameQuizModal: true})
   }
-
+  openMovieLinks() {
+    this.setState({showMovieQuizModal: true})
+  }
   closeGameQuiz () {
     this.setState({showGameQuizModal: false})
+  }
+  closeMovieLinks() {
+    this.setState({showMovieLinksModal: false})
   }
 
   showLanding () {
@@ -634,9 +641,13 @@ class App extends React.Component {
                 </form>
               </Modal.Body>
             </Modal>
-            <Button className="playAGame" bsStyle='default' onClick={() => {
-              this.openGameQuiz()
-            }}>
+
+        <Button className='MovieLinks' bsStyle = 'default' onClick={() => this.openMovieLinks()}>
+          Let's play MovieLinks!
+        </Button>    
+        <Button className="playAGame" bsStyle='default' onClick={() => {
+          this.openGameQuiz()
+        }}>
         Play a game?
         </Button>
 

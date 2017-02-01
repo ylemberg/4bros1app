@@ -7,7 +7,8 @@ var Router = require('react-router')
 
 let port = 3000
 let app = express()
-let io = require('socket.io')(app)
+let http = require('http').Server(app)
+let io = require('socket.io')(http)
 
 app.use(function (req, res, next) {
   console.log(req.method, req.url)
@@ -51,7 +52,7 @@ io.on('connection', socket => {
 });
 
 //start the server
-app.listen(port, () => {
+http.listen(port, () => {
   console.log('listening on port ' + port)
 })
 
