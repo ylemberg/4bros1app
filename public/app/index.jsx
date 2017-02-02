@@ -85,16 +85,18 @@ class App extends React.Component {
 
   handleAnswerSubmit(ev) {
     ev.preventDefault();
-    let inputAnswer = document.getElementById('answer');
-    console.log('inputAnswer.value is ', inputAnswer.value);
-    socket.emit('answerSubmit', inputAnswer.value);
+    let answerObj = {} 
+    answerObj.movie = document.getElementById('movieAnswer').value;
+    answerObj.link = document.getElementById('linkAnswer').value;
+    console.log('answerObj is ', answerObj);
+    socket.emit('answerSubmit', answerObj);
     inputAnswer.value = '';
   }
   handleNewAnswer() {
     let answers = this.state.linksAnswers;
-    socket.on('sendBackAnswer', answer => {
-      console.log('handleNewAnswer listener: ', answer);
-      answers.push(answer);
+    socket.on('sendBackAnswer', answerObj => {
+      console.log('handleNewAnswer listener: ', answerObj);
+      answers.push(answerObj);
       this.setState({linksAnswers: answers});
     });
   }
@@ -687,7 +689,8 @@ class App extends React.Component {
                 <form onSubmit={this.handleAnswerSubmit}>
                   <label>
                     Pick a related movie!
-                    <input type='text'id='answer'/>
+                    <input type='text'id='movieAnswer' placeholder='related movie'/>
+                    <input type='text'id='linkAnswer' placeholder='link'/>
                   </label>
                   <input type='submit' value='Submit'/>
                 </form>

@@ -44,9 +44,9 @@ io.on('connection', socket => {
     console.log('player disconnected');
   });
 
-  socket.on('answerSubmit', answer => {
-    console.log('message received: ', answer);
-    io.emit('sendBackAnswer', answer);
+  socket.on('answerSubmit', answerObj => {
+    console.log('message received: ', answerObj);
+    io.emit('sendBackAnswer', answerObj);
   });
 });
 
