@@ -59,7 +59,7 @@ class App extends React.Component {
       showSearchResults: false,
       detailMovie: null,
       showSpinner: true,
-      linksAnswers: ['test1', 'test2', 'test3']
+      linksAnswers: [{movie: 'Drive Angry', link: 'Nicolas Cage'}]
     }
     this.openSearch = this.openSearch.bind(this)
     this.closeSearch = this.closeSearch.bind(this)
@@ -679,7 +679,9 @@ class App extends React.Component {
                 <p>User Answers:</p>
                 {this.state.linksAnswers.map(answer => {
                   return <div className='chatMessage'>
-                  {answer}
+                  <div>
+                    Movie: {answer.movie}, with link {answer.link}
+                  </div>
                   </div>
                 })}
                 <form onSubmit={this.handleAnswerSubmit}>
