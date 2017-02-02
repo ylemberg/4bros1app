@@ -46,7 +46,8 @@ io.on('connection', socket => {
 
   socket.on('answerSubmit', answerObj => {
     console.log('message received: ', answerObj);
-    io.emit('sendBackAnswer', answerObj);
+    
+    socket.emit('sendBackAnswer', answerObj);
   });
 });
 

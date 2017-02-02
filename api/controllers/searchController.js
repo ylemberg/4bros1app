@@ -10,6 +10,53 @@ let utils = require('./utils')
 
 var searchController = {}
 
+searchController.checkMovieLinkAnswer = (currentMovie, usedMovies, link, userMovie) => {
+  let movieArr;
+  let query = link;
+  Movie.find({ actors: query })
+  .then(resp => {
+    if (resp.length > 4) {
+      let tempArr = resp
+      let length = tempArr.length
+      console.log('resp  = ', length)
+      let randomize = respArr => {
+        return Math.floor(Math.random() * length)
+      }
+      let i = 0
+      let result = []
+      while (i < 5) {
+        result.push(tempArr[randomize(tempArr)])
+        i++
+      }
+      console.log('resp after genre = ')
+      movieArr = result;
+    } else {
+      let gbOptions = {
+        uri: 'http://api-public.guidebox.com/v2/search?type=person&query=' + query,
+        headers: {
+          'User-Agent': 'Request-Promise',
+          'Authorization': '53d39189c3ecb7ab6757b6bc311f4e5b76c8f792'
+        },
+        json: true // Automatically parses the JSON string in the response
+      }
+      request(gbOptions)
+      .then(function (resp) {
+        let gbOptionsID = resp.results[0].id
+        gbOptions.uri = 'http://api-public.guidebox.com/v2/person/' + gbOptionsID + '/credits?role=cast&type=movie'
+        utils.addRelatedToDB(gbOptions)
+        .then(resp => {
+          movieArr = resp;
+        })
+        .catch(error => {
+          console.log('verifyError while grabbing movies from api: ', error);
+        })
+      })
+    }
+  })
+
+  let verifyHelper = (currMovie, userMovie, movieArr) => {}
+}
+
 searchController.byMovieTitle = (req, res) => {
   let query = req.headers.query.toLowerCase()
 

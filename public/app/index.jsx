@@ -59,7 +59,9 @@ class App extends React.Component {
       showSearchResults: false,
       detailMovie: null,
       showSpinner: true,
-      linksAnswers: [{movie: 'Drive Angry', link: 'Nicolas Cage', user: 'Admin'}]
+      linksAnswers: [{movie: 'Drive Angry', link: 'Nicolas Cage', user: 'Admin'}],
+      currentChallengeMovie: {movie: 'Drive Angry', link: 'Nicolas Cage', user: 'Admin'},
+      movieLinksUsedMovies: []
     }
     this.openSearch = this.openSearch.bind(this)
     this.closeSearch = this.closeSearch.bind(this)
@@ -86,21 +88,31 @@ class App extends React.Component {
   handleAnswerSubmit(ev) {
     ev.preventDefault();
     let answerObj = {} 
-    answerObj.movie = document.getElementById('movieAnswer').value;
+    answerObj.userMovie = document.getElementById('movieAnswer').value;
     answerObj.link = document.getElementById('linkAnswer').value;
     answerObj.user = this.currentUser;
+    answerObj.usedMovies = this.state.movieLinksUsedMovies;
+    answerObj.currentMovie = this.state.currentChallengeMovie;
     console.log('current user is: ', this.currentUser);
     console.log('answerObj is ', answerObj);
+    console.log('usedMovies is', this.movieLinksUsedMovies);
     socket.emit('answerSubmit', answerObj);
     document.getElementById('movieAnswer').value = '';
     document.getElementById('linkAnswer').value = '';
   }
   handleNewAnswer() {
     let answers = this.state.linksAnswers;
-    socket.on('sendBackAnswer', answerObj => {
-      console.log('handleNewAnswer listener: ', answerObj);
-      answers.push(answerObj);
-      this.setState({linksAnswers: answers});
+    let movieLinksUsedMovies = this.state.movieLinksUsedMovies;
+    socket.on('sendBackAnswer', responseObj => {
+      console.log('handleNewAnswer listener: ', responseObj);
+      this.state.currentChallengeMovie = responseObj.movie;
+      movieLinksUsedMovies.push(responseObj.usedMovies);
+      answers.push(responseObj.movie);
+      this.setState({
+        linksAnswers: answers, 
+        currentChallengeMovie: responseObj.movie,
+        movieLinksUsedMovies: movieLinksUsedMovies
+      });
     });
   }
 
@@ -687,7 +699,7 @@ class App extends React.Component {
                 {this.state.linksAnswers.map(answer => {
                   return <div className='chatMessage'>
                   <div>
-                   User {answer.user} submitted {answer.movie}, with link {answer.link}
+                   Player {answer.user} submitted {answer.movie}, with link {answer.link}
                   </div>
                   </div>
                 })}
