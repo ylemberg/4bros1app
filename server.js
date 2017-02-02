@@ -1,16 +1,24 @@
-let express = require('express')
-let path = require('path')
-let bodyParser = require('body-parser')
-let routes = require('./api/routes/routes.js')
+const express = require('express')
+const path = require('path')
+const bodyParser = require('body-parser')
+const routes = require('./api/routes/routes.js')
 const cors = require('cors');
-var Router = require('react-router')
+const Router = require('react-router')
+const session = require('express-session');
 
-let port = 3000
-let app = express()
+const port = 3000
+const app = express()
 app.use(function (req, res, next) {
   console.log(req.method, req.url)
   next()
 })
+
+app.use(session({ 
+  secret: 'movief1ck',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 6000000 }
+}));
 
 app.use(express.static(path.join(__dirname + '/public')))
 

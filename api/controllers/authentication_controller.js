@@ -11,7 +11,13 @@ function tokenForUser(user) {
 }
 
 exports.signin = function(req, res, next) {
+  console.log('req.user', req.user);
   var user = req.user;
+  req.session.regenerate(function() {
+    req.session.user = user.email;
+    console.log('req.session inside regenerate', req.session);
+  });
+  console.log('req.session', req.session);
   res.send({token: tokenForUser(user), user_id: user._id});
 }
 
