@@ -59,7 +59,7 @@ class App extends React.Component {
       showSearchResults: false,
       detailMovie: null,
       showSpinner: true,
-      linksAnswers: [{movie: 'Drive Angry', link: 'Nicolas Cage'}]
+      linksAnswers: [{movie: 'Drive Angry', link: 'Nicolas Cage', user: 'Admin'}]
     }
     this.openSearch = this.openSearch.bind(this)
     this.closeSearch = this.closeSearch.bind(this)
@@ -88,9 +88,12 @@ class App extends React.Component {
     let answerObj = {} 
     answerObj.movie = document.getElementById('movieAnswer').value;
     answerObj.link = document.getElementById('linkAnswer').value;
+    answerObj.user = this.currentUser;
+    console.log('current user is: ', this.currentUser);
     console.log('answerObj is ', answerObj);
     socket.emit('answerSubmit', answerObj);
-    inputAnswer.value = '';
+    document.getElementById('movieAnswer').value = '';
+    document.getElementById('linkAnswer').value = '';
   }
   handleNewAnswer() {
     let answers = this.state.linksAnswers;
@@ -461,6 +464,8 @@ class App extends React.Component {
 
     this.handleNewAnswer();
 
+    this.currentUser = localStorage.currentUser;
+
     axios.get('/api/getFirstFive')
     .then(result => {
       context.setState({
@@ -682,7 +687,7 @@ class App extends React.Component {
                 {this.state.linksAnswers.map(answer => {
                   return <div className='chatMessage'>
                   <div>
-                    Movie: {answer.movie}, with link {answer.link}
+                   User {answer.user} submitted {answer.movie}, with link {answer.link}
                   </div>
                   </div>
                 })}

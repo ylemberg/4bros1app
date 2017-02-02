@@ -10,6 +10,7 @@ import {
 const ROOT_URL = 'http://localhost:3000';
 
 export function signinUser({ email, password }) {
+  localStorage.setItem('currentUser', email);
   return function(dispatch) {
     // Submit email/password to the server
     axios.post(`${ROOT_URL}/api/signin`, { email, password })
