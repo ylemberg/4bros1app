@@ -6,8 +6,11 @@ const cors = require('cors');
 const Router = require('react-router')
 const session = require('express-session');
 
-const port = 3000
-const app = express()
+let port = 3000
+let app = express()
+let http = require('http').Server(app)
+let io = require('socket.io')(http)
+
 app.use(function (req, res, next) {
   console.log(req.method, req.url)
   next()
@@ -42,10 +45,21 @@ app.get('*', function (request, response){
 })
 
 
+io.on('connection', socket => {
+  console.log('player connected');
 
+  socket.on('disconnect', () => {
+    console.log('player disconnected');
+  });
+
+  socket.on('answerSubmit', answerObj => {
+    console.log('message received: ', answerObj);
+    io.emit('sendBackAnswer', answerObj);
+  });
+});
 
 //start the server
-app.listen(port, () => {
+http.listen(port, () => {
   console.log('listening on port ' + port)
 })
 

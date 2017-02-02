@@ -67,12 +67,21 @@ class App extends React.Component {
       showGameQuizModal: false,
       showPrivateScreeningsModal: false,
       showScreeningView: false,
+      showMovieLinksModal: false,
       showQuizResults: false,
       showDetails: false,
       showSearchResults: false,
       detailMovie: null,
-      showSpinner: true
+      showSpinner: true,
+      linksAnswers: [
+        {
+          movie: 'Drive Angry',
+          link: 'Nicolas Cage',
+          user: 'Admin'
+        }
+      ]
     }
+
     this.openSearch = this
       .openSearch
       .bind(this)
@@ -90,6 +99,18 @@ class App extends React.Component {
       .bind(this)
     this.closeGameQuiz = this
       .closeGameQuiz
+      .bind(this)
+    this.openMovieLinks = this
+      .openMovieLinks
+      .bind(this)
+    this.closeMovieLinks = this
+      .closeMovieLinks
+      .bind(this)
+    this.handleAnswerSubmit = this
+      .handleAnswerSubmit
+      .bind(this)
+    this.handleNewAnswer = this
+      .handleNewAnswer
       .bind(this)
     this.submitQuiz = this
       .submitQuiz
@@ -132,27 +153,35 @@ class App extends React.Component {
       .bind(this)
   }
 
-  componentDidMount() {
-    var context = this
-    axios
-      .get('/api/getFirstFive')
-      .then(result => {
-        context.setState({movies: result.data})
-        console.log('movie data set to', context.state.movies)
-        axios
-          .get('/api/getStaffRecs')
-          .then(result => {
-            context.setState({staffMovies: result.data, showSpinner: false})
-            console.log('movie data set to', context.state.staffMovies)
-          })
-          .catch(err => {
-            console.log('error in component did mount in index', err)
-          })
-      })
-      .catch(err => {
-        console.log('error in component did mount in index', err)
-      })
+  handleAnswerSubmit(ev) {
+    ev.preventDefault();
+    let answerObj = {}
+    answerObj.movie = document
+      .getElementById('movieAnswer')
+      .value;
+    answerObj.link = document
+      .getElementById('linkAnswer')
+      .value;
+    answerObj.user = this.currentUser;
+    console.log('current user is: ', this.currentUser);
+    console.log('answerObj is ', answerObj);
+    socket.emit('answerSubmit', answerObj);
+    document
+      .getElementById('movieAnswer')
+      .value = '';
+    document
+      .getElementById('linkAnswer')
+      .value = '';
   }
+  handleNewAnswer() {
+    let answers = this.state.linksAnswers;
+    socket.on('sendBackAnswer', answerObj => {
+      console.log('handleNewAnswer listener: ', answerObj);
+      answers.push(answerObj);
+      this.setState({linksAnswers: answers});
+    });
+  }
+
   openSearch() {
     this.setState({showSearchModal: true})
   }
@@ -173,8 +202,14 @@ class App extends React.Component {
     this.setState({showGameQuizModal: true})
   }
 
+  openMovieLinks() {
+    this.setState({showMovieLinksModal: true})
+  }
   closeGameQuiz() {
     this.setState({showGameQuizModal: false})
+  }
+  closeMovieLinks() {
+    this.setState({showMovieLinksModal: false})
   }
 
   showLanding() {
@@ -479,6 +514,36 @@ class App extends React.Component {
     this.setState({showScreeningView: true})
     console.log('this.state.showScreeningView', this.state.showScreeningView)
   }
+
+  componentDidMount() {
+    var context = this;
+
+    this.socket = io('/');
+
+    this.handleNewAnswer();
+
+    this.currentUser = localStorage.currentUser;
+
+    axios
+      .get('/api/getFirstFive')
+      .then(result => {
+        context.setState({movies: result.data})
+        console.log('movie data set to', context.state.movies)
+        axios
+          .get('/api/getStaffRecs')
+          .then(result => {
+            context.setState({staffMovies: result.data, showSpinner: false})
+            console.log('movie data set to', context.state.staffMovies)
+          })
+          .catch(err => {
+            console.log('error in component did mount in index', err)
+          })
+      })
+      .catch(err => {
+        console.log('error in component did mount in index', err)
+      })
+  }
+
   render() {
     return (
       <div>
@@ -495,10 +560,10 @@ class App extends React.Component {
                   movies={this.state.searchResult}
                   openDetails={this.openDetails}/>
               : this.state.showScreeningView
-                  ? <Screening/>
-                  : this.state.showDetails
-                    ? <MovieDescription movie={this.state.detailMovie}/>
-                    : <MovieList
+                ? <Screening/>
+                : this.state.showDetails
+                  ? <MovieDescription movie={this.state.detailMovie}/>
+                  : <MovieList
                     staffMovies={this.state.staffMovies}
                     movies={this.state.movies}
                     openDetails={this.openDetails}
@@ -662,6 +727,42 @@ class App extends React.Component {
                     </Modal.Body>
                   </Modal>
                   <Button
+                    className='MovieLinks'
+                    bsStyle='default'
+                    onClick={() => {
+                    this.openMovieLinks()
+                  }}>
+                    Let's play a movie link game!
+                  </Button>
+                  <Modal show={this.state.showMovieLinksModal} onHide={this.closeMovieLinks}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>When it's your turn, submit a Movie title, with a Link to the current movie!</Modal.Title>
+                      <Modal.Body>
+                        <p>User Answers:</p>
+                        {this
+                          .state
+                          .linksAnswers
+                          .map(answer => {
+                            return <div className='chatMessage'>
+                              <div>
+                                User {answer.user}
+                                submitted {answer.movie}, with link {answer.link}
+                              </div>
+                            </div>
+                          })}
+                        <form onSubmit={this.handleAnswerSubmit}>
+                          <label>
+                            Pick a related movie!
+                            <input type='text' id='movieAnswer' placeholder='related movie'/>
+                            <input type='text' id='linkAnswer' placeholder='link'/>
+                          </label>
+                          <input type='submit' value='Submit'/>
+                        </form>
+
+                      </Modal.Body>
+                    </Modal.Header>
+                  </Modal>
+                  <Button
                     className="playAGame"
                     bsStyle='default'
                     onClick={() => {
@@ -726,7 +827,9 @@ class App extends React.Component {
                   }}>
                     Private Screenings
                   </Button>
-                  <Modal show={this.state.showPrivateScreeningsModal} onHide={this.closePrivateScreenings}>
+                  <Modal
+                    show={this.state.showPrivateScreeningsModal}
+                    onHide={this.closePrivateScreenings}>
                     <Modal.Header closeButton>
                       <Modal.Title>Private Screenings</Modal.Title>
                     </Modal.Header>
@@ -752,6 +855,7 @@ class App extends React.Component {
                   </Modal>
                 </Col>
               </Row>
+
             </Grid>
           </footer>
         </div>
