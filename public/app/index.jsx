@@ -20,7 +20,7 @@ import QuizMovieList from './quizMovieList.jsx'
 import SearchMovieList from './searchMovieList.jsx'
 import MovieDescription from './movieDescription.jsx'
 import Screening from './screening.jsx'
-import timer from './timer.jsx'
+import CountdownTimer from './timer.jsx'
 import {Modal} from 'react-bootstrap'
 import {DropdownButton} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
@@ -85,7 +85,8 @@ class App extends React.Component {
       currentChallengeMovie: {movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'},
       movieLinksUsedMovies: ['eternal sunshine of the spotless mind'],
       movieLinksStarted: false,
-      movieLinksEndMsg: ''
+      movieLinksEndMsg: '',
+      timerTime: 30
     }
 
     this.openSearch = this.openSearch.bind(this)
@@ -173,7 +174,8 @@ class App extends React.Component {
       movieLinksUsedMovies: [],
       currentChallengeMovie: randomMovie,
       linksAnswers: [randomMovie],
-      movieLinksEndMsg: ''
+      movieLinksEndMsg: '',
+      timerTime: 30
     });
   }
 
@@ -746,7 +748,7 @@ class App extends React.Component {
                       <Modal.Body>
                       <Button bsStyle='default' onClick={ () => this.restartMovieLinks()}>Ready to play?</Button>
                         <div show={this.state.movieLinksStarted}>
-                        
+                        <CountdownTimer secondsRemaining={this.state.timerTime} timerDone={this.movieLinksEnd}/>
                           <p>User Answers:</p>
                           {this
                             .state
