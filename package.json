@@ -69,12 +69,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "engines": {
+    "node": "4.x",
+    "npm": "3.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/richdurazo/4bros1app.git"
-  },
-  "engines": {
-    "node": "0.10.x"
   },
   "author": "",
   "license": "ISC",
