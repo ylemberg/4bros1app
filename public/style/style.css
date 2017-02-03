@@ -92,7 +92,11 @@ margin: auto;
 }
 
 .chat-box-heading {
-  float: right
+  float: right;
+}
+
+#chat-msg {
+  margin: 0;
 }
 
 .chat
