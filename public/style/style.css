@@ -91,6 +91,10 @@ margin: auto;
   height: 500px;
 }
 
+.chat-box-heading {
+  float: right
+}
+
 .chat
 {
     list-style: none;

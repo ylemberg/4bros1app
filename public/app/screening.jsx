@@ -4,7 +4,7 @@ class Screening extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.']
+      messages: []
     }
 
     this.addMessage = this.addMessage.bind(this)
@@ -34,6 +34,7 @@ class Screening extends React.Component {
   componentDidMount() {
     this.socket = io('/')
     this.handleNewMsg();
+    console.log('this.state.messages', this.state.messages)
   }
 
   render() {
@@ -45,7 +46,7 @@ class Screening extends React.Component {
             <div className="panel panel-primary chat-box-panel">
               <div className="panel-heading">
                 <span className="glyphicon glyphicon-comment"></span>
-                Talk about the movie
+                <span className="chat-box-heading">Talk about the movie</span>
               </div>
               <div className="panel-body chat-box-panel-body">
                 <ul className="chat">
