@@ -11,15 +11,22 @@ class Screening extends React.Component {
   }
 
   addMessage() {
-    this.setState({
-      messages: this.state.messages.concat(document.getElementById('chat-input').value)
-    })
-    console.log('this.state.messages', this.state.messages)
+    socket.emit('sendMsgToServer', document.getElementById('chat-input').value)
     document.getElementById('chat-input').value = ''
   }
 
+  handleNewMsg() {
+    socket.on('sendMsgBackToClient', msg => {
+      this.setState({messages: this.state.messages.concat(msg)})
+    });
+  }
+
+  componentDidMount() {
+    this.socket = io('/')
+    this.handleNewMsg();
+  }
+
   render() {
-    console.log('this.state.messages', this.state.messages)
     return (
       <div className="container chat-box-container">
         <div className="row chat-row">

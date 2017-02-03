@@ -56,6 +56,10 @@ io.on('connection', socket => {
     console.log('message received: ', answerObj);
     io.emit('sendBackAnswer', answerObj);
   });
+
+  socket.on('sendMsgToServer', msg => {
+    io.emit('sendMsgBackToClient', msg);
+  });
 });
 
 //start the server
