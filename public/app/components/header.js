@@ -10,10 +10,10 @@ class Header extends Component {
             // show a link to sign out
             return [
               <li className = "nav-item" >
-              <Link className = "nav-link" to = "/feature"> Home </Link>
+                <Link className = "nav-link" to = "/feature"> Home </Link>
               </li>,
               <li className = "nav-item" >
-              <Link className = "nav-link" to = "/signout" > Sign Out < /Link>
+                <Link className = "nav-link" to = "/signout" > Sign Out < /Link>
               </li>
             ];
           } else {
@@ -31,10 +31,10 @@ class Header extends Component {
 
     render() {
         return ( <nav className = "navbar navbar-light navbar-fixed-top">
-            <Link to = "/" className = "navbar-brand"> Pick A Flick </Link> <
-            ul className = "nav navbar-nav" > { this.renderLinks() } <
-            /ul> <
-            /nav>
+                    <Link to = "/" className = "navbar-brand"> Pick A Flick </Link>
+                      <ul className = "nav navbar-nav" > { this.renderLinks() }
+                    </ul> 
+                </nav>
         );
     }
 }

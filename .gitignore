@@ -1,3 +1,4 @@
 node_modules
 public/bundled
 api/.DS_Store
+**/.DS_Store
