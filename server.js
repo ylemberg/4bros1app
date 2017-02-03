@@ -3,8 +3,9 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const routes = require('./api/routes/routes.js')
 const cors = require('cors');
-const Router = require('react-router')
 const session = require('express-session');
+var Router = require('react-router')
+let checkMovieLinkAnswer = require('./api/controllers/searchController').checkMovieLinkAnswer;
 
 let port = 3000
 let app = express()
@@ -53,13 +54,16 @@ io.on('connection', socket => {
   });
 
   socket.on('answerSubmit', answerObj => {
-    console.log('message received: ', answerObj)
-    io.emit('sendBackAnswer', answerObj)
-  })
-
-  socket.on('sendMsgToServer', msg => {
-    socket.broadcast.emit('sendMsgBackToClient', msg)
-  })
+    console.log('message received: ', answerObj);
+    checkMovieLinkAnswer(answerObj.currentMovie, answerObj.usedMovies, answerObj.link, answerObj.userMovie)
+    .then(res => {
+      let responseObj = {};
+      responseObj.movie = res;
+      responseObj.link = answerObj.link;
+      console.log('responseObj in server: ', responseObj);
+      socket.emit('sendBackAnswer', responseObj);
+    });
+  });
 });
 
 //start the server

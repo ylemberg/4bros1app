@@ -73,13 +73,9 @@ class App extends React.Component {
       showSearchResults: false,
       detailMovie: null,
       showSpinner: true,
-      linksAnswers: [
-        {
-          movie: 'Drive Angry',
-          link: 'Nicolas Cage',
-          user: 'Admin'
-        }
-      ]
+      linksAnswers: [{movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'}],
+      currentChallengeMovie: {movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'},
+      movieLinksUsedMovies: ['eternal sunshine of the spotless mind']
     }
 
     this.openSearch = this.openSearch.bind(this)
@@ -109,16 +105,17 @@ class App extends React.Component {
 
   handleAnswerSubmit(ev) {
     ev.preventDefault();
-    let answerObj = {}
-    answerObj.movie = document
-      .getElementById('movieAnswer')
-      .value;
-    answerObj.link = document
-      .getElementById('linkAnswer')
-      .value;
+    let answerObj = {} 
+    answerObj.userMovie = document.getElementById('movieAnswer').value.toLowerCase();
+    answerObj.link = document.getElementById('linkAnswer').value.toLowerCase();
     answerObj.user = this.currentUser;
+    answerObj.usedMovies = this.state.movieLinksUsedMovies;
+    answerObj.currentMovie = this.state.currentChallengeMovie;
+    this.state.movieLinksUsedMovies.push(answerObj.userMovie = document.getElementById('movieAnswer').value.toLowerCase());
     console.log('current user is: ', this.currentUser);
     console.log('answerObj is ', answerObj);
+    console.log('usedMovies is', this.movieLinksUsedMovies);
+    console.log('currentMovie is ', this.state.currentChallengeMovie);
     socket.emit('answerSubmit', answerObj);
     document
       .getElementById('movieAnswer')
@@ -129,10 +126,21 @@ class App extends React.Component {
   }
   handleNewAnswer() {
     let answers = this.state.linksAnswers;
-    socket.on('sendBackAnswer', answerObj => {
-      console.log('handleNewAnswer listener: ', answerObj);
-      answers.push(answerObj);
-      this.setState({linksAnswers: answers});
+    let usedMovies = this.state.movieLinksUsedMovies;
+    socket.on('sendBackAnswer', responseObj => {
+      this.state.currentChallengeMovie = responseObj.movie;
+      usedMovies.push(responseObj.movie);
+      responseObj.user = 'Admin';
+      console.log('handleNewAnswer listener: ', responseObj);
+      answers.push(responseObj);
+      console.log('answers:', answers);
+      console.log('responseObj is now: ', responseObj);
+      this.setState({
+        linksAnswers: answers, 
+        currentChallengeMovie: responseObj,
+        movieLinksUsedMovies: usedMovies
+      });
+      console.log('this.state.linksAnswers: ', this.state.linksAnswers);
     });
   }
 
