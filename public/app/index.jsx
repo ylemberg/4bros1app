@@ -155,7 +155,7 @@ class App extends React.Component {
           movieLinksUsedMovies: usedMovies
         });
       } else {
-        this.movieLinksEnds('wrong');
+        this.movieLinksEnd('wrong');
       }
       console.log('this.state.linksAnswers: ', this.state.linksAnswers);
     });
@@ -177,7 +177,7 @@ class App extends React.Component {
     });
   }
 
-  movieLinksEnds(type) {
+  movieLinksEnd(type) {
     if(type === 'timeout') {
       this.setState({
         movieLinksEndMsg: "time's up!"
@@ -766,7 +766,7 @@ class App extends React.Component {
                               <input type='text' id='linkAnswer' placeholder='link'/>
                             </label>
                             <input type='submit' value='Submit'/>
-                            <div>{this.movieLinksEndMsg}</div>
+                            <div>{this.state.movieLinksEndMsg}</div>
                           </form>
                         </div>
                       </Modal.Body>
