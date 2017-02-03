@@ -35,16 +35,16 @@ searchController.checkMovieLinkAnswer = (currentMovie, usedMovies, link, userMov
       }
       return false;
     });
-    console.log('foundCurrMovie and foundUMovie:', foundCurrMovie, foundUMovie);
-    return (foundCurrMovie && foundUMovie); 
+      console.log('foundCurrMovie and foundUMovie:', foundCurrMovie, foundUMovie);
+      return (foundCurrMovie && foundUMovie); 
   }
 
   let pickNewMovieHelper = (usedMovies, movieArr) => {
     console.log('in pickNewMovieHelper');
     console.log('usedMovies:', usedMovies);
     for(let i = 0; i< movieArr.length; i++) {
-      console.log('pickNewMovieHelper is considering ', movieArr[i].title);
-      console.log('are they the same?', !usedMovies.includes(movieArr[i].title));
+      console.log('pickNewMovieHelper is considering', movieArr[i].title);
+      console.log('is it picked already?', usedMovies.includes(movieArr[i].title));
       if (!usedMovies.includes(movieArr[i].title)) {
         console.log('pickNewMovieHelper picked ', movieArr[i].title);
         return movieArr[i].title;
@@ -69,6 +69,9 @@ searchController.checkMovieLinkAnswer = (currentMovie, usedMovies, link, userMov
     //   }
     //   console.log('resp after genre = ')
       // return result;
+    for (var movie of resp) {
+      console.log(movie.title)
+    }
       return resp;
     } else {//if not in db, get an array of the actor's movies from the api
       let gbOptions = {
@@ -83,7 +86,7 @@ searchController.checkMovieLinkAnswer = (currentMovie, usedMovies, link, userMov
       .then(function (resp) {
         let gbOptionsID = resp.results[0].id
         gbOptions.uri = 'http://api-public.guidebox.com/v2/person/' + gbOptionsID + '/credits?role=cast&type=movie'
-        utils.addRelatedToDB(gbOptions)
+        return utils.addRelatedToDB(gbOptions)
         .then(resp => {
           return resp;
         })
@@ -104,6 +107,7 @@ searchController.checkMovieLinkAnswer = (currentMovie, usedMovies, link, userMov
 
 searchController.byMovieTitle = (req, res) => {
   let query = req.headers.query.toLowerCase()
+  console.log('search query was', query);
 
   Movie.find({ title: query })
         .then(function (resp) {

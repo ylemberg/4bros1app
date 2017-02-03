@@ -93,6 +93,7 @@ class App extends React.Component {
     answerObj.user = this.currentUser;
     answerObj.usedMovies = this.state.movieLinksUsedMovies;
     answerObj.currentMovie = this.state.currentChallengeMovie;
+    this.state.movieLinksUsedMovies.push(answerObj.userMovie = document.getElementById('movieAnswer').value.toLowerCase());
     console.log('current user is: ', this.currentUser);
     console.log('answerObj is ', answerObj);
     console.log('usedMovies is', this.movieLinksUsedMovies);
