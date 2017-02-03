@@ -20,6 +20,7 @@ import QuizMovieList from './quizMovieList.jsx'
 import SearchMovieList from './searchMovieList.jsx'
 import MovieDescription from './movieDescription.jsx'
 import Screening from './screening.jsx'
+import timer from './timer.jsx'
 import {Modal} from 'react-bootstrap'
 import {DropdownButton} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
@@ -83,7 +84,8 @@ class App extends React.Component {
       ],
       currentChallengeMovie: {movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'},
       movieLinksUsedMovies: ['eternal sunshine of the spotless mind'],
-      movieLinksStarted: false
+      movieLinksStarted: false,
+      movieLinksEndMsg: ''
     }
 
     this.openSearch = this.openSearch.bind(this)
@@ -95,6 +97,7 @@ class App extends React.Component {
     this.openMovieLinks = this.openMovieLinks.bind(this)
     this.closeMovieLinks = this.closeMovieLinks.bind(this)
     this.restartMovieLinks = this.restartMovieLinks.bind(this)
+    this.movieLinksEnd = this.movieLinksEnd.bind(this)
     this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this)
     this.handleNewAnswer = this.handleNewAnswer.bind(this)
     this.submitQuiz = this.submitQuiz.bind(this)
@@ -138,18 +141,22 @@ class App extends React.Component {
     let answers = this.state.linksAnswers;
     let usedMovies = this.state.movieLinksUsedMovies;
     socket.on('sendBackAnswer', responseObj => {
-      this.state.currentChallengeMovie = responseObj.movie;
-      usedMovies.push(responseObj.movie);
-      responseObj.user = 'Admin';
-      console.log('handleNewAnswer listener: ', responseObj);
-      answers.push(responseObj);
-      console.log('answers:', answers);
-      console.log('responseObj is now: ', responseObj);
-      this.setState({
-        linksAnswers: answers, 
-        currentChallengeMovie: responseObj,
-        movieLinksUsedMovies: usedMovies
-      });
+      if(responseObj.movie){
+        this.state.currentChallengeMovie = responseObj.movie;
+        usedMovies.push(responseObj.movie);
+        responseObj.user = 'Admin';
+        console.log('handleNewAnswer listener: ', responseObj);
+        answers.push(responseObj);
+        console.log('answers:', answers);
+        console.log('responseObj is now: ', responseObj);
+        this.setState({
+          linksAnswers: answers, 
+          currentChallengeMovie: responseObj,
+          movieLinksUsedMovies: usedMovies
+        });
+      } else {
+        this.movieLinksEnds('wrong');
+      }
       console.log('this.state.linksAnswers: ', this.state.linksAnswers);
     });
   }
@@ -165,8 +172,21 @@ class App extends React.Component {
     this.setState({
       movieLinksUsedMovies: [],
       currentChallengeMovie: randomMovie,
-      linksAnswers: [randomMovie]
+      linksAnswers: [randomMovie],
+      movieLinksEndMsg: ''
     });
+  }
+
+  movieLinksEnds(type) {
+    if(type === 'timeout') {
+      this.setState({
+        movieLinksEndMsg: "time's up!"
+      });
+    } else {
+      this.setState({
+        movieLinksEndMsg: "invalid movie / link!"
+      });
+    }
   }
 
   openSearch() {
@@ -726,6 +746,7 @@ class App extends React.Component {
                       <Modal.Body>
                       <Button bsStyle='default' onClick={ () => this.restartMovieLinks()}>Ready to play?</Button>
                         <div show={this.state.movieLinksStarted}>
+                        
                           <p>User Answers:</p>
                           {this
                             .state
@@ -745,6 +766,7 @@ class App extends React.Component {
                               <input type='text' id='linkAnswer' placeholder='link'/>
                             </label>
                             <input type='submit' value='Submit'/>
+                            <div>{this.movieLinksEndMsg}</div>
                           </form>
                         </div>
                       </Modal.Body>
