@@ -38,18 +38,17 @@ let findFirstFive = (req, res) => {
         }
       }
 
-      popArr.forEach(movie => {
-        console.log( 'testing for bug id = ', movie, movie.id)
-        Movie.find({guideboxId: movie.id})
-        .then(resp => {
-          console.log( 'testing for bug = ', resp[0].title, resp[0].thumbnail)
-          resultArr.push(resp[0])
-          checkForResult(resultArr)
-        })
-        .catch(function (err) {
-        console.log('error is', err)
-      })
-      })
+   popArr.forEach(movie => {
+     Movie.find({guideboxId: movie.id})
+     .then(resp => {
+       console.log( 'testing for bug = ', resp[0].title, resp[0].thumbnail)
+       resultArr.push(resp[0])
+       checkForResult(resultArr)
+     })
+     .catch(function (err) {
+      console.log('error is', err)
+     })
+   })
  })
 
 }
