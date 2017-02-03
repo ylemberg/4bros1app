@@ -52,10 +52,7 @@ class Screening extends React.Component {
                 <ul className="chat">
                   {this.state.messages.map(message => (
                     <li className="left clearfix">
-                      <span className="chat-img pull-left">
-                        <img src="http://placehold.it/50/55C1E7/fff&text=U" className="img-circle"/>
-                      </span>
-                      <div className="chat-body clearfix">
+                      <div className="chat-body clearfix" id="chat-msg">
                         <div className="header">
                           <strong className="primary-font">{message.user}</strong>
                           <small className="pull-right text-muted">
