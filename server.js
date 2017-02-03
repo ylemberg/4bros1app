@@ -46,16 +46,20 @@ app.get('*', function (request, response){
 
 
 io.on('connection', socket => {
-  console.log('player connected');
+  console.log('player connected')
 
   socket.on('disconnect', () => {
     console.log('player disconnected');
   });
 
   socket.on('answerSubmit', answerObj => {
-    console.log('message received: ', answerObj);
-    io.emit('sendBackAnswer', answerObj);
-  });
+    console.log('message received: ', answerObj)
+    io.emit('sendBackAnswer', answerObj)
+  })
+
+  socket.on('sendMsgToServer', msg => {
+    socket.broadcast.emit('sendMsgBackToClient', msg)
+  })
 });
 
 //start the server

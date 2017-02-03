@@ -8,18 +8,35 @@ class Screening extends React.Component {
     }
 
     this.addMessage = this.addMessage.bind(this)
+    this.handleNewMsg = this.handleNewMsg.bind(this)
   }
 
   addMessage() {
-    this.setState({
-      messages: this.state.messages.concat(document.getElementById('chat-input').value)
-    })
-    console.log('this.state.messages', this.state.messages)
+    let msgObj = {
+      text: document.getElementById('chat-input').value,
+      user: localStorage.currUser
+    }
+    socket.emit('sendMsgToServer', msgObj)
+    this.setState({messages: this.state.messages.concat(msgObj)})
     document.getElementById('chat-input').value = ''
   }
 
+  handleNewMsg() {
+    socket.on('sendMsgBackToClient', msg => {
+      let msgObj = {
+        text: msg.text,
+        user: msg.user
+      }
+      this.setState({messages: this.state.messages.concat(msgObj)})
+    });
+  }
+
+  componentDidMount() {
+    this.socket = io('/')
+    this.handleNewMsg();
+  }
+
   render() {
-    console.log('this.state.messages', this.state.messages)
     return (
       <div className="container chat-box-container">
         <div className="row chat-row">
@@ -39,14 +56,14 @@ class Screening extends React.Component {
                       </span>
                       <div className="chat-body clearfix">
                         <div className="header">
-                          <strong className="primary-font">Jack Sparrow</strong>
+                          <strong className="primary-font">{message.user}</strong>
                           <small className="pull-right text-muted">
                             <span className="glyphicon glyphicon-time"></span>
                             12 mins ago
                           </small>
                         </div>
                         <p>
-                          {message}
+                          {message.text}
                         </p>
                       </div>
                     </li>
