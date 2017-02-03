@@ -10,7 +10,7 @@ import {
 const ROOT_URL = 'http://localhost:3000';
 
 export function signinUser({ email, password }) {
-  localStorage.setItem('currentUser', email);
+  localStorage.setItem('currUser', email.substr(0, email.indexOf('@')))
   return function(dispatch) {
     // Submit email/password to the server
     axios.post(`${ROOT_URL}/api/signin`, { email, password })
@@ -52,6 +52,7 @@ export function authError(error) {
 
 export function signoutUser() {
   localStorage.removeItem('token');
+  localStorage.removeItem('currUser')
 
   return { type: UNAUTH_USER };
 }

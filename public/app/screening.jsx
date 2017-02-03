@@ -8,16 +8,26 @@ class Screening extends React.Component {
     }
 
     this.addMessage = this.addMessage.bind(this)
+    this.handleNewMsg = this.handleNewMsg.bind(this)
   }
 
   addMessage() {
-    socket.emit('sendMsgToServer', document.getElementById('chat-input').value)
+    let msgObj = {
+      text: document.getElementById('chat-input').value,
+      user: localStorage.currUser
+    }
+    socket.emit('sendMsgToServer', msgObj)
+    this.setState({messages: this.state.messages.concat(msgObj)})
     document.getElementById('chat-input').value = ''
   }
 
   handleNewMsg() {
     socket.on('sendMsgBackToClient', msg => {
-      this.setState({messages: this.state.messages.concat(msg)})
+      let msgObj = {
+        text: msg.text,
+        user: msg.user
+      }
+      this.setState({messages: this.state.messages.concat(msgObj)})
     });
   }
 
@@ -46,14 +56,14 @@ class Screening extends React.Component {
                       </span>
                       <div className="chat-body clearfix">
                         <div className="header">
-                          <strong className="primary-font">Jack Sparrow</strong>
+                          <strong className="primary-font">{message.user}</strong>
                           <small className="pull-right text-muted">
                             <span className="glyphicon glyphicon-time"></span>
                             12 mins ago
                           </small>
                         </div>
                         <p>
-                          {message}
+                          {message.text}
                         </p>
                       </div>
                     </li>
