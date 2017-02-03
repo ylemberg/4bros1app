@@ -97,6 +97,7 @@ margin: auto;
 
 #chat-msg {
   margin: 0;
+  float: right
 }
 
 .chat
