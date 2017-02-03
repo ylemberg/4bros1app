@@ -97,7 +97,10 @@ margin: auto;
 
 #chat-msg {
   margin: 0;
+<<<<<<< HEAD
   float: right
+=======
+>>>>>>> Style the chat a little more
 }
 
 .chat
