@@ -4,6 +4,7 @@ let bodyParser = require('body-parser')
 let routes = require('./api/routes/routes.js')
 const cors = require('cors');
 var Router = require('react-router')
+let checkMovieLinkAnswer = require('./api/controllers/searchController').checkMovieLinkAnswer;
 
 let port = 3000
 let app = express()
@@ -46,8 +47,14 @@ io.on('connection', socket => {
 
   socket.on('answerSubmit', answerObj => {
     console.log('message received: ', answerObj);
-    
-    socket.emit('sendBackAnswer', answerObj);
+    checkMovieLinkAnswer(answerObj.currentMovie, answerObj.usedMovies, answerObj.link, answerObj.userMovie)
+    .then(res => {
+      let responseObj = {};
+      responseObj.movie = res;
+      responseObj.link = answerObj.link;
+      console.log('responseObj in server: ', responseObj);
+      socket.emit('sendBackAnswer', responseObj);
+    });
   });
 });
 

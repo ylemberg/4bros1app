@@ -11,26 +11,66 @@ let utils = require('./utils')
 var searchController = {}
 
 searchController.checkMovieLinkAnswer = (currentMovie, usedMovies, link, userMovie) => {
-  let movieArr;
   let query = link;
-  Movie.find({ actors: query })
-  .then(resp => {
-    if (resp.length > 4) {
-      let tempArr = resp
-      let length = tempArr.length
-      console.log('resp  = ', length)
-      let randomize = respArr => {
-        return Math.floor(Math.random() * length)
+  let verifyHelper = (currMovie, uMovie, movieArr) => {
+    console.log('in verifyHelper');
+    let foundCurrMovie = false,
+        foundUMovie = false;
+
+    movieArr.some((movieObj) => {
+      console.log('looking for currMovie, considering: ', movieObj.title);
+      if(movieObj.title === currMovie.movie.toLowerCase()) {
+        foundCurrMovie = true;
+        return true;
       }
-      let i = 0
-      let result = []
-      while (i < 5) {
-        result.push(tempArr[randomize(tempArr)])
-        i++
+      return false;
+    });
+
+    movieArr.some((movieObj) => {
+      console.log('looking for userMovie, considering:', movieObj.title);
+      if(movieObj.title === uMovie.toLowerCase()) {
+        console.log();
+        foundUMovie = true;
+        return true;
       }
-      console.log('resp after genre = ')
-      movieArr = result;
-    } else {
+      return false;
+    });
+    console.log('foundCurrMovie and foundUMovie:', foundCurrMovie, foundUMovie);
+    return (foundCurrMovie && foundUMovie); 
+  }
+
+  let pickNewMovieHelper = (usedMovies, movieArr) => {
+    console.log('in pickNewMovieHelper');
+    console.log('usedMovies:', usedMovies);
+    for(let i = 0; i< movieArr.length; i++) {
+      console.log('pickNewMovieHelper is considering ', movieArr[i].title);
+      console.log('are they the same?', !usedMovies.includes(movieArr[i].title));
+      if (!usedMovies.includes(movieArr[i].title)) {
+        console.log('pickNewMovieHelper picked ', movieArr[i].title);
+        return movieArr[i].title;
+      }
+    }
+  }
+
+  return Movie.find({ actors: query })
+  .then(resp => {//get an array of the actor's movies if its in the db
+    if (resp.length > 0) {
+    //   let tempArr = resp
+    //   let length = tempArr.length
+    //   console.log('resp  = ', length)
+    //   let randomize = respArr => {
+    //     return Math.floor(Math.random() * length)
+    //   }
+    //   let i = 0
+    //   let result = []
+    //   while (i < 5) {
+    //     result.push(tempArr[randomize(tempArr)])
+    //     i++
+    //   }
+    //   console.log('resp after genre = ')
+      // return result;
+      return resp;
+    } else {//if not in db, get an array of the actor's movies from the api
       let gbOptions = {
         uri: 'http://api-public.guidebox.com/v2/search?type=person&query=' + query,
         headers: {
@@ -39,22 +79,27 @@ searchController.checkMovieLinkAnswer = (currentMovie, usedMovies, link, userMov
         },
         json: true // Automatically parses the JSON string in the response
       }
-      request(gbOptions)
+      return request(gbOptions)
       .then(function (resp) {
         let gbOptionsID = resp.results[0].id
         gbOptions.uri = 'http://api-public.guidebox.com/v2/person/' + gbOptionsID + '/credits?role=cast&type=movie'
         utils.addRelatedToDB(gbOptions)
         .then(resp => {
-          movieArr = resp;
+          return resp;
         })
         .catch(error => {
           console.log('verifyError while grabbing movies from api: ', error);
         })
       })
     }
-  })
-
-  let verifyHelper = (currMovie, userMovie, movieArr) => {}
+  }).then(arr => {//if there are movies for that actor, return a new movie from that actor (or '')
+  console.log('this many actor movies:', arr.length);
+    if (arr.length === 0) return '';
+    if (verifyHelper(currentMovie, userMovie, arr)) return pickNewMovieHelper(usedMovies, arr);
+    return '';
+  }).catch(err => {
+    console.log('aw jeez: ', err);
+  });
 }
 
 searchController.byMovieTitle = (req, res) => {
