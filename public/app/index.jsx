@@ -82,75 +82,29 @@ class App extends React.Component {
       ]
     }
 
-    this.openSearch = this
-      .openSearch
-      .bind(this)
-    this.closeSearch = this
-      .closeSearch
-      .bind(this)
-    this.openSuggest = this
-      .openSuggest
-      .bind(this)
-    this.closeSuggest = this
-      .closeSuggest
-      .bind(this)
-    this.openGameQuiz = this
-      .openGameQuiz
-      .bind(this)
-    this.closeGameQuiz = this
-      .closeGameQuiz
-      .bind(this)
-    this.openMovieLinks = this
-      .openMovieLinks
-      .bind(this)
-    this.closeMovieLinks = this
-      .closeMovieLinks
-      .bind(this)
-    this.handleAnswerSubmit = this
-      .handleAnswerSubmit
-      .bind(this)
-    this.handleNewAnswer = this
-      .handleNewAnswer
-      .bind(this)
-    this.submitQuiz = this
-      .submitQuiz
-      .bind(this)
-    this.homePage = this
-      .homePage
-      .bind(this)
-    this.submitSearch = this
-      .submitSearch
-      .bind(this)
-    this.submitShowSearch = this
-      .submitShowSearch
-      .bind(this)
-    this.openDetails = this
-      .openDetails
-      .bind(this)
-    this.submitGenreSearch = this
-      .submitGenreSearch
-      .bind(this)
-    this.submitRelatedSearch = this
-      .submitRelatedSearch
-      .bind(this)
-    this.submitKeywordSearch = this
-      .submitKeywordSearch
-      .bind(this)
-    this.submitActorSearch = this
-      .submitActorSearch
-      .bind(this)
-    this.submitDirectorSearch = this
-      .submitDirectorSearch
-      .bind(this)
-    this.openPrivateScreenings = this
-      .openPrivateScreenings
-      .bind(this)
-    this.closePrivateScreenings = this
-      .closePrivateScreenings
-      .bind(this)
-    this.enterScreening = this
-      .enterScreening
-      .bind(this)
+    this.openSearch = this.openSearch.bind(this)
+    this.closeSearch = this.closeSearch.bind(this)
+    this.openSuggest = this.openSuggest.bind(this)
+    this.closeSuggest = this.closeSuggest.bind(this)
+    this.openGameQuiz = this.openGameQuiz.bind(this)
+    this.closeGameQuiz = this.closeGameQuiz.bind(this)
+    this.openMovieLinks = this.openMovieLinks.bind(this)
+    this.closeMovieLinks = this.closeMovieLinks.bind(this)
+    this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this)
+    this.handleNewAnswer = this.handleNewAnswer.bind(this)
+    this.submitQuiz = this.submitQuiz.bind(this)
+    this.homePage = this.homePage.bind(this)
+    this.submitSearch = this.submitSearch.bind(this)
+    this.submitShowSearch = this.submitShowSearch.bind(this)
+    this.openDetails = this.openDetails.bind(this)
+    this.submitGenreSearch = this.submitGenreSearch.bind(this)
+    this.submitRelatedSearch = this.submitRelatedSearch.bind(this)
+    this.submitKeywordSearch = this.submitKeywordSearch.bind(this)
+    this.submitActorSearch = this.submitActorSearch.bind(this)
+    this.submitDirectorSearch = this.submitDirectorSearch.bind(this)
+    this.openPrivateScreenings = this.openPrivateScreenings.bind(this)
+    this.closePrivateScreenings = this.closePrivateScreenings.bind(this)
+    this.enterScreening = this.enterScreening.bind(this)
   }
 
   handleAnswerSubmit(ev) {
@@ -511,8 +465,8 @@ class App extends React.Component {
   }
 
   enterScreening(event) {
+    this.setState({showPrivateScreeningsModal: false})
     this.setState({showScreeningView: true})
-    console.log('this.state.showScreeningView', this.state.showScreeningView)
   }
 
   componentDidMount() {
@@ -567,8 +521,7 @@ class App extends React.Component {
                     staffMovies={this.state.staffMovies}
                     movies={this.state.movies}
                     openDetails={this.openDetails}
-                    user={this.state.user}/>
-}
+                    user={this.state.user}/>}
         <div>
           <footer
             class='content-footer'
@@ -855,7 +808,6 @@ class App extends React.Component {
                   </Modal>
                 </Col>
               </Row>
-
             </Grid>
           </footer>
         </div>
