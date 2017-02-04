@@ -163,10 +163,6 @@ class App extends React.Component {
   }
 
   restartMovieLinks() {
-    //restart timer
-    // if(!this.state.movieLinksStarted) this.setState({
-    //   movieLinksStarted: true
-    // })
     console.log('timerTime is now: ', this.state.timerTime);
     let randomMovie = this.state.movieLinksStarters[Math.floor(Math.random() * 4)];
 
@@ -747,22 +743,20 @@ class App extends React.Component {
                   </Button>
                   <Modal show={this.state.showMovieLinksModal} onHide={this.closeMovieLinks}>
                     <Modal.Header closeButton>
-                      <Modal.Title>When it's your turn, submit a Movie title, with a Link to the current movie!</Modal.Title>
+                      <Modal.Title>When it's your turn, submit a Movie title, and the actor that Links it to the current movie!</Modal.Title>
                       <Modal.Body>
                       <Button bsStyle='default' onClick={ () => this.restartMovieLinks()}>Ready to play?</Button>
                         {
                           this.state.movieLinksStarted && 
                           <CountdownTimer secondsRemaining={this.state.timerTime} timerDone={this.movieLinksEnd}/>
                         }
-                          <p>User Answers:</p>
-                          {this
+                          {this.state.movieLinksStarted && this
                             .state
                             .linksAnswers
                             .map(answer => {
                               return <div className='chatMessage'>
                                 <div>
-                                  User {answer.user}
-                                  submitted {answer.movie}, with link {answer.link}
+                                  The next movie is {answer.movie}, with link {answer.link}
                                 </div>
                               </div>
                             })}
