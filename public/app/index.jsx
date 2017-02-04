@@ -75,7 +75,7 @@ class App extends React.Component {
       detailMovie: null,
       showSpinner: true,
       linksAnswers: [{movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'}],
-      moveLinksStarters: [
+      movieLinksStarters: [
         {movie: 'The Avengers', link: 'Chris Evans', user: 'Admin'},
         {movie: 'The Expendables', link: 'Sylvester Stallone', user: 'Admin'},
         {movie: 'Love Actually', link: 'Hugh Grant', user: 'Admin'},
@@ -164,13 +164,14 @@ class App extends React.Component {
 
   restartMovieLinks() {
     //restart timer
-    if(!this.state.movieLinksStarted) this.setState({
-      movieLinksStarted: true
-    })
-
-    let randomMovie = this.state.moveLinksStarters[Math.floor(Math.random() * 4)];
+    // if(!this.state.movieLinksStarted) this.setState({
+    //   movieLinksStarted: true
+    // })
+    console.log('timerTime is now: ', this.state.timerTime);
+    let randomMovie = this.state.movieLinksStarters[Math.floor(Math.random() * 4)];
 
     this.setState({
+      movieLinksStarted: true,
       movieLinksUsedMovies: [],
       currentChallengeMovie: randomMovie,
       linksAnswers: [randomMovie],
@@ -182,11 +183,13 @@ class App extends React.Component {
   movieLinksEnd(type) {
     if(type === 'timeout') {
       this.setState({
-        movieLinksEndMsg: "time's up!"
+        movieLinksEndMsg: "time's up!",
+        movieLinksStarted: false
       });
     } else {
       this.setState({
-        movieLinksEndMsg: "invalid movie / link!"
+        movieLinksEndMsg: "invalid movie / link!",
+        movieLinksStarted: false
       });
     }
   }
@@ -747,8 +750,10 @@ class App extends React.Component {
                       <Modal.Title>When it's your turn, submit a Movie title, with a Link to the current movie!</Modal.Title>
                       <Modal.Body>
                       <Button bsStyle='default' onClick={ () => this.restartMovieLinks()}>Ready to play?</Button>
-                        <div show={this.state.movieLinksStarted}>
-                        <CountdownTimer secondsRemaining={this.state.timerTime} timerDone={this.movieLinksEnd}/>
+                        {
+                          this.state.movieLinksStarted && 
+                          <CountdownTimer secondsRemaining={this.state.timerTime} timerDone={this.movieLinksEnd}/>
+                        }
                           <p>User Answers:</p>
                           {this
                             .state
@@ -770,7 +775,6 @@ class App extends React.Component {
                             <input type='submit' value='Submit'/>
                             <div>{this.state.movieLinksEndMsg}</div>
                           </form>
-                        </div>
                       </Modal.Body>
                     </Modal.Header>
                   </Modal>
