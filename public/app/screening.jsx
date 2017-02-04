@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 class Screening extends React.Component {
   constructor(props) {
@@ -9,12 +10,17 @@ class Screening extends React.Component {
 
     this.addMessage = this.addMessage.bind(this)
     this.handleNewMsg = this.handleNewMsg.bind(this)
+    this.handleInProgressTyping = this.handleInProgressTyping.bind(this)
+    this.userTyping = this.userTyping.bind(this)
+    this.updateTimestamp = this.updateTimestamp.bind(this)
   }
 
   addMessage() {
+    let currTime = new Date()
     let msgObj = {
       text: document.getElementById('chat-input').value,
-      user: localStorage.currUser
+      user: localStorage.currUser,
+      timestamp: moment(currTime)
     }
     socket.emit('sendMsgToServer', msgObj)
     socket.emit('sendToServerWhichUserIsTyping', null)
@@ -26,7 +32,8 @@ class Screening extends React.Component {
     socket.on('sendMsgBackToClient', msg => {
       let msgObj = {
         text: msg.text,
-        user: msg.user
+        user: msg.user,
+        timestamp: moment(msg.timestamp)
       }
       this.setState({messages: this.state.messages.concat(msgObj)})
     });
@@ -34,7 +41,6 @@ class Screening extends React.Component {
 
   handleInProgressTyping() {
     socket.on('sendToClientWhichUserIsTyping', user => {
-      console.log('user is typing', user)
       if(user) {
         document.getElementById('user-typing').innerText = user + ' is typing...'
       } else {
@@ -51,11 +57,17 @@ class Screening extends React.Component {
     }
   }
 
+  updateTimestamp() {
+    this.setState({
+      messages: this.state.messages.map(msg => msg)
+    })
+  }
+
   componentDidMount() {
     this.socket = io('/')
     this.handleNewMsg()
     this.handleInProgressTyping()
-    console.log('this.state.messages', this.state.messages)
+    setInterval(this.updateTimestamp, 15000)
   }
 
   render() {
@@ -78,7 +90,7 @@ class Screening extends React.Component {
                           <strong className="primary-font">{message.user}</strong>
                           <small className="pull-right text-muted">
                             <span className="glyphicon glyphicon-time"></span>
-                            12 mins ago
+                            {message.timestamp.fromNow()}
                           </small>
                         </div>
                         <p>
