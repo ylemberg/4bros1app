@@ -68,6 +68,14 @@ margin: auto;
 
 }
 
+/*Private Screenings Modal*/
+
+p .live-btn {
+  margin-left: 5px;
+  background-color: #02325f;
+  color: #fff;
+}
+
 /*Chat Room*/
 
 .chat-box {
@@ -97,6 +105,14 @@ margin: auto;
 
 #chat-msg {
   margin: 0;
+}
+
+#chat-box-body {
+  height: 475px
+}
+
+#chat-box-footer {
+  padding: 19px 15px;
 }
 
 .chat
