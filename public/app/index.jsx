@@ -20,6 +20,7 @@ import QuizMovieList from './quizMovieList.jsx'
 import SearchMovieList from './searchMovieList.jsx'
 import MovieDescription from './movieDescription.jsx'
 import Screening from './screening.jsx'
+import CountdownTimer from './timer.jsx'
 import {Modal} from 'react-bootstrap'
 import {DropdownButton} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
@@ -73,13 +74,20 @@ class App extends React.Component {
       showSearchResults: false,
       detailMovie: null,
       showSpinner: true,
-      linksAnswers: [
-        {
-          movie: 'Drive Angry',
-          link: 'Nicolas Cage',
-          user: 'Admin'
-        }
-      ]
+      linksAnswers: [{movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'}],
+      movieLinksStarters: [
+        {movie: 'The Avengers', link: 'Chris Evans', user: 'Admin'},
+        {movie: 'The Expendables', link: 'Sylvester Stallone', user: 'Admin'},
+        {movie: 'Love Actually', link: 'Hugh Grant', user: 'Admin'},
+        {movie: 'The Grand Budapest Hotel', link: 'Ralph Fiennes', user: 'Admin'},
+        {movie: "Ocean's Elevent", link: 'George Clooney', user: 'Admin'}
+      ],
+      currentChallengeMovie: {movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'},
+      movieLinksUsedMovies: ['eternal sunshine of the spotless mind'],
+      showTimer: false,
+      movieLinksStarted: false,
+      movieLinksEndMsg: '',
+      timerTime: 30
     }
 
     this.openSearch = this.openSearch.bind(this)
@@ -90,6 +98,8 @@ class App extends React.Component {
     this.closeGameQuiz = this.closeGameQuiz.bind(this)
     this.openMovieLinks = this.openMovieLinks.bind(this)
     this.closeMovieLinks = this.closeMovieLinks.bind(this)
+    this.restartMovieLinks = this.restartMovieLinks.bind(this)
+    this.movieLinksEnd = this.movieLinksEnd.bind(this)
     this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this)
     this.handleNewAnswer = this.handleNewAnswer.bind(this)
     this.submitQuiz = this.submitQuiz.bind(this)
@@ -109,16 +119,19 @@ class App extends React.Component {
 
   handleAnswerSubmit(ev) {
     ev.preventDefault();
-    let answerObj = {}
-    answerObj.movie = document
-      .getElementById('movieAnswer')
-      .value;
-    answerObj.link = document
-      .getElementById('linkAnswer')
-      .value;
+    this.setState({showTimer: false});
+
+    let answerObj = {} 
+    answerObj.userMovie = document.getElementById('movieAnswer').value.toLowerCase();
+    answerObj.link = document.getElementById('linkAnswer').value.toLowerCase();
     answerObj.user = this.currentUser;
+    answerObj.usedMovies = this.state.movieLinksUsedMovies;
+    answerObj.currentMovie = this.state.currentChallengeMovie;
+    this.state.movieLinksUsedMovies.push(answerObj.userMovie = document.getElementById('movieAnswer').value.toLowerCase());
     console.log('current user is: ', this.currentUser);
     console.log('answerObj is ', answerObj);
+    console.log('usedMovies is', this.movieLinksUsedMovies);
+    console.log('currentMovie is ', this.state.currentChallengeMovie);
     socket.emit('answerSubmit', answerObj);
     document
       .getElementById('movieAnswer')
@@ -127,13 +140,62 @@ class App extends React.Component {
       .getElementById('linkAnswer')
       .value = '';
   }
+
   handleNewAnswer() {
     let answers = this.state.linksAnswers;
-    socket.on('sendBackAnswer', answerObj => {
-      console.log('handleNewAnswer listener: ', answerObj);
-      answers.push(answerObj);
-      this.setState({linksAnswers: answers});
+    let usedMovies = this.state.movieLinksUsedMovies;
+    socket.on('sendBackAnswer', responseObj => {
+      if(responseObj.movie){
+        this.state.currentChallengeMovie = responseObj.movie;
+        usedMovies.push(responseObj.movie);
+        responseObj.user = 'Admin';
+        console.log('handleNewAnswer listener: ', responseObj);
+        answers.push(responseObj);
+        console.log('answers:', answers);
+        console.log('responseObj is now: ', responseObj);
+        this.setState({
+          showTimer: true,
+          timerTime: 30,
+          linksAnswers: answers, 
+          currentChallengeMovie: responseObj,
+          movieLinksUsedMovies: usedMovies
+        });
+      } else {
+        this.movieLinksEnd('wrong');
+      }
+      console.log('this.state.linksAnswers: ', this.state.linksAnswers);
     });
+  }
+
+  restartMovieLinks() {
+    console.log('timerTime is now: ', this.state.timerTime);
+    let randomMovie = this.state.movieLinksStarters[Math.floor(Math.random() * 4)];
+
+    this.setState({
+      movieLinksStarted: true,
+      showTimer: true,
+      movieLinksUsedMovies: [],
+      currentChallengeMovie: randomMovie,
+      linksAnswers: [randomMovie],
+      movieLinksEndMsg: '',
+      timerTime: 30
+    });
+  }
+
+  movieLinksEnd(type) {
+    if(type === 'timeout') {
+      this.setState({
+        movieLinksEndMsg: "time's up!",
+        movieLinksStarted: false,
+        showtimer: false
+      });
+    } else {
+      this.setState({
+        movieLinksEndMsg: "invalid movie / link!",
+        movieLinksStarted: false,
+        showTimer: false
+      });
+    }
   }
 
   openSearch() {
@@ -163,7 +225,14 @@ class App extends React.Component {
     this.setState({showGameQuizModal: false})
   }
   closeMovieLinks() {
-    this.setState({showMovieLinksModal: false})
+    this.setState({
+      showMovieLinksModal: false,
+      linksAnswers: [],
+      movieLinksEndMsg: '',
+      movieLinksStarted: false,
+      showTimer: false,
+      movieLinksUsedMovies: []
+    })
   }
 
   showLanding() {
@@ -689,29 +758,32 @@ class App extends React.Component {
                   </Button>
                   <Modal show={this.state.showMovieLinksModal} onHide={this.closeMovieLinks}>
                     <Modal.Header closeButton>
-                      <Modal.Title>When it's your turn, submit a Movie title, with a Link to the current movie!</Modal.Title>
+                      <Modal.Title>When it's your turn, submit a Movie title, and the actor that Links it to the current movie!</Modal.Title>
                       <Modal.Body>
-                        <p>User Answers:</p>
-                        {this
-                          .state
-                          .linksAnswers
-                          .map(answer => {
-                            return <div className='chatMessage'>
-                              <div>
-                                User {answer.user}
-                                submitted {answer.movie}, with link {answer.link}
+                      <Button bsStyle='default' onClick={ () => this.restartMovieLinks()}>Ready to play?</Button>
+                        {
+                          this.state.showTimer && 
+                          <CountdownTimer secondsRemaining={this.state.timerTime} timerDone={this.movieLinksEnd}/>
+                        }
+                          {this.state.movieLinksStarted && this
+                            .state
+                            .linksAnswers
+                            .map(answer => {
+                              return <div className='chatMessage'>
+                                <div>
+                                  The next movie is {answer.movie}, with link {answer.link}
+                                </div>
                               </div>
-                            </div>
-                          })}
-                        <form onSubmit={this.handleAnswerSubmit}>
-                          <label>
-                            Pick a related movie!
-                            <input type='text' id='movieAnswer' placeholder='related movie'/>
-                            <input type='text' id='linkAnswer' placeholder='link'/>
-                          </label>
-                          <input type='submit' value='Submit'/>
-                        </form>
-
+                            })}
+                          <form onSubmit={this.handleAnswerSubmit}>
+                            <label>
+                              Pick a related movie!
+                              <input type='text' id='movieAnswer' placeholder='related movie'/>
+                              <input type='text' id='linkAnswer' placeholder='link'/>
+                            </label>
+                            <input type='submit' value='Submit'/>
+                            <div>{this.state.movieLinksEndMsg}</div>
+                          </form>
                       </Modal.Body>
                     </Modal.Header>
                   </Modal>
