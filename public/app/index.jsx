@@ -225,7 +225,14 @@ class App extends React.Component {
     this.setState({showGameQuizModal: false})
   }
   closeMovieLinks() {
-    this.setState({showMovieLinksModal: false})
+    this.setState({
+      showMovieLinksModal: false,
+      linksAnswers: [],
+      movieLinksEndMsg: '',
+      movieLinksStarted: false,
+      showTimer: false,
+      movieLinksUsedMovies: []
+    })
   }
 
   showLanding() {
