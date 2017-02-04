@@ -84,6 +84,7 @@ class App extends React.Component {
       ],
       currentChallengeMovie: {movie: 'Eternal Sunshine of the Spotless Mind', link: 'Mark Ruffalo', user: 'Admin'},
       movieLinksUsedMovies: ['eternal sunshine of the spotless mind'],
+      showTimer: false,
       movieLinksStarted: false,
       movieLinksEndMsg: '',
       timerTime: 30
@@ -118,6 +119,8 @@ class App extends React.Component {
 
   handleAnswerSubmit(ev) {
     ev.preventDefault();
+    this.setState({showTimer: false});
+
     let answerObj = {} 
     answerObj.userMovie = document.getElementById('movieAnswer').value.toLowerCase();
     answerObj.link = document.getElementById('linkAnswer').value.toLowerCase();
@@ -151,6 +154,8 @@ class App extends React.Component {
         console.log('answers:', answers);
         console.log('responseObj is now: ', responseObj);
         this.setState({
+          showTimer: true,
+          timerTime: 30,
           linksAnswers: answers, 
           currentChallengeMovie: responseObj,
           movieLinksUsedMovies: usedMovies
@@ -168,6 +173,7 @@ class App extends React.Component {
 
     this.setState({
       movieLinksStarted: true,
+      showTimer: true,
       movieLinksUsedMovies: [],
       currentChallengeMovie: randomMovie,
       linksAnswers: [randomMovie],
@@ -180,12 +186,14 @@ class App extends React.Component {
     if(type === 'timeout') {
       this.setState({
         movieLinksEndMsg: "time's up!",
-        movieLinksStarted: false
+        movieLinksStarted: false,
+        showtimer: false
       });
     } else {
       this.setState({
         movieLinksEndMsg: "invalid movie / link!",
-        movieLinksStarted: false
+        movieLinksStarted: false,
+        showTimer: false
       });
     }
   }
@@ -747,7 +755,7 @@ class App extends React.Component {
                       <Modal.Body>
                       <Button bsStyle='default' onClick={ () => this.restartMovieLinks()}>Ready to play?</Button>
                         {
-                          this.state.movieLinksStarted && 
+                          this.state.showTimer && 
                           <CountdownTimer secondsRemaining={this.state.timerTime} timerDone={this.movieLinksEnd}/>
                         }
                           {this.state.movieLinksStarted && this
