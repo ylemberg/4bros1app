@@ -13,19 +13,25 @@ class Screening extends React.Component {
     this.handleInProgressTyping = this.handleInProgressTyping.bind(this)
     this.userTyping = this.userTyping.bind(this)
     this.updateTimestamp = this.updateTimestamp.bind(this)
+    this.addMessageWithEnter = this.addMessageWithEnter.bind(this)
   }
 
   addMessage() {
-    let currTime = new Date()
     let msgObj = {
       text: document.getElementById('chat-input').value,
       user: localStorage.currUser,
-      timestamp: moment(currTime)
+      timestamp: moment(new Date())
     }
     socket.emit('sendMsgToServer', msgObj)
     socket.emit('sendToServerWhichUserIsTyping', null)
     this.setState({messages: this.state.messages.concat(msgObj)})
     document.getElementById('chat-input').value = ''
+  }
+
+  addMessageWithEnter(evt) {
+    if(evt.key === 'Enter') {
+      this.addMessage()
+    }
   }
 
   handleNewMsg() {
@@ -58,9 +64,7 @@ class Screening extends React.Component {
   }
 
   updateTimestamp() {
-    this.setState({
-      messages: this.state.messages.map(msg => msg)
-    })
+    this.forceUpdate()
   }
 
   componentDidMount() {
@@ -106,6 +110,7 @@ class Screening extends React.Component {
                 <div className="input-group">
                   <input
                     onChange={this.userTyping}
+                    onKeyPress={this.addMessageWithEnter}
                     id="chat-input"
                     type="text"
                     className="form-control input-sm"
